@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>实现权限分配遇到的算法问题: 简化的 set cover problem | zsh同学的笔记簿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.最后列出的 code 是 zhengyang 同学 的实现方式的剪裁版 (已得到授权 ;D).跟公司相关的信息都已经去掉. 问题每一个 HighLevelRole 拥有大于等于 1 个的, 能合法执行的 Activity;每一个 RawRole 也拥有大于等于 1 个的, 能合法执行的 Activity; 现在,">
+<meta name="keywords" content="algorithm,set cover problem">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现权限分配遇到的算法问题: 简化的 set cover problem">
+<meta property="og:url" content="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/index.html">
+<meta property="og:site_name" content="zsh同学的笔记簿">
+<meta property="og:description" content="背景小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.最后列出的 code 是 zhengyang 同学 的实现方式的剪裁版 (已得到授权 ;D).跟公司相关的信息都已经去掉. 问题每一个 HighLevelRole 拥有大于等于 1 个的, 能合法执行的 Activity;每一个 RawRole 也拥有大于等于 1 个的, 能合法执行的 Activity; 现在,">
+<meta property="og:updated_time" content="2017-08-10T07:19:43.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现权限分配遇到的算法问题: 简化的 set cover problem">
+<meta name="twitter:description" content="背景小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.最后列出的 code 是 zhengyang 同学 的实现方式的剪裁版 (已得到授权 ;D).跟公司相关的信息都已经去掉. 问题每一个 HighLevelRole 拥有大于等于 1 个的, 能合法执行的 Activity;每一个 RawRole 也拥有大于等于 1 个的, 能合法执行的 Activity; 现在,">
+  
+    <link rel="alternate" href="/atom.xml" title="zsh同学的笔记簿" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">zsh同学的笔记簿</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zsh-89.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-实现权限分配遇到的算法问题-简化的-set-cover-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" class="article-date">
+  <time datetime="2017-07-17T14:20:55.000Z" itemprop="datePublished">2017-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      实现权限分配遇到的算法问题: 简化的 set cover problem
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.<br>最后列出的 code 是 <a href="https://github.com/feizhengyang" target="_blank" rel="external">zhengyang 同学</a> 的实现方式的剪裁版 (已得到授权 ;D).<br>跟公司相关的信息都已经去掉.</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>每一个 <code>HighLevelRole</code> 拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;<br>每一个 <code>RawRole</code> 也拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;</p>
+<p>现在, 需要把一个 <code>HighLevelRole</code> 的集合 (记为 A) 转换成一个 <code>RawRole</code> 的集合 (记为 B);<br>要求:</p>
+<ol>
+<li>B 的所有元素的并集 == A 的所有元素的并集; 即 A 和 B 拥有的 <code>Activity</code> 不变多也不变少</li>
+<li>B 不能包含冗余的 <code>RawRole</code> 元素;<br>即结果集合中每一个 <code>RawRole</code> 都至少应该拥有一个集合中其他 <code>RawRole</code> 没有的 <code>Activity</code></li>
+</ol>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>正如标题所说的, 这个问题有那么一点像 <a href="https://en.wikipedia.org/wiki/Set_cover_problem" target="_blank" rel="external">set cover problem</a>;<br>如果问题要求结果的集合 B 的元素个数 <code>最小</code>, 那么该问题就是 set cover problem.<br>好在原始问题只要求 <code>无冗余</code>, 而不要求 <code>最小</code>.</p>
+<p>思路:</p>
+<ol>
+<li>求出 A 的所有元素的并集, 结果是 Activity 的集合, 记为 <code>actSet</code></li>
+<li>用 <code>actSet</code> 的每一个元素对全部的 RawRole 进行染色; <ul>
+<li>RawRole 为黑色 = RawRole 包含的所有 Activity 都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为灰色 = RawRole 包含的部分 Activity 在 <code>actSet</code> 中出现, 但并非全都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为白色 = RawRole 包含的所有 Activity 都不在 <code>actSet</code> 中出现</li>
+</ul>
+</li>
+<li>将所有黑色的 RawRole 留下, 得到一个都是黑色的 RawRole 集合, 记为 <code>roleList</code><br>(这时候可以验证一下 <code>roleList</code> 包含的 Activity 集合是不是等于 <code>actSet</code>; 若不等, 说明无法找到满足要求的解)</li>
+<li>用一个 dictionary (记为 <code>actTable</code>), 记录 <code>roleList</code> 包含的每个 Activity 出现的次数 (遍历 <code>roleList</code> 即可算出);<br>dictionary 的 Key 是 Activity, Value 是 “出现的次数” 的 counter.</li>
+<li>逐个尝试从 <code>roleList</code> 中去掉一个 RawRole.<br>如果某一个 RawRole 的每一个 Activity 在 <code>actTable</code> 中的 counter 都 &gt; 1, 说明这个 RawRole 是冗余的;<br>去掉这个 RawRole, 并在 <code>actTable</code> 中把它包含的 Activity 的 counter 都减 1.</li>
+</ol>
+<p>这样得到的结果, 它包含的元素个数不会是最少的, 但是已经符合需求.</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 仅供参考, 省去了一些 edge case 判断.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// rawRoleActMappings: 定义了每个 RawRole 和它对应的 Acttivity 集合</span></div><div class="line"><span class="comment">// actSet: 就是前面提到 actSet. 假设已经这项计算完成.</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">CalcRawRoles</span>(<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    Dictionary&lt;<span class="keyword">string</span>, HashSet&lt;<span class="keyword">string</span>&gt;&gt; rawRoleActMappings, </span></span></div><div class="line"><span class="function"><span class="params">    HashSet&lt;<span class="keyword">string</span>&gt; actSet</span></span></div><div class="line"><span class="function"><span class="params"></span>)</span></div><div class="line"><span class="function"></span>&#123;   </div><div class="line">    List&lt;<span class="keyword">string</span>&gt; roleList = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; actTable = actSet.ToDictionary(</div><div class="line">        act =&gt; act, act =&gt; <span class="number">0</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="comment">// C# 大法好: IsSuperSetOf 就迅速完成 '染色' 过程... </span></div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> roleActMap <span class="keyword">in</span> rawRoleActMappings.Where(</div><div class="line">        roleActMap =&gt; actSet.IsSuperSetOf(roleActMap))</div><div class="line">    ) </div><div class="line">    &#123;</div><div class="line">        roleList.Add(roleActMap.Key);</div><div class="line">        roleActMap.Value.ForEach(act =&gt; actTable[act]++);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    List&lt;<span class="keyword">string</span>&gt; resultRoles = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> role <span class="keyword">in</span> roleList.OrderBy(</div><div class="line">        roleName =&gt; rawRoleActMappings[roleName].Count).ToList()</div><div class="line">    )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (rawRoleActMappings[role].All(act =&gt; actTable[act]&gt;<span class="number">1</span>))</div><div class="line">            rawRoleActMappings[role].ForEach(act =&gt; actTable[act]--);</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            resultRoles.Add(role);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> resultRoles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" data-id="cj8pihsgt0006feur5v1rnro1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          git submodule: 配置查看 submodule 的具体版本
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/authentication/">authentication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-submodule/">git submodule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/authentication/" style="font-size: 10px;">authentication</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-submodule/" style="font-size: 10px;">git submodule</a> <a href="/tags/github-io-个人-blog/" style="font-size: 10px;">github.io 个人 blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kerberos/" style="font-size: 20px;">kerberos</a> <a href="/tags/pre-stash/" style="font-size: 10px;">pre-stash</a> <a href="/tags/set-cover-problem/" style="font-size: 10px;">set cover problem</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">kerberos pre-stash 简介: 自动更新 TGT 的机制</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/12/kerberos-算法简介/">kerberos 算法简介</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/">使用 hexo 建立 github.io 个人 blog</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">git submodule: 配置查看 submodule 的具体版本</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">实现权限分配遇到的算法问题: 简化的 set cover problem</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zsh同学<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

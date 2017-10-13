@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>zsh同学的笔记簿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="zsh同学的笔记簿">
+<meta property="og:url" content="http://zsh-89.github.io/index.html">
+<meta property="og:site_name" content="zsh同学的笔记簿">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zsh同学的笔记簿">
+  
+    <link rel="alternate" href="/atom.xml" title="zsh同学的笔记簿" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">zsh同学的笔记簿</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zsh-89.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-kerberos-prestash-简介-自动更新-TGT-的机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" class="article-date">
+  <time datetime="2017-10-13T04:19:24.000Z" itemprop="datePublished">2017-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">kerberos pre-stash 简介: 自动更新 TGT 的机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
+<p>解决什么问题:<br>我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.<br>所以, 需要一个定期帮助 long running service 获取和刷新 TGT.<br>当然解决方法有很多种, pre-stash 是其中一种</p>
+<p>pre-stashed tickets:<br>Used by long running client to authenticate itself to kerberized services.</p>
+<p>“pre-stashed” 这个动词的含义:<br>将 client 需要的 kerberos ticket 预先保存到某个本地的 credential file 中.</p>
+<p>具体机制:</p>
+<ul>
+<li>一个特定的 long running service 拥有一个称之为 production-id 的特殊的用户; 一一对应</li>
+<li>任何 long running service 会用对应的 production-id 的身份启动</li>
+<li>一个 linux 定期任务帮助每个活跃的 production-id 定期刷新 TGT, 保存在本地 credential file 中</li>
+<li>long running service 只需要从 credential file 读取 TGT</li>
+</ul>
+<p>这个方法的特点还是集中管理吧, 否则解决这个问题的方法有很多;<br>通过 keytab file + 用户创建自己的周期任务自动调用 kinit 也可以实现自动更新 TGT,<br>如: <a href="https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos" target="_blank" rel="external">https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos</a><br>不过这就是野路子了.</p>
+<p>如果要做严格的权限管理, 势必有 production-id 的概念 (保证 service 不会有过多的权限),<br>可能会有 production-id 对应的密码的定期更新, 可能每次登录都必须用专门系统生成的随机密码,<br>所以 pre-stash 的思路还是有可以参考之处.</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>一个相关的概念是 stash file, 参见:</p>
+<ul>
+<li><a href="https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html</a></li>
+<li>相关的命令行 <a href="https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html</a></li>
+</ul>
+<p>由于 stash file 的存在, “把 kerberos TGT 放进某文件” 这个操作常常用动词 ‘stash’ 来描述;<br>如前文所言, 由于 prestash 机制的存在, 这个操作也常常用 ‘prestash’ 来描述.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" data-id="cj8pihsg40000feur57ba7gb3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pre-stash/">pre-stash</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-kerberos-算法简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/12/kerberos-算法简介/" class="article-date">
+  <time datetime="2017-10-12T11:37:20.000Z" itemprop="datePublished">2017-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/kerberos-算法简介/">kerberos 算法简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Kerberos-简介"><a href="#Kerberos-简介" class="headerlink" title="Kerberos 简介"></a>Kerberos 简介</h2><ul>
+<li>它是 authentication protocol, 只管认证, 不管授权(authorization).</li>
+<li>可以实现单点登录 (single sign-on authentication), 一个密码, 认证所有 service.</li>
+<li>work over untrusted networks.</li>
+<li>work between trusted systems.</li>
+<li>默认使用 UDP port: 88</li>
+<li>Kerberos 一定不会发送任何密码 (或密码的 hash, 或 key), 即使是加密过的密码 (或加密过的密码 hash) 也绝不会发送;</li>
+<li>使用 “对称加密” 保证通信安全;</li>
+</ul>
+<p>据说在企业内部系统的 authentication, kerberos 的应用是极其广泛的, 并没有特别值得一题的竞品.</p>
+<h2 id="Kerberos-验证身份的思路"><a href="#Kerberos-验证身份的思路" class="headerlink" title="Kerberos 验证身份的思路"></a>Kerberos 验证身份的思路</h2><p>kerberos 协议中互相通信的实体:<br>client, server, AS (kerberos authentication service), TGS (kerberos ticket granting service)  </p>
+<p>kerberos 协议的目标: </p>
+<ul>
+<li>使得 client 和 server 之间可以互相确认身份 (authentication);<br>一旦 kerberos 认证成功, client 和 server 都可以确定它们在和可信真实的对象打交道.<br>server 可以放心地对 client 提供 application service, 开放敏感数据; client 也不必担心 server 是假冒的</li>
+<li>client 和 server 之间将会共同得到一个 <code>app-service session key</code>,<br>之后它们之间的通信将通过这个 key 和对称加密算法保证安全性, 不被第三方窃听</li>
+</ul>
+<p>TGT: 可以认为是一个 “长效证件”, 在它失效之前, client 都不必重新找 AS 再次认证.<br>client key: 一般来说是 “client 密码的 hash”, 只有 client 和 AS 知道 (后面的 server key 同理).</p>
+<p>client 向 AS 自证身份, 得到 TGT: </p>
+<ul>
+<li>client 向 AS 发送: <code>username</code> 和 <code>用 client key 加密的 timestamp</code>.  </li>
+<li>AS 在 DB 中找到 client key, 尝试解密收到的密文;<br>如果解密成功, 并且得到有效的时间戳, 则 <strong>client 就成功地向 AS 证明了自己的身份</strong>.<br>(这是典型的 kerberos 式的 “通过解密验证身份”)<br>(加密的内容为什么选择时间戳: 通过时间戳来杜绝 “重放攻击”)</li>
+<li>AS 向已验明正身的 client 发送 TGT.<br>TGT 本身是一串密文, 只有 TGS 才能解密.<br>同时也发送 <code>TGS session key</code> (用 client key 加密).<br>之后 client 和 TGS 之间的通信, 将用这个 TGS session key 保证通信安全</li>
+<li>client 收到 TGT, 并通过 client key 解密得到 <code>TGS session key</code> </li>
+</ul>
+<p>当 client 需要和 server 建立通信时:</p>
+<ul>
+<li>client 向 TGS 发送 TGT (英文: client just blindly send TGT to TGS).<br>注意: TGT 本身已经是密文, 故 client 不需要对其做处理</li>
+<li>TGS 收到 TGT, 进行解密 (注意, 前面提到: 只有 TGS 才能解读作为密文的 TGT);<br>如果得到有效信息, <strong>client 就向 TGS 证明了自己的身份</strong> (典型的 kerberos 式的 “通过解密验证身份”)</li>
+<li>TGS 向 client 发送两份加密信息:<br><code>用 TGS session key 加密的 app-service session key</code> 和 <code>app service ticket (本身是密文, 用 server key 加密过)</code><br>其中, <code>app-service session key</code> 在认证成功之后, 将被用于将来 client 和 server 间通信的加密</li>
+<li>client 将本身是密文的 <code>app-service ticket</code> 发送给 server<br>(英文: blindly send <code>app-service ticket</code> to server);<br>并且, 通过 <code>TGS session key</code> 解开密文, 得到 <code>app-service session key</code></li>
+<li>server 将尝试用自身的 server key 对作为密文的 <code>app-service ticket</code> 解密, 如果解密成功,<br><strong>client 就向 server 证明了自己的身份</strong> (典型的 kerberos 式的 “通过解密验证身份”)</li>
+<li>server 从解密后的 <code>app service ticket</code> 得到 <code>app service session key</code>,<br>利用它加密 timestamp 发送给 client</li>
+<li>client 尝试通过 <code>app service session key</code> 对收到的密文解密, 如果得到有效的 timestamp,<br>则 <strong>server 向 client 证明了自己的身份</strong></li>
+<li>认证完毕, client 和 server 之后将使用 <code>app service session key</code> 加密它们之间的通信</li>
+</ul>
+<p>注意:</p>
+<ul>
+<li>client 向 AS 自证身份的道具, 是用自己的 key 给 timestamp 加密的密文; 因为只有 AS 才也知道 client key</li>
+<li>client 向 server 自证身份的道具, 用的是 TGS 给的 <code>app-service ticket</code>;<br>这个 ticket 是 TGS 帮忙用 server key 加密好的;</li>
+<li>server 向 client 自证身份的道具,<br>是用自己从 <code>app-service ticket</code> 解密出来的 <code>app service session key</code> (用它加密一个时间戳)</li>
+</ul>
+<h4 id="小细节"><a href="#小细节" class="headerlink" title="小细节"></a>小细节</h4><p>实际上, client 在发送 <code>app-service ticket</code> 给 server 的时候, 还发送了被加密的 authenticator.<br>因为 server 需要一个办法知道解密得到的 <code>app-service ticket</code> 确实是有效的; </p>
+<p>解决方法:<br>authenticator 是被 <code>app-service session key</code> 加密的, authenticator 中包含时间戳.<br>server 用从 <code>app-service ticket</code> 中得到的 <code>app-service session key</code> 解密 authenticator,<br>检查能否得到有效的时间戳, 即可.</p>
+<p>不过, 这只是多种验证 <code>app-service ticket</code> 方法中的一种, 不是 kerberos 算法思路的核心.<br>可以发现, 每一步 “验证身份” 的过程都包括了 “发送和验证有效的时间戳”, 这样才能杜绝重放攻击.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://web.mit.edu/tsitkova/www/build/index.html" target="_blank" rel="external">http://web.mit.edu/tsitkova/www/build/index.html</a> Kerb 的文档都在这里.</li>
+<li>Simon Wilkinson, Kerberos Tutorial</li>
+<li><a href="https://msdn.microsoft.com/en-us/library/bb742516.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/bb742516.aspx</a> kerberos explained 重点分明, 把核心介绍得清楚, 略去不少细节</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/" data-id="cj8pihsgx0007feurb7g6ia1p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/authentication/">authentication</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用-hexo-建立-github-io-个人-blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/" class="article-date">
+  <time datetime="2017-08-14T08:28:01.000Z" itemprop="datePublished">2017-08-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/">使用 hexo 建立 github.io 个人 blog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景-amp-准备"><a href="#背景-amp-准备" class="headerlink" title="背景 &amp; 准备"></a>背景 &amp; 准备</h2><p>把个人 blog 放在 github.io 上已经是现在的主流了.<br>先根据 <a href="https://pages.github.com/" target="_blank" rel="external">这里</a> 的指南建立属于你的 <code>username.github.io</code> 主页.</p>
+<p>接着, 为什么用 hexo?</p>
+<ul>
+<li>第一, 够用, 很强. </li>
+<li>第二, 比起 “官方钦定” 的 jekyll, hexo 是纯基于 node.js 的工具, 不需要 ruby. 相信会成为未来的主流.</li>
+</ul>
+<p>生活在墙内的朋友, 先配置好 <a href="https://npm.taobao.org" target="_blank" rel="external">cnpm</a>.<br>之后的命令中, 我都使用了 <code>cnpm</code>; 如果是墙外的朋友直接用 <code>npm</code> 即可. </p>
+<h2 id="hexo-安装-创建-blog-project"><a href="#hexo-安装-创建-blog-project" class="headerlink" title="hexo 安装; 创建 blog project"></a>hexo 安装; 创建 blog project</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install hexo-cli -g</div><div class="line"></div><div class="line"><span class="comment">## 创建 blog project</span></div><div class="line">hexo init my-blog</div><div class="line"><span class="built_in">cd</span> my-blog</div><div class="line">cnpm install</div></pre></td></tr></table></figure>
+<h2 id="安装配置-next-theme"><a href="#安装配置-next-theme" class="headerlink" title="安装配置 next theme"></a>安装配置 next theme</h2><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure></p>
+<p>在 <code>_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">theme:</span> <span class="string">next</span></div><div class="line"><span class="attr">scheme:</span> <span class="string">Mist</span>   <span class="comment">## 参考 hexo-theme-next 的文档</span></div></pre></td></tr></table></figure></p>
+<h2 id="创建-tags-页面"><a href="#创建-tags-页面" class="headerlink" title="创建 tags 页面"></a>创建 tags 页面</h2><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cnpm install hexo-generator-tag --save</div><div class="line">hexo new page <span class="string">"tags"</span></div></pre></td></tr></table></figure></p>
+<p>在 <code>source/tags/index.md</code> 中填入:<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: Tags</div><div class="line">date: 2016-12-22 12:39:04</div><div class="line">type: "tags"</div><div class="line">---</div></pre></td></tr></table></figure></p>
+<h2 id="配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页"><a href="#配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页" class="headerlink" title="配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页"></a>配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页</h2><p>安装工具: <code>cnpm install hexo-deployer-git --save</code></p>
+<p>在 <code>_config.yml</code> 中配置:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/zsh-89/zsh-89.github.io.git</span>  </div><div class="line">    <span class="comment">## 换成你的 github.io repo 地址</span></div><div class="line"><span class="attr">  branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure>
+<h2 id="hexo-基本命令"><a href="#hexo-基本命令" class="headerlink" title="hexo 基本命令"></a>hexo 基本命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">hexo new <span class="string">"My New Post"</span>  <span class="comment">## [Writing](https://hexo.io/docs/writing.html)</span></div><div class="line">hexo server             <span class="comment">## [Server](https://hexo.io/docs/server.html)</span></div><div class="line">                        <span class="comment">## 开启 local http server. 查看效果</span></div><div class="line">hexo generate           <span class="comment">## [Generating](https://hexo.io/docs/generating.html)</span></div><div class="line">hexo deploy             <span class="comment">## [Deployment](https://hexo.io/docs/deployment.html)</span></div><div class="line"></div><div class="line"><span class="comment">## gen + deploy</span></div><div class="line">hexo generate --deploy</div><div class="line">hexo gen --deploy</div><div class="line">hexo deploy --generate</div></pre></td></tr></table></figure>
+<h2 id="Next"><a href="#Next" class="headerlink" title="Next?"></a>Next?</h2><ul>
+<li>推荐将 blog 的项目作为一个 git repo 管理, 参考: <a href="https://github.com/zsh-89/zsh-blog-src" target="_blank" rel="external">https://github.com/zsh-89/zsh-blog-src</a></li>
+<li>考虑用 <a href="http://zsh-89.github.io/2017/08/10/git-submodule-%E9%85%8D%E7%BD%AE%E6%9F%A5%E7%9C%8B-submodule-%E7%9A%84%E5%85%B7%E4%BD%93%E7%89%88%E6%9C%AC/" target="_blank" rel="external">git submodule</a> 管理 blog 项目和第三方 theme repo 之间的关系</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/" data-id="cj8pihsgq0005feurdaag655o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-submodule-配置查看-submodule-的具体版本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" class="article-date">
+  <time datetime="2017-08-10T02:57:53.000Z" itemprop="datePublished">2017-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">git submodule: 配置查看 submodule 的具体版本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>git submodule 存在的价值, 基本的教程可以查看<a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="external">这里</a>.<br>比较遗憾的是, 目前看到的教程都没有说清: </p>
+<ul>
+<li>如何配置 submodule 的具体版本 (具体哪一个 commit)</li>
+<li>在哪里查看当前的配置信息</li>
+</ul>
+<p>某个<a href="https://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tag" target="_blank" rel="external">stackoverflow 回答(第二个回答)</a>提供了完全错误的信息.</p>
+<h2 id="为什么需要配置-submodule-的具体版本-commit-sha-1"><a href="#为什么需要配置-submodule-的具体版本-commit-sha-1" class="headerlink" title="为什么需要配置 submodule 的具体版本 ( commit sha-1 )"></a>为什么需要配置 submodule 的具体版本 ( commit sha-1 )</h2><p>从工程的角度看, 配置主项目的 submodule 时,<br>我们必然是将主 git 项目和 dependency git 项目的某个 stable release 版本关联在一起;<br>毕竟我们所有的测试都是针对特定版本的; 和版本 1 一起工作良好, 换版本 2 可能编译都不通过.</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>以 “个人 blog” 作为实例.<br>可以在 <a href="https://github.com/zsh-89/zsh-blog-src" target="_blank" rel="external">这里</a> 看到我的个人 blog 的源码; 可以看到 themes/next 关联到了另一个 git repo.</p>
+<p>第一次用 <code>git submodule add https://github.com/iissnan/hexo-theme-next.git themes/next</code> 命令添加 submodule 时,<br>命令帮我们将 hexo-theme-next.git 的 master branch 的最新版本 (假设这个版本的 commit sha-1 是 123456) checkout 到本地.<br>这时, 我们如果直接 commit 主 project,<br>git 就 <strong>隐式地指定了</strong> 主 project 采用 hexo-theme-next.git project 中 123456 这个 commit 版本作为 submodule (在 github Web 上可以看到 track 的 sha-1).</p>
+<p>“submodule 的版本的 sha-1” 可以在进入 “themes/next” 文件夹后, 运行 <code>git rev-parse HEAD</code> 查看; 也可以通过 <code>git status</code> 查看状态;<br>可以看到, 这个目录相当于是一个独立的 git repo 目录.</p>
+<p>如果不希望主 project 使用 subproject 的 master branch 的最新版,<br>可以在 <code>git submodule add</code> 之后,<br>进入 submodule 目录 (这里例子里, 是 themes/next 目录), 手动 checkout 到希望使用的版本 (如 <code>git checkout tags/&lt;some_stable_release&gt;</code>), 再 commit.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" data-id="cj8pihsgf0002feurk2s1avyr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-submodule/">git submodule</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-实现权限分配遇到的算法问题-简化的-set-cover-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" class="article-date">
+  <time datetime="2017-07-17T14:20:55.000Z" itemprop="datePublished">2017-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">实现权限分配遇到的算法问题: 简化的 set cover problem</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.<br>最后列出的 code 是 <a href="https://github.com/feizhengyang" target="_blank" rel="external">zhengyang 同学</a> 的实现方式的剪裁版 (已得到授权 ;D).<br>跟公司相关的信息都已经去掉.</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>每一个 <code>HighLevelRole</code> 拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;<br>每一个 <code>RawRole</code> 也拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;</p>
+<p>现在, 需要把一个 <code>HighLevelRole</code> 的集合 (记为 A) 转换成一个 <code>RawRole</code> 的集合 (记为 B);<br>要求:</p>
+<ol>
+<li>B 的所有元素的并集 == A 的所有元素的并集; 即 A 和 B 拥有的 <code>Activity</code> 不变多也不变少</li>
+<li>B 不能包含冗余的 <code>RawRole</code> 元素;<br>即结果集合中每一个 <code>RawRole</code> 都至少应该拥有一个集合中其他 <code>RawRole</code> 没有的 <code>Activity</code></li>
+</ol>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>正如标题所说的, 这个问题有那么一点像 <a href="https://en.wikipedia.org/wiki/Set_cover_problem" target="_blank" rel="external">set cover problem</a>;<br>如果问题要求结果的集合 B 的元素个数 <code>最小</code>, 那么该问题就是 set cover problem.<br>好在原始问题只要求 <code>无冗余</code>, 而不要求 <code>最小</code>.</p>
+<p>思路:</p>
+<ol>
+<li>求出 A 的所有元素的并集, 结果是 Activity 的集合, 记为 <code>actSet</code></li>
+<li>用 <code>actSet</code> 的每一个元素对全部的 RawRole 进行染色; <ul>
+<li>RawRole 为黑色 = RawRole 包含的所有 Activity 都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为灰色 = RawRole 包含的部分 Activity 在 <code>actSet</code> 中出现, 但并非全都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为白色 = RawRole 包含的所有 Activity 都不在 <code>actSet</code> 中出现</li>
+</ul>
+</li>
+<li>将所有黑色的 RawRole 留下, 得到一个都是黑色的 RawRole 集合, 记为 <code>roleList</code><br>(这时候可以验证一下 <code>roleList</code> 包含的 Activity 集合是不是等于 <code>actSet</code>; 若不等, 说明无法找到满足要求的解)</li>
+<li>用一个 dictionary (记为 <code>actTable</code>), 记录 <code>roleList</code> 包含的每个 Activity 出现的次数 (遍历 <code>roleList</code> 即可算出);<br>dictionary 的 Key 是 Activity, Value 是 “出现的次数” 的 counter.</li>
+<li>逐个尝试从 <code>roleList</code> 中去掉一个 RawRole.<br>如果某一个 RawRole 的每一个 Activity 在 <code>actTable</code> 中的 counter 都 &gt; 1, 说明这个 RawRole 是冗余的;<br>去掉这个 RawRole, 并在 <code>actTable</code> 中把它包含的 Activity 的 counter 都减 1.</li>
+</ol>
+<p>这样得到的结果, 它包含的元素个数不会是最少的, 但是已经符合需求.</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 仅供参考, 省去了一些 edge case 判断.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// rawRoleActMappings: 定义了每个 RawRole 和它对应的 Acttivity 集合</span></div><div class="line"><span class="comment">// actSet: 就是前面提到 actSet. 假设已经这项计算完成.</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">CalcRawRoles</span>(<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    Dictionary&lt;<span class="keyword">string</span>, HashSet&lt;<span class="keyword">string</span>&gt;&gt; rawRoleActMappings, </span></span></div><div class="line"><span class="function"><span class="params">    HashSet&lt;<span class="keyword">string</span>&gt; actSet</span></span></div><div class="line"><span class="function"><span class="params"></span>)</span></div><div class="line"><span class="function"></span>&#123;   </div><div class="line">    List&lt;<span class="keyword">string</span>&gt; roleList = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; actTable = actSet.ToDictionary(</div><div class="line">        act =&gt; act, act =&gt; <span class="number">0</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="comment">// C# 大法好: IsSuperSetOf 就迅速完成 '染色' 过程... </span></div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> roleActMap <span class="keyword">in</span> rawRoleActMappings.Where(</div><div class="line">        roleActMap =&gt; actSet.IsSuperSetOf(roleActMap))</div><div class="line">    ) </div><div class="line">    &#123;</div><div class="line">        roleList.Add(roleActMap.Key);</div><div class="line">        roleActMap.Value.ForEach(act =&gt; actTable[act]++);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    List&lt;<span class="keyword">string</span>&gt; resultRoles = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> role <span class="keyword">in</span> roleList.OrderBy(</div><div class="line">        roleName =&gt; rawRoleActMappings[roleName].Count).ToList()</div><div class="line">    )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (rawRoleActMappings[role].All(act =&gt; actTable[act]&gt;<span class="number">1</span>))</div><div class="line">            rawRoleActMappings[role].ForEach(act =&gt; actTable[act]--);</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            resultRoles.Add(role);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> resultRoles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" data-id="cj8pihsgt0006feur5v1rnro1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/authentication/">authentication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-submodule/">git submodule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/authentication/" style="font-size: 10px;">authentication</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-submodule/" style="font-size: 10px;">git submodule</a> <a href="/tags/github-io-个人-blog/" style="font-size: 10px;">github.io 个人 blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kerberos/" style="font-size: 20px;">kerberos</a> <a href="/tags/pre-stash/" style="font-size: 10px;">pre-stash</a> <a href="/tags/set-cover-problem/" style="font-size: 10px;">set cover problem</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">kerberos pre-stash 简介: 自动更新 TGT 的机制</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/12/kerberos-算法简介/">kerberos 算法简介</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/">使用 hexo 建立 github.io 个人 blog</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">git submodule: 配置查看 submodule 的具体版本</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">实现权限分配遇到的算法问题: 简化的 set cover problem</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zsh同学<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
