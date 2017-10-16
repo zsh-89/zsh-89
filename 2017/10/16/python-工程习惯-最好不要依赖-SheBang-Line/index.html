@@ -3,15 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: set cover problem | zsh同学的笔记簿</title>
+  <title>python 工程习惯: 最好不要依赖 SheBang Line   | zsh同学的笔记簿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zsh同学的笔记簿">
-<meta property="og:url" content="http://zsh-89.github.io/tags/set-cover-problem/index.html">
+  <meta name="description" content="真实的案例.一个在大部分机器工作得很好的 code, 首行是 #!/usr/bin/python.在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了. 单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 $PATH,但是 hard code 的路径是无视 $">
+<meta name="keywords" content="python,best practice">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 工程习惯: 最好不要依赖 SheBang Line  ">
+<meta property="og:url" content="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/index.html">
 <meta property="og:site_name" content="zsh同学的笔记簿">
+<meta property="og:description" content="真实的案例.一个在大部分机器工作得很好的 code, 首行是 #!/usr/bin/python.在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了. 单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 $PATH,但是 hard code 的路径是无视 $">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-10-16T09:46:27.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zsh同学的笔记簿">
+<meta name="twitter:title" content="python 工程习惯: 最好不要依赖 SheBang Line  ">
+<meta name="twitter:description" content="真实的案例.一个在大部分机器工作得很好的 code, 首行是 #!/usr/bin/python.在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了. 单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 $PATH,但是 hard code 的路径是无视 $">
   
     <link rel="alternate" href="/atom.xml" title="zsh同学的笔记簿" type="application/atom+xml">
   
@@ -62,39 +67,57 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" class="archive-article-date">
-  <time datetime="2017-07-17T14:20:55.000Z" itemprop="datePublished">Jul 17</time>
+        <section id="main"><article id="post-python-工程习惯-最好不要依赖-SheBang-Line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" class="article-date">
+  <time datetime="2017-10-16T09:39:00.000Z" itemprop="datePublished">2017-10-16</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">实现权限分配遇到的算法问题: 简化的 set cover problem</a>
+    <h1 class="article-title" itemprop="name">
+      python 工程习惯: 最好不要依赖 SheBang Line  
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>真实的案例.<br>一个在大部分机器工作得很好的 code, 首行是 <code>#!/usr/bin/python</code>.<br>在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了.</p>
+<p>单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.<br>例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 <code>$PATH</code>,<br>但是 hard code 的路径是无视 <code>$PATH</code> 的.</p>
+<p>更好的写法是: <code>#!/usr/bin/env python</code>, 这样会调用 <code>$PATH</code> 中对应的 python;<br>这相当于给用户一个主动决定使用的 python 的版本的机会.</p>
+<p>不过我觉得其实倒不如明确地注明 dependency 的版本, 不写 SheBang,<br>让用户显式地用 python 可执行文件来执行 code, 这样出问题时调试代价要低得多;<br>其实大部分时候代码并没有那么 portable.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" data-id="cj8tztchq0005swur54bfc7j6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">kerberos pre-stash 简介: 自动更新 TGT 的机制</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
