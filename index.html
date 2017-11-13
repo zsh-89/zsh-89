@@ -64,6 +64,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Windows-Credential-Guard-简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/13/Windows-Credential-Guard-简介/" class="article-date">
+  <time datetime="2017-11-13T10:58:38.000Z" itemprop="datePublished">2017-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/13/Windows-Credential-Guard-简介/">Windows Credential Guard 简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>Credential Guard (CG): 微软提出的保护系统 credential 的机制</li>
+<li>TCB (Trusted Computing Base): 一小部分软件, 系统安全的基石, 一旦有问题整个系统安全性完蛋;<br>其他的软件都可以 misbehave, TCB 不可以. </li>
+</ul>
+<h2 id="解决安全问题-攻击者通过读取-RAM-进行-credential-theft"><a href="#解决安全问题-攻击者通过读取-RAM-进行-credential-theft" class="headerlink" title="解决安全问题: 攻击者通过读取 RAM 进行 credential theft"></a>解决安全问题: 攻击者通过读取 RAM 进行 credential theft</h2><p>“Pass-the-Hash 攻击” 是十分典型的 credential theft.</p>
+<ul>
+<li>从 OS RAM 中读取 “hash 过的密码/hash 过的 identity credential” (如 kerberos 的 TGT),<br>并加以利用 (OS 保存 “hash 过的密码” 是为了实现 SSO (Single Sign-On) 功能)</li>
+<li>通过 “lateral traversal” (用已经窃取到的身份, 在 network 上不同的机器上登录, 重复同样的攻击)<br>拿到更多的 credential 和权限</li>
+<li>已经窃取的 credential 在 network 的部分机器上可能是 admin. </li>
+<li>攻击者进一步利用已有的 user credential, 去读取 network 上所有能读取 RAM 的机器的 RAM.<br>拿到更多的 credential.</li>
+</ul>
+<h2 id="CG-Credential-Guard-如何解决-credential-theft"><a href="#CG-Credential-Guard-如何解决-credential-theft" class="headerlink" title="CG (Credential Guard) 如何解决 credential theft"></a>CG (Credential Guard) 如何解决 credential theft</h2><ul>
+<li>do not trust admin</li>
+<li>do not trust kernel<br>kernel 运行在 ring 0. 现在引入新的 hypervisor 机制,<br>运行的级别比 ring 0 更低 (ring -1, 硬件保证);<br>hypervisor 允许 TCB 运行在 “ring -1”, 从 kernel 隔离开.</li>
+<li>硬件级别的保护</li>
+</ul>
+<h2 id="新机制-VTL-Virtual-Trust-Levels"><a href="#新机制-VTL-Virtual-Trust-Levels" class="headerlink" title="新机制 VTL (Virtual Trust Levels)"></a>新机制 VTL (Virtual Trust Levels)</h2><p>除了新的 hypervisor, 原本的 kernel space, user space 都可以认为跑在 VTL-0 上.</p>
+<p>现在, kernel space 和 user space 都多出了一个 VTL-1 层, only selectively accessible to VTL-0.<br>也就是说: [新 kernel space] = [旧 kernel space (kernel space VTL-0)] + [kernel space VTL-1]<br>user space 同理.</p>
+<p>VTL-1 被认为是 “secure world”, VTL-1 kernel mode 也叫做 “secure kernel mode” (user mode 同理).<br>VTL-0 VTL-1 之间的 communication 通过 secure channel 进行.<br>VTL 利用了新 CPU 的 SLAT (second level address translation) 技术<br>(SLAT 原本用于 “虚拟机 physical/virtual page, 物理机 physical page 三者之间的 mapping”)</p>
+<p>trustlets: 在 VTL-1 的 user mode app 被成为 trustlets.</p>
+<h2 id="一些重要的事实"><a href="#一些重要的事实" class="headerlink" title="一些重要的事实"></a>一些重要的事实</h2><ul>
+<li>CG 带来的性能差别: typically less than 5%</li>
+<li>CG 的价值是不可替代的, 但它本身可以被 disable;<br>故必须配合 win server 的 authen policy/armoring 使用.</li>
+<li>Win10 有 CG 机制</li>
+<li>CG 对于 kerberos 来说: CG 保护了 TGT;<br>这也导致了开启了 win10 的机器上, 部分跨平台的 kerberos 如 heimdal kerberos 的<br>“读取保存 TGT” 的操作都失效. 在开启 CG 的机器上, 最好都改用 Windows 内置的 kerberos API</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li>Defeating Pass-the-Hash-Separation-Of-Powers, win credential guards.pdf<br>幻灯片形式, 良心教程</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zsh-89.github.io/2017/11/13/Windows-Credential-Guard-简介/" data-id="cj9y2xxaf0000oaurrx6k060p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/credential-guard/">credential guard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Windows-的-memory-mapped-file-简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/11/13/Windows-的-memory-mapped-file-简介/" class="article-date">
@@ -124,10 +191,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/" data-id="cj9y1572b00003nurh9tkwulm" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/" data-id="cj9y2xxc00002oauruwwxt9s0" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory-management/">memory management</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li></ul>
 
     </footer>
   </div>
@@ -166,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" data-id="cj9y1573i00063nurm87sqdxg" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" data-id="cj9y2xxfb0008oaur1qcpnlph" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -223,10 +290,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" data-id="cj9y1573300043nur8zkz86zx" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" data-id="cj9y2xxe00005oaur2po42cd6" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pre-stash/">pre-stash</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
 
     </footer>
   </div>
@@ -310,10 +377,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/" data-id="cj9y1573d00053nurro7efsxa" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/" data-id="cj9y2xxeq0006oaur4f6cq6bw" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/authentication/">authentication</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/authentication/">authentication</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
 
     </footer>
   </div>
@@ -369,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/" data-id="cj9y1573n00093nurjllub51d" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/" data-id="cj9y2xxg60009oaury8ffztlt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -418,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" data-id="cj9y1572q00023nurefxv4wiz" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" data-id="cj9y2xxdf0004oaur7beuedl4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-submodule/">git submodule</a></li></ul>
@@ -479,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" data-id="cj9y1573t000a3nurl6row0yc" class="article-share-link">Share</a>
+      <a data-url="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" data-id="cj9y2xxgh000boaurihgnlgjl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
@@ -503,7 +570,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/authentication/">authentication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-submodule/">git submodule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/authentication/">authentication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/credential-guard/">credential guard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-submodule/">git submodule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory-management/">memory management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
     </div>
   </div>
 
@@ -513,7 +580,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/authentication/" style="font-size: 10px;">authentication</a> <a href="/tags/best-practice/" style="font-size: 10px;">best practice</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-submodule/" style="font-size: 10px;">git submodule</a> <a href="/tags/github-io-个人-blog/" style="font-size: 10px;">github.io 个人 blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kerberos/" style="font-size: 20px;">kerberos</a> <a href="/tags/memory-mapped-file/" style="font-size: 10px;">memory-mapped file</a> <a href="/tags/pre-stash/" style="font-size: 10px;">pre-stash</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/set-cover-problem/" style="font-size: 10px;">set cover problem</a>
+      <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/algorithm/" style="font-size: 15px;">algorithm</a> <a href="/tags/authentication/" style="font-size: 10px;">authentication</a> <a href="/tags/best-practice/" style="font-size: 10px;">best practice</a> <a href="/tags/credential-guard/" style="font-size: 10px;">credential guard</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-submodule/" style="font-size: 10px;">git submodule</a> <a href="/tags/github-io-个人-blog/" style="font-size: 10px;">github.io 个人 blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kerberos/" style="font-size: 15px;">kerberos</a> <a href="/tags/memory-management/" style="font-size: 10px;">memory management</a> <a href="/tags/memory-mapped-file/" style="font-size: 10px;">memory-mapped file</a> <a href="/tags/pre-stash/" style="font-size: 10px;">pre-stash</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/security/" style="font-size: 20px;">security</a> <a href="/tags/set-cover-problem/" style="font-size: 10px;">set cover problem</a>
     </div>
   </div>
 
@@ -535,6 +602,10 @@
       <ul>
         
           <li>
+            <a href="/2017/11/13/Windows-Credential-Guard-简介/">Windows Credential Guard 简介</a>
+          </li>
+        
+          <li>
             <a href="/2017/11/13/Windows-的-memory-mapped-file-简介/">Windows 的 memory-mapped file 简介</a>
           </li>
         
@@ -548,10 +619,6 @@
         
           <li>
             <a href="/2017/10/12/kerberos-算法简介/">kerberos 算法简介</a>
-          </li>
-        
-          <li>
-            <a href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/">使用 hexo 建立 github.io 个人 blog</a>
           </li>
         
       </ul>
