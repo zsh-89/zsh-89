@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics," />
+  <meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics,multithreading," />
 
 
 
@@ -95,14 +95,14 @@
 
 
 <meta name="description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
-<meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics">
+<meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics,multithreading">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 内存模型; volatile, final, synchronized">
 <meta property="og:url" content="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/index.html">
 <meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-13T11:31:14.096Z">
+<meta property="og:updated_time" content="2017-12-13T11:46:53.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 内存模型; volatile, final, synchronized">
 <meta name="twitter:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
@@ -527,6 +527,8 @@
             <a href="/tags/acquire-semantics/" rel="tag"># acquire semantics</a>
           
             <a href="/tags/release-semantics/" rel="tag"># release semantics</a>
+          
+            <a href="/tags/multithreading/" rel="tag"># multithreading</a>
           
         </div>
       
