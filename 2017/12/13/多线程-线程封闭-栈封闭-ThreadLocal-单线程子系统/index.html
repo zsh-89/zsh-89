@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="security,kerberos,pre-stash," />
+  <meta name="keywords" content="multithreading,Confinement,Thread Confinement,Stack Confinement,Thread Local,single‐threaded subsystem," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="pre-stash; krb5-prestash参考 http://oskt.secure-endpoints.com/krb5_prestash.1.html 不过链接里说得并不清楚. 解决什么问题:我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.所以, 需要一个定期帮助 long running service 获取和刷">
-<meta name="keywords" content="security,kerberos,pre-stash">
+<meta name="description" content="线程封闭 (Thread Confinement)线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”. 线程封闭常见类型:  Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框">
+<meta name="keywords" content="multithreading,Confinement,Thread Confinement,Stack Confinement,Thread Local,single‐threaded subsystem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kerberos pre-stash 简介: 自动更新 TGT 的机制">
-<meta property="og:url" content="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/index.html">
+<meta property="og:title" content="多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/13/多线程-线程封闭-栈封闭-ThreadLocal-单线程子系统/index.html">
 <meta property="og:site_name" content="zsh同学的笔记">
-<meta property="og:description" content="pre-stash; krb5-prestash参考 http://oskt.secure-endpoints.com/krb5_prestash.1.html 不过链接里说得并不清楚. 解决什么问题:我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.所以, 需要一个定期帮助 long running service 获取和刷">
+<meta property="og:description" content="线程封闭 (Thread Confinement)线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”. 线程封闭常见类型:  Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-13T11:00:17.008Z">
+<meta property="og:updated_time" content="2017-12-13T11:56:19.825Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kerberos pre-stash 简介: 自动更新 TGT 的机制">
-<meta name="twitter:description" content="pre-stash; krb5-prestash参考 http://oskt.secure-endpoints.com/krb5_prestash.1.html 不过链接里说得并不清楚. 解决什么问题:我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.所以, 需要一个定期帮助 long running service 获取和刷">
+<meta name="twitter:title" content="多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统">
+<meta name="twitter:description" content="线程封闭 (Thread Confinement)线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”. 线程封闭常见类型:  Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/"/>
+  <link rel="canonical" href="http://zsh-89.github.io/2017/12/13/多线程-线程封闭-栈封闭-ThreadLocal-单线程子系统/"/>
 
 
 
 
 
-  <title>kerberos pre-stash 简介: 自动更新 TGT 的机制 | zsh同学的笔记</title>
+  <title>多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统 | zsh同学的笔记</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/多线程-线程封闭-栈封闭-ThreadLocal-单线程子系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zsh同学">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">kerberos pre-stash 简介: 自动更新 TGT 的机制</h1>
+          <h1 class="post-title" itemprop="name headline">多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T12:19:24+08:00">
-                2017-10-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:52:32+08:00">
+                2017-12-13
               </time>
             
 
@@ -340,25 +340,29 @@
       
 
       
-        <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
-<p>解决什么问题:<br>我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.<br>所以, 需要一个定期帮助 long running service 获取和刷新 TGT.<br>当然解决方法有很多种, pre-stash 是其中一种</p>
-<p>pre-stashed tickets:<br>Used by long running client to authenticate itself to kerberized services.</p>
-<p>“pre-stashed” 这个动词的含义:<br>将 client 需要的 kerberos ticket 预先保存到某个本地的 credential file 中.</p>
-<p>具体机制:</p>
+        <h2 id="线程封闭-Thread-Confinement"><a href="#线程封闭-Thread-Confinement" class="headerlink" title="线程封闭 (Thread Confinement)"></a>线程封闭 (Thread Confinement)</h2><p>线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.<br>让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”.</p>
+<p>线程封闭常见类型:</p>
 <ul>
-<li>一个特定的 long running service 拥有一个称之为 production-id 的特殊的用户; 一一对应</li>
-<li>任何 long running service 会用对应的 production-id 的身份启动</li>
-<li>一个 linux 定期任务帮助每个活跃的 production-id 定期刷新 TGT, 保存在本地 credential file 中</li>
-<li>long running service 只需要从 credential file 读取 TGT</li>
+<li>Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框架上的辅助</li>
+<li>栈封闭 (Stack Confinement): 多用局部变量, 让尽可能多的对象的引用不超出局部作用域</li>
+<li>Java/C# 的 ThreadLocal 类, 语言的库/机制提供的 per Thread 的对象存储; </li>
+<li>单线程子系统 (single-threaded subsystem)</li>
 </ul>
-<p>这个方法的特点还是集中管理吧, 否则解决这个问题的方法有很多;<br>通过 keytab file + 用户创建自己的周期任务自动调用 kinit 也可以实现自动更新 TGT,<br>如: <a href="https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos" target="_blank" rel="external">https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos</a><br>不过这就是野路子了.</p>
-<p>如果要做严格的权限管理, 势必有 production-id 的概念 (保证 service 不会有过多的权限),<br>可能会有 production-id 对应的密码的定期更新, 可能每次登录都必须用专门系统生成的随机密码,<br>所以 pre-stash 的思路还是有可以参考之处.</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>一个相关的概念是 stash file, 参见:</p>
+<h2 id="单线程子系统-single-threaded-subsystem"><a href="#单线程子系统-single-threaded-subsystem" class="headerlink" title="单线程子系统 (single-threaded subsystem)"></a>单线程子系统 (single-threaded subsystem)</h2><p>顾名思义, 可知概念.<br>最经典的应用在 GUI. 所有的 GUI 框架都有一个单线程子系统:<br>由一个的专门的 ‘事件分发线程’ (Event Dispatch Thread, EDT) 来处理 GUI 事件<br>(也称为 ‘事件队列’ 模型).</p>
+<p>“多线程的 GUI 工具包” 被称为 “计算机科学史上的又一个失败的梦想”.<br>许多人尝试过编写多线程的 GUI 框架, 最终, 都因为竟态条件和死锁而回归了事件队列模型.</p>
+<p>MVC 设计模式的广泛应用, 更使得 “多线程的 GUI 工具包” 变得不可能实现,<br>因为 MVC 导致了更强的访问顺序的不确定性.</p>
+<p>GUI 中的表现层对象 (Presentation Object) 只允许在事件处理线程 (也常被称为 UI 线程) 中访问,<br>完全无需担心同步问题; 在事件处理线程之外, 不允许访问.</p>
+<p>“在 GUI 的事件处理线程之外, 需要让 GUI 执行某样操作” 这个问题的解决思路是: </p>
 <ul>
-<li><a href="https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html</a></li>
-<li>相关的命令行 <a href="https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html</a></li>
+<li>通过消息机制通知 GUI 事件处理线程, 事件处理线程根据消息类别主动调用相关的函数</li>
+<li>在前一者的基础上, 传递更多的数据, 包括函数的地址和参数等等,<br>将可以描述计算任务的信息打包传递给事件处理线, 让事件处理线程执行<br>C# 的 BeginInvoke, SynchronizationContext, Java Swing 的 Runnable 类型都属于这一类.<br>好处是: 在前者的基础上, 将事件处理线程和具体响应事件的代码逻辑更好地解耦.</li>
 </ul>
-<p>由于 stash file 的存在, “把 kerberos TGT 放进某文件” 这个操作常常用动词 ‘stash’ 来描述;<br>如前文所言, 由于 prestash 机制的存在, 这个操作也常常用 ‘prestash’ 来描述.</p>
+<p>不宜把慢的事情 (计算密集 or I/O密集) 交给事件处理线程. 毕竟只有一个线程在做事件处理.</p>
+<p>“在 GUI 的事件处理线程让计算线程执行某样操作/任务” 这个问题比较直观,<br>如果需要 GUI 和后台计算线程有交互, 可以参考利用 Future/Promise 乃至 Observable 这些异步模型;<br>简而言之, 至少需要提供机制保证:</p>
+<ul>
+<li>UI 库要有能力打断/通知终止计算线程 (用户手动终止任务);<br>C# java 都有提 “取消/终止” 线程的机制/库,<br>如 java 的 <code>Thread.currentThread().isInterrupted()</code>, C# 的 <code>CancellationToken</code></li>
+<li>计算线程要可以向 UI 报告进度;<br>通常, 计算线程定期算出进度信息, 通过 UI 库提供的机制把进度信息传递给 UI 线程,<br>最后由 UI 线程将进度信息展示出来.</li>
+</ul>
 
       
     </div>
@@ -376,11 +380,17 @@
       
         <div class="post-tags">
           
-            <a href="/tags/security/" rel="tag"># security</a>
+            <a href="/tags/multithreading/" rel="tag"># multithreading</a>
           
-            <a href="/tags/kerberos/" rel="tag"># kerberos</a>
+            <a href="/tags/Confinement/" rel="tag"># Confinement</a>
           
-            <a href="/tags/pre-stash/" rel="tag"># pre-stash</a>
+            <a href="/tags/Thread-Confinement/" rel="tag"># Thread Confinement</a>
+          
+            <a href="/tags/Stack-Confinement/" rel="tag"># Stack Confinement</a>
+          
+            <a href="/tags/Thread-Local/" rel="tag"># Thread Local</a>
+          
+            <a href="/tags/single‐threaded-subsystem/" rel="tag"># single‐threaded subsystem</a>
           
         </div>
       
@@ -393,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/12/kerberos-算法简介/" rel="next" title="kerberos 算法简介">
-                <i class="fa fa-chevron-left"></i> kerberos 算法简介
+              <a href="/2017/12/13/多线程-可见性-发布和逸出/" rel="next" title="多线程: 可见性, 发布和逸出">
+                <i class="fa fa-chevron-left"></i> 多线程: 可见性, 发布和逸出
               </a>
             
           </div>
@@ -402,10 +412,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" rel="prev" title="python 工程习惯: 最好不要依赖 SheBang Line  ">
-                python 工程习惯: 最好不要依赖 SheBang Line   <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -530,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pre-stash-krb5-prestash"><span class="nav-number">1.</span> <span class="nav-text">pre-stash; krb5-prestash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程封闭-Thread-Confinement"><span class="nav-number">1.</span> <span class="nav-text">线程封闭 (Thread Confinement)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单线程子系统-single-threaded-subsystem"><span class="nav-number">2.</span> <span class="nav-text">单线程子系统 (single-threaded subsystem)</span></a></li></ol></div>
             
 
           </div>

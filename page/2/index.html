@@ -270,6 +270,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/" itemprop="url">使用 hexo 建立 github.io 个人 blog</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-14T16:28:01+08:00">
+                2017-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景-amp-准备"><a href="#背景-amp-准备" class="headerlink" title="背景 &amp; 准备"></a>背景 &amp; 准备</h2><p>把个人 blog 放在 github.io 上已经是现在的主流了.<br>先根据 <a href="https://pages.github.com/" target="_blank" rel="external">这里</a> 的指南建立属于你的 <code>username.github.io</code> 主页.</p>
+<p>接着, 为什么用 hexo?</p>
+<ul>
+<li>第一, 够用, 很强. </li>
+<li>第二, 比起 “官方钦定” 的 jekyll, hexo 是纯基于 node.js 的工具, 不需要 ruby. 相信会成为未来的主流.</li>
+</ul>
+<p>生活在墙内的朋友, 先配置好 <a href="https://npm.taobao.org" target="_blank" rel="external">cnpm</a>.<br>之后的命令中, 我都使用了 <code>cnpm</code>; 如果是墙外的朋友直接用 <code>npm</code> 即可. </p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>hexo 官网: <a href="https://hexo.io" target="_blank" rel="external">https://hexo.io</a></li>
+<li>Next 主题官方文档: <a href="http://theme-next.iissnan.com" target="_blank" rel="external">http://theme-next.iissnan.com</a></li>
+</ul>
+<h2 id="hexo-安装-创建-blog-project"><a href="#hexo-安装-创建-blog-project" class="headerlink" title="hexo 安装; 创建 blog project"></a>hexo 安装; 创建 blog project</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install hexo-cli -g</div><div class="line"></div><div class="line"><span class="comment">## 创建 blog project</span></div><div class="line">hexo init my-blog</div><div class="line"><span class="built_in">cd</span> my-blog</div><div class="line">cnpm install</div></pre></td></tr></table></figure>
+<h2 id="安装配置-next-theme"><a href="#安装配置-next-theme" class="headerlink" title="安装配置 next theme"></a>安装配置 next theme</h2><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure></p>
+<p>在 <code>_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">theme:</span> <span class="string">next</span></div></pre></td></tr></table></figure></p>
+<p>在 <code>themes/next/_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 选取 next 主题中的 Gemini 风格; 此步可以跳过</span></div><div class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span>   <span class="comment">## 在编辑器搜索相关字眼, 并且把原来的配置注释掉</span></div></pre></td></tr></table></figure></p>
+<p>注意, 不要混淆 next 主题的配置文件 (<code>themes/next/_config.yml</code>) 和 hexo 的配置文件 (直接就在 my-blog 目录下 的<code>_config.yml</code>).<br>更多关于 next 主题参考 <a href="http://theme-next.iissnan.com" target="_blank" rel="external">Next 主题官方文档</a>.</p>
+<h3 id="为-next-theme-创建-tags-页面"><a href="#为-next-theme-创建-tags-页面" class="headerlink" title="为 next theme 创建 tags 页面"></a>为 next theme 创建 tags 页面</h3><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cnpm install hexo-generator-tag --save</div><div class="line">hexo new page <span class="string">"tags"</span></div></pre></td></tr></table></figure></p>
+<p>在 <code>source/tags/index.md</code> 中填入:<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: Tags</div><div class="line">date: 2016-12-22 12:39:04</div><div class="line">type: "tags"</div><div class="line">---</div></pre></td></tr></table></figure></p>
+<p>配置 blog 的页面, 在  <code>themes/next/_config.yml</code> menu 配置项就增加 <code>tags</code> 页:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">menu:</span></div><div class="line"><span class="attr">  home:</span> <span class="string">/</span></div><div class="line"><span class="attr">  archives:</span> <span class="string">/archives</span></div><div class="line"><span class="attr">  tags:</span> <span class="string">/tags</span></div><div class="line">  <span class="comment">## about: /about  </span></div><div class="line">    <span class="comment">## hexo 也支持 about 页面; 创建方式和创建 tags 页面相同; </span></div><div class="line">    <span class="comment">## 不过 about 页面对应的 index.md 里面可以写正文</span></div></pre></td></tr></table></figure></p>
+<h2 id="配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页"><a href="#配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页" class="headerlink" title="配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页"></a>配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页</h2><p>安装工具: <code>cnpm install hexo-deployer-git --save</code></p>
+<p>在 <code>_config.yml</code> 中配置:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/zsh-89/zsh-89.github.io.git</span>  </div><div class="line">    <span class="comment">## 换成你的 github.io repo 地址</span></div><div class="line"><span class="attr">  branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure>
+<h2 id="hexo-基本命令"><a href="#hexo-基本命令" class="headerlink" title="hexo 基本命令"></a>hexo 基本命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">hexo new <span class="string">"My New Post"</span>  <span class="comment">## [Writing](https://hexo.io/docs/writing.html)</span></div><div class="line">hexo server             <span class="comment">## [Server](https://hexo.io/docs/server.html)</span></div><div class="line">                        <span class="comment">## 开启 local http server. 查看效果</span></div><div class="line">hexo generate           <span class="comment">## [Generating](https://hexo.io/docs/generating.html)</span></div><div class="line">hexo deploy             <span class="comment">## [Deployment](https://hexo.io/docs/deployment.html)</span></div><div class="line"></div><div class="line"><span class="comment">## gen + deploy</span></div><div class="line">hexo generate --deploy</div><div class="line">hexo gen --deploy</div><div class="line">hexo deploy --generate</div></pre></td></tr></table></figure>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><ul>
+<li>推荐将 blog 的项目作为一个 git repo 管理, 参考: <a href="https://github.com/zsh-89/zsh-blog-src" target="_blank" rel="external">https://github.com/zsh-89/zsh-blog-src</a></li>
+<li>由于需要修改 theme/next 下的内容才能对 next 主题进行配置, 不推荐将 next theme 作为 git submodule 进行管理</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -579,7 +725,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -592,7 +738,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
