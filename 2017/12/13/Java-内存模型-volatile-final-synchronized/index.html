@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
+<meta name="keywords" content="Memory Model,Java Memory Model,volatile,final,synchronized,happens-before,as-if-serial,data race,sequential consistency,acquire semantics,release semantics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 内存模型; volatile, final, synchronized">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/index.html">
+<meta property="og:site_name" content="zsh同学的笔记">
+<meta property="og:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-13T11:31:14.096Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 内存模型; volatile, final, synchronized">
+<meta name="twitter:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/"/>
+
+
+
+
+
+  <title>Java 内存模型; volatile, final, synchronized | zsh同学的笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zsh同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 内存模型; volatile, final, synchronized</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:28:15+08:00">
+                2017-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言-参考文献"><a href="#前言-参考文献" class="headerlink" title="前言, 参考文献"></a>前言, 参考文献</h2><p>这篇东西的目的是: 做一次比较完整的严谨的调查和总结.<br>我自己这方面知识是不少的, 但不系统.</p>
+<p>于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.<br>毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;<br>但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,<br>最后重要的规则和概念会变得得面目全非.</p>
+<p>唯一拥有定义权的, 一定准确的标准文献只有 Java Language Specification 和 JVM Specification,<br>其中与 Memory Model 相关的部分的内容的前身就是 JSR133.  </p>
+<p>可惜标准文档并不自我完备, 并没有真的把事情写明白;<br>看似简要精准的定义, 其实隐含了大量信息, 关键词组/词汇的含义不明,<br>例如, “be consistent with” “predictable” 就包含了大量含义, 绝不是只看字面上的英文词汇就能明白的. </p>
+<p>我出发的原意是通过标准文档, 总结:</p>
+<ul>
+<li>足以指导我写出正确程序, 分析一切异常行为的规则</li>
+<li>重要的工具/概念 (如 volatile) 的性质, 行为</li>
+</ul>
+<p>标准文档的完备性令人不满, 所以实际的主要参考资料改为:</p>
+<ul>
+<li>JSR133 FAQ; 来自起草 JSR133 的 cs.umd.edu</li>
+<li>Java Concurrency in Practice; </li>
+</ul>
+<p>通过参考这些 “可读” 的资料反过来理解标准中种种定义的含义.</p>
+<p>所有参考资料:</p>
+<ul>
+<li>JSR133: <a href="https://jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">https://jcp.org/en/jsr/detail?id=133</a><br>标准文献: Java Memory Model and Thread Specification Revision</li>
+<li>Java Language Specification (Java 语言标准文献) 其中的 Memory Model 章节</li>
+<li>JSR 133 FAQ: <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html" target="_blank" rel="external">http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html</a> </li>
+<li><a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html" target="_blank" rel="external">https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html</a></li>
+<li>Java Concurrency in Practice</li>
+<li>深入理解 Java 虚拟机, 周志明; </li>
+</ul>
+<h2 id="硬件平台的-Memory-Model"><a href="#硬件平台的-Memory-Model" class="headerlink" title="硬件平台的 Memory Model"></a>硬件平台的 Memory Model</h2><p>本质上, 任何程序代码都要变为某个硬件平台上的机器指令, 才能被执行.<br>这些机器指令是用硬件平台上的汇编语言描述的.</p>
+<p>现代的多核/多CPU架构的硬件上存在 “缓存一致性 (cache coherence)” 问题:<br>多个处理器 (核) 有各自的多级 cache, 跑在它们之上的硬件指令都涉及同一块内存时,<br>有可能出现各自的 cache 中数据不一致的情况.<br>这些问题会使得我们虽然有汇编代码, 却无法从中分析出程序的具体行为.<br>例如, 至少存在以下无法无法绕过的问题:</p>
+<ul>
+<li>某个核对内存的写指令, 何时对另一个核可见?</li>
+<li>某个核对内存的读指令, 究竟是否读到了当前最新值?</li>
+</ul>
+<p>所以说, 各个 CPU/核 对同一块内存的读的效果和写的效果, 都必须严格定义,<br>否则程序员无法通过汇编代码知道 “同时在多CPU/核上在运行的指令” 的含义/效果/行为.</p>
+<p>通过定义 “处理器 (核) 在访问缓存时都需要遵循的读写协议” 或 “内存模型” 来定义执行内存操作的效果.<br>例如, intel 就为自己的产品给出了相关定义: <a href="https://en.wikipedia.org/wiki/Intel_Memory_Model" target="_blank" rel="external">https://en.wikipedia.org/wiki/Intel_Memory_Model</a></p>
+<h2 id="java-内存模型-java-memory-model-JMM-MM-JMM"><a href="#java-内存模型-java-memory-model-JMM-MM-JMM" class="headerlink" title="java 内存模型 (java memory model(JMM), MM, JMM)"></a>java 内存模型 (java memory model(JMM), MM, JMM)</h2><p>硬件平台的汇编语言需要 memory model, 高级语言同样需要.<br>否则, 一旦涉及 “同时并发运行的多线程” 代码, 程序员就无法通过分析高级语言代码本身知道其行为.<br>如果语言标准不规定好内存模型, 那么它的多线程程序就完全没有可移植性;<br>其多线程代码的行为, 必须靠分析具体的编译器的实现和程序所在的硬件平台的内存模型才能得知.</p>
+<p>java 的内存模型是 java 程序跨平台性的保证.<br>java 是最早提供内存模型的语言; 之后, C++ 等其他语言也开始注意到内存模型的重要性, 开始完善.</p>
+<p>内存模型必须足够严格, 使得读写操作的效果不产生歧义;<br>内存模型必须足够宽松, 使得虚拟机可以自由地利用软件硬件的加速技术<br>(如 CPU 的执行乱序执行, 编译器的指令重排序, 等等).</p>
+<p>JDK 1.5 之后, java 的内存模型趋于完善.</p>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="happens-before-规则-Happens-Before-Order-HB-规则-HB"><a href="#happens-before-规则-Happens-Before-Order-HB-规则-HB" class="headerlink" title="happens-before 规则 (Happens-Before Order; HB 规则; HB)"></a>happens-before 规则 (Happens-Before Order; HB 规则; HB)</h3><p>标准中的定义: Two actions can be ordered by a happens-before relationship.<br>If one action happens-before another, then the first is visible to and ordered before the second.<br>记法: If we have two actions x and y, we write hb(x, y) to indicate that x happens-before y.</p>
+<p>为什么需要 HB 规则?<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 线程1</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.important_data = <span class="number">15</span>;</div><div class="line">    <span class="keyword">this</span>.flag = <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 线程2</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">this</span>.flag == <span class="keyword">false</span>) &#123;</div><div class="line">        Thread.yield();</div><div class="line">    &#125;</div><div class="line">    System.out.println(<span class="keyword">this</span>.important_data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>只看代码, 我们可能期望:</p>
+<ol>
+<li>在时序上, “this.important_data 的赋值” (记为 A) 先于 “this.flag 的赋值” (记为 B) 先于<br>“线程2输出 this.important_data” (记为 C)</li>
+<li>线程2在输出 this.important_data 时, 可以看到其最新的值, 即 15</li>
+</ol>
+<p>不过, 由于编译器优化和CPU硬件指令优化, A B 的时序是不确定的;<br>编译器的 “指令重拍” 可能令 B 在时序上先于 A 发生.<br>所以, 第一点期望未必成立.</p>
+<p>假设事件发生的时序确实是 A -&gt; B -&gt; C, 线程2输出的也未必是 15, 因为 A 的结果未必对 C 可见<br>(C 可能跑在另一个 CPU 核上, 其 cache 中 this.important_data 的值未必有及时得到更新).<br>所以, 第二点期望未必成立.</p>
+<p>显然, 在多线程编程中, 我们有些时候需要足够强的工具,<br>让我们能让 “代码上看起来先发生的动作确实先发生”, 而且让 “先发生的动作的结果确实地对后面的动作可见”;<br>这就是 happens-before 规则的意义.</p>
+<p>这里的例子中, 只要保证有 <code>hb(A, B)</code> 和 <code>hb(B, C)</code>, 程序的行为就能满足我们的期望.</p>
+<p>并不是任何时候都用同步工具保证 happens-before 对于每一条语句都成立,<br>这是不经济的; 对于非线程间共享的值, 或者 immutable 的值, 完全没有必要.<br>过于严格的规则相当于禁止了编译器和硬件的优化, 降低性能.</p>
+<h3 id="线程内-as-if-serial-语义-within-thread-as-if-serial-semantic"><a href="#线程内-as-if-serial-语义-within-thread-as-if-serial-semantic" class="headerlink" title="线程内 as-if-serial 语义 (within-thread as-if-serial semantic)"></a>线程内 as-if-serial 语义 (within-thread as-if-serial semantic)</h3><p>同义词:</p>
+<ul>
+<li>within-thread as-if-serial semantic (as-if-serial 语义)</li>
+<li>intra-thread semantics</li>
+</ul>
+<p>Java 语言标准保证: 在任何时候, 在一同线程内部, 一定满足 as-if-serial 语义, 即:<br>Java 编译器, JVM, 硬件可以使用一切优化手段, 包括且不限于调整语句执行顺序, 只要满足:<br>在线程内, 程序的执行效果等价于顺序执行每一个语句的结果.</p>
+<blockquote>
+<p>The compiler, runtime, and hardware are supposed to conspire to create the illusion of as-if-serial semantics, which means<br>that in a single-threaded program, the program should not be able to observe the effects of reorderings.</p>
+<p>— By JSR-133 FAQ</p>
+</blockquote>
+<p>“线程内的 as-if-serial 语义” 并不是很强的约束; 例如前面部分的例子,<br>仅看线程1, “编译器调换 A B 执行顺序” 完全符合 as-if-serial 语义;<br>但一旦考虑线程2的逻辑, “调换 A B 执行顺序” 就完全破坏了我们对代码行为的期望.</p>
+<h3 id="数据竞争-data-race-和-race-condition-不同-虽然有联系-sequential-consistency-顺序一致性"><a href="#数据竞争-data-race-和-race-condition-不同-虽然有联系-sequential-consistency-顺序一致性" class="headerlink" title="数据竞争 data race (和 race condition 不同, 虽然有联系); sequential consistency 顺序一致性"></a>数据竞争 data race (和 race condition 不同, 虽然有联系); sequential consistency 顺序一致性</h3><p>Java 标准文档中对 data race 的定义:<br>When a program contains two <strong>conflicting accesses</strong><br>(if at least one of the accesses is a write) that are not ordered by<br>a happens-before relationship, it is said to contain a data race. </p>
+<p>简单地说, 同时满足这三个条件就存在数据竞争:</p>
+<ul>
+<li>一个进程中, 2个或2个以上的线程同时访问同一块内存空间, </li>
+<li>至少一个线程执行写操作 (即存在 <strong>冲突操作</strong>),</li>
+<li>这些冲突操作 (没有通过编程语言的机制建立) HB 约束关系<br>(不那么准确的大白话: 这些冲突操作没有正确地同步)</li>
+</ul>
+<p>freedom from data race 是相当强的约束, 由于冲突操作间都有 HB 关系, 意味着:<br>对同一块内存, 每一个读操作都一定能读到前一个写操作的结果 (写可以来自包括其他线程的任意线程).</p>
+<p>sequential consistency 等价于 freedom from data race (data race free), 是同义词汇.</p>
+<h3 id="顺序一致性-sequential-consistency-freedom-from-data-race-保证程序-predictable-的性质"><a href="#顺序一致性-sequential-consistency-freedom-from-data-race-保证程序-predictable-的性质" class="headerlink" title="顺序一致性 sequential consistency / freedom from data race; 保证程序 predictable 的性质"></a>顺序一致性 sequential consistency / freedom from data race; 保证程序 predictable 的性质</h3><p>(几乎全引用自标准本身, 晦涩; 参考 <code>volatile</code> 的例子才能解读)</p>
+<p>标准中的定义 intra-thread semantics (线程内语义): </p>
+<ul>
+<li>is the semantics for single-threaded programs</li>
+<li>allow the <strong>complete prediction of the behavior</strong> of a thread<br>based on the values seen by read actions within the thread. </li>
+</ul>
+<p>标准中的定义 program order (of inter-thread actions):<br>Total order (of <strong>inter-thread</strong> / <strong>intra-thread</strong> actions)<br>that <strong>reflects</strong> the order in which these would be performed<br>according to the <strong>intra-thread</strong> semantics.</p>
+<p>标准中的定义 sequential consistency: all <strong>inter-thread actions</strong> occur in a total order<br>(the execution order) that <strong>is consistent with program order</strong>, and<br>对同一块内存, 每一个读操作都一定能读到前一个 (时间上最近的前一个) 写操作的结果<br>(写可以来自包括其他线程的任意线程).</p>
+<p>sequential consistency 等价于 freedom from data race (data race free), 是同义词汇.</p>
+<p>sequential consistency 是相当强的约束; 编写多线程程序的程序员会喜欢它,<br>但是并不能直接拿它作为一个程序语言的 MM, 因为它限制过多, 阻碍了编译器优化和CPU并发技术. </p>
+<p>标准指出: sequential consistency 虽然强, 但它 still allows errors arising<br>from groups of operations that need to be perceived atomically and are not.</p>
+<h2 id="Java-内存模型的策略-as-if-serial-的进一步解释"><a href="#Java-内存模型的策略-as-if-serial-的进一步解释" class="headerlink" title="Java 内存模型的策略; as-if-serial 的进一步解释"></a>Java 内存模型的策略; as-if-serial 的进一步解释</h2><p>Java 语言是允许出现 data race 的; Java 语言只保证 “线程内 as-if-serial 语义”.<br>如果 Java 语言标准要求 “Java 内存模型” 任何时候都满足 sequential consistency,<br>那么非常多的优化技术都不能用了, 这是不经济的.<br>Java 的做法是, 提供足够的同步工具, 让程序员可以为特定重要的代码自己实现 sequential consistency.</p>
+<p>一般未加同步的代码, 我们只能假设:<br>在线程内部, 程序运行的效果等价于一步步顺序地执行每一个语句的结果 (as-if-serial) </p>
+<p>“一步步顺序地执行 (serial)” 包括性质:</p>
+<ul>
+<li>代码中前面的语句在后面的语句之前执行, 完全按照程序代码中的顺序执行 </li>
+<li>后面的语句总是能看到前面的语句执行的结果 (线程内部的 visibility)).</li>
+</ul>
+<p>“as-if-serial” 表示程序运行起来, 从线程内部看, 就好像满足以上性质一样.</p>
+<p>回头看 HB 部分的例子,<br>我们总可以认为, 在线程1中, 语句是顺序执行的;<br><code>this.flag = true</code> 被执行时, 前一个语句已经被执行了, 而且能看到前一个语句执行的结果.<br>但是, 由于 <code>this.flag</code> 没有使用任何同步机制, 所以线程2并不能看到线程1所看到的,<br>“能否看到, 能看到什么, 以什么顺序看到” 几乎都是未定义的<br>(给编译器和硬件留下了充分的自由度, 进行指令优化).</p>
+<h2 id="Java-内存模型保证成立的-“HB-关系”"><a href="#Java-内存模型保证成立的-“HB-关系”" class="headerlink" title="Java 内存模型保证成立的 “HB 关系”"></a>Java 内存模型保证成立的 “HB 关系”</h2><blockquote>
+<ol>
+<li>Each action <strong>in a thread</strong> happens before every action in that thread that comes later in the program’s order.</li>
+<li>An unlock on a monitor happens before every subsequent lock on <strong>that same</strong> monitor.</li>
+<li>A write to a volatile field happens before every subsequent read of <strong>that same</strong> volatile.</li>
+<li>A call to start() on a thread happens before any actions in the started thread.</li>
+<li>All actions in a thread happen before any other thread successfully returns from a join() on that thread.</li>
+</ol>
+<p>— By JSR-133 FAQ</p>
+</blockquote>
+<p>在标准中描述了更多其他 Java MM 保证一定成了的 “HB 关系”, 但是 FAQ 写的这 5 条是重点.</p>
+<p>注意 “comes later”, “subsequent” 这些本身就在描述先后关系的词汇.<br>例如 “An unlock on a monitor happens before every subsequent lock on that same monitor”;<br>如果没有 HB, 可能出现以下行为:</p>
+<ul>
+<li>源代码角度看, 更前面的 unlock 的执行时间可能在更后面的 lock 执行时间之前<br>(重排序, 乱序执行等可以造成这个效果)  </li>
+<li>即使某个 unlock 的执行时间先于后面的 lock, 这个 unlock 执行结果未必对后面那个 lock 可见</li>
+</ul>
+<p>逐点解读:</p>
+<ul>
+<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了</li>
+<li>关于 2-3: 描述了 <code>lock/unlock</code> 和 <code>volatile</code> 的一部分性质; 它们完整的性质将在下文描述</li>
+<li>关于 4-5: 符合程序员对于线程行为的基本期望 </li>
+</ul>
+<h2 id="Java-内存模型提供的的基本同步工具"><a href="#Java-内存模型提供的的基本同步工具" class="headerlink" title="Java 内存模型提供的的基本同步工具"></a>Java 内存模型提供的的基本同步工具</h2><h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a><code>volatile</code></h3><p>volatile 的性质:</p>
+<ul>
+<li>保证被 <code>volatile</code> 修饰的变量的跨线程可见性 (visibility):<br>所有线程都一定能看到 volatile 共享变量上一次 (最近一次) 被写入的值</li>
+<li>Anything that was visible to thread A when it writes to volatile field f<br>becomes visible to thread B when it reads f.<br>注意, 必须是同一个 volatile 变量 (前文中都是 ‘f’), 不同的 volatile 变量是没有这样的保证的.</li>
+</ul>
+<p>关于第二点, 继续参考 HB 部分的例子. 我们可以认为, 在线程1中, 语句执行效果等价于顺序执行的效果;<br><code>this.flag = true</code> 被执行时, 前一个语句 <code>this.important_data = 15</code> 已经被执行了;<br>而且 <code>this.flag = true</code> 能看到前一个语句执行的结果.</p>
+<p>现在, 由于 <code>this.flag</code> 使用了 <code>volatile</code> 同步机制, 所以线程2也像线程1一样,<br>看到 <code>this.flag = true</code> 的结果时, 一定能看到之前的语句 <code>this.important_data = 15</code> 的结果.<br>(准确地说, 实际上 <code>volatile</code> 保证的是 “Java 保证线程2运行的效果等价于<br> 满足 ‘线程2能先看到 <code>this.important_data = 15</code> 的结果, 再看到 <code>this.flag = true</code> 的结果’ 的情况下<br> 程序的运行结果”;<br> 只要求结果等价, 不要求严格地照搬规则执行; 不把话说死, 从而就没有把优化的空间封死.<br> 如果在 <code>volatile</code> 前面的语句运行的结果 “完全无关紧要(不影响结果, totally irrelevant)”,<br> 那么实际的实现可以根本不真正去做<br> ‘让线程2能先看到 <code>this.important_data = 15</code> 的结果,  再看到 <code>this.flag = true</code>‘ 这一点)</p>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a><code>final</code></h3><p><code>final</code> 解决的问题: 早期的 JMM 中, final 的语义约束并没有现在这么强,<br>有时从其他线程观察, <code>final</code> 成员的值会发生变化, 与程序员的期望不一致.<br>就是说, “发布 (publish, 即 make visible) 对象的引用” 的指令被重排序, 提前被执行,<br>而构造函数还没有被执行完, 其他线程看到了 final 成员的 default initial value 或其他中间状态.</p>
+<p>现在的 JMM 中, 只要对象的构造 “不发生逸出”, <code>final</code> 可以保证:</p>
+<ul>
+<li>the values assigned to the final fields in the constructor will be visible to<br>all other threads without synchronization.<br>即, 只要我们能在某个线程看到对象的引用, 我们就一定能 “正确地” 看到对象的 final 域的值,<br>不需要其他同步措施.</li>
+<li>the visible values for any other object or array referenced by those final fields<br>will be at least as up-to-date as the final fields<br>即, final 域的 “正确性” 是递归地得到保证的; (例如, 假如你的类中有一个 final 数组成员,<br>你除了关心数组的引用本身的 “正确性”, 你也关心数组中的每一个元素的 “正确性”;<br>Java MM 可以保证后一点也正确.)</li>
+</ul>
+<p>补充说明: </p>
+<ul>
+<li>构造函数 “没有逸出” 的充要条件:  do not write a reference to the object being<br>constructed in a place where another thread can see it before the object’s constructor<br>is finished. (来自 java 语言标准, jls9)<br>(更多可参考 “可见性, 发布和逸出, 发布对象引用.md”)</li>
+<li>“正确地/正确性” = “up to date as of the end of the object’s constructor”, not “the latest value available”. </li>
+</ul>
+<p>(我认为 <code>final</code> 的效果也可以用类似定义 <code>volatile</code> 一样的方式定义,<br> 都是令 “inter-thread 间的 visibility 和 as-if-serial” 做到了原本<br> “intra-thread 的 visibility 和 as-if-serial”  的效果, 符合程序员的期望)</p>
+<h3 id="内部锁-intrinsic-monitor-lock-synchronized"><a href="#内部锁-intrinsic-monitor-lock-synchronized" class="headerlink" title="内部锁, intrinsic/monitor lock, synchronized"></a>内部锁, intrinsic/monitor lock, <code>synchronized</code></h3><p>intrinsic lock === monitor lock, 又被简称为 monitor.<br><code>synchronized</code> 用到的机制就是 monitor.</p>
+<p>synchronized block: 被 <code>synchronized</code> 保护的代码区域.</p>
+<p><code>synchronized</code> 的性质 &amp; 作用:</p>
+<ul>
+<li>Every object has an intrinsic lock associated with it.<br>从代码角度看, 任何 Java Object (假设名字是 <code>x</code>) 都可以使用 <code>synchronized(x) {}</code> 语句.</li>
+<li>Synchronization ensures that memory writes by a thread before<br>or during a synchronized block are made visible in a <strong>predictable</strong> manner to<br>other threads which synchronize on the <strong>same monitor</strong>.<br>不是同一个 monitor 的, 没有保证.<br>特别地, <code>synchronized (new Object()) {}</code> 可以被认为是毫无用处.<br>如何 “predictable” 在后面具体描述.</li>
+<li>After we <strong>exit a synchronized block</strong>, we <strong>release the monitor</strong>.</li>
+<li>Before we can <strong>enter a synchronized block</strong>, we <strong>acquire the monitor</strong>.</li>
+<li>A thread is said to <strong>own the intrinsic lock</strong> between the time it has<br>acquired the lock and released the lock. As long as a thread owns an intrinsic lock,<br>no other thread can acquire the same lock.<br>The other thread will <strong>block</strong> when it attempts to acquire the lock.</li>
+<li>参考 ‘Java 内存模型保证成立的 “HB 关系”‘ 部分的第一条和第二条; 由于存在这样的 HB 关系,<br>Java MM 实际上保证了:<br>Any memory operations which were visible to a thread before exiting a synchronized block are visible to any thread after it enters a synchronized block protected by the <strong>same monitor</strong>;<br>为什么:<br>All the memory operations happen before the release (被第一条保证, 这里没有跨线程),<br>and the release happens before the acquire(被第二条保证, 这里跨了线程).</li>
+</ul>
+<p>C# 定义了 <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/acquire-and-release-semantics" target="_blank" rel="external">Acquire Semantics 和 Release Semantics</a>, </p>
+<ul>
+<li>An operation has <strong>release semantics</strong> if other processors will see every preceding operation’s effect before the effect of the operation itself</li>
+<li>An operation has <strong>acquire semantics</strong> if other processors will always see its effect before any subsequent operation’s effect. </li>
+</ul>
+<p>这和前面提到的 Java 的 monitor 的 acquire 和 release 是一样的.<br>C# 是通过详细地定义 release 和 acquire 操作而不是通过 HB rule 来解释 <code>volatile</code>, <code>lock() {}</code><br>等同步工具的能力的. Java 主要通过 HB rule. 这两种渠道都是较为常见的, 都要有所了解.</p>
+<h3 id="volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”"><a href="#volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”" class="headerlink" title="volatile 和 synchronized 的经典案例: “Double-Checked Locking is Broken”"></a><code>volatile</code> 和 <code>synchronized</code> 的经典案例: “Double-Checked Locking is Broken”</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123; </div><div class="line">  <span class="keyword">private</span> Helper helper = <span class="keyword">null</span>;</div><div class="line">  <span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (helper == <span class="keyword">null</span>) </div><div class="line">      <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (helper == <span class="keyword">null</span>) </div><div class="line">          helper = <span class="keyword">new</span> Helper();</div><div class="line">      &#125;    </div><div class="line">    <span class="keyword">return</span> helper;</div><div class="line">    &#125;</div><div class="line">  <span class="comment">// other functions and members...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果 <code>helper</code> 没有 <code>volatile</code> 修饰, <strong>这段代码是错误的</strong>. 因为读取到 helper 不为空时,<br>构造函数 Helper() 未必执行完了, Java MM 不存在这样的保证.<br>除了添加 <code>volatile</code>, 也可以把整个方法变为 <code>synchronized</code>. </p>
+<p>详细讨论见 <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" target="_blank" rel="external">The “Double-Checked Locking is Broken” Declaration</a>;<br>里面更详细地讨论了种种看似聪明但不 work 的 “fix 方案”.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Memory-Model/" rel="tag"># Memory Model</a>
+          
+            <a href="/tags/Java-Memory-Model/" rel="tag"># Java Memory Model</a>
+          
+            <a href="/tags/volatile/" rel="tag"># volatile</a>
+          
+            <a href="/tags/final/" rel="tag"># final</a>
+          
+            <a href="/tags/synchronized/" rel="tag"># synchronized</a>
+          
+            <a href="/tags/happens-before/" rel="tag"># happens-before</a>
+          
+            <a href="/tags/as-if-serial/" rel="tag"># as-if-serial</a>
+          
+            <a href="/tags/data-race/" rel="tag"># data race</a>
+          
+            <a href="/tags/sequential-consistency/" rel="tag"># sequential consistency</a>
+          
+            <a href="/tags/acquire-semantics/" rel="tag"># acquire semantics</a>
+          
+            <a href="/tags/release-semantics/" rel="tag"># release semantics</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" rel="next" title="多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量">
+                <i class="fa fa-chevron-left"></i> 多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zsh同学" />
+          <p class="site-author-name" itemprop="name">zsh同学</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-参考文献"><span class="nav-number">1.</span> <span class="nav-text">前言, 参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件平台的-Memory-Model"><span class="nav-number">2.</span> <span class="nav-text">硬件平台的 Memory Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-内存模型-java-memory-model-JMM-MM-JMM"><span class="nav-number">3.</span> <span class="nav-text">java 内存模型 (java memory model(JMM), MM, JMM)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要概念"><span class="nav-number">4.</span> <span class="nav-text">重要概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-规则-Happens-Before-Order-HB-规则-HB"><span class="nav-number">4.1.</span> <span class="nav-text">happens-before 规则 (Happens-Before Order; HB 规则; HB)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程内-as-if-serial-语义-within-thread-as-if-serial-semantic"><span class="nav-number">4.2.</span> <span class="nav-text">线程内 as-if-serial 语义 (within-thread as-if-serial semantic)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据竞争-data-race-和-race-condition-不同-虽然有联系-sequential-consistency-顺序一致性"><span class="nav-number">4.3.</span> <span class="nav-text">数据竞争 data race (和 race condition 不同, 虽然有联系); sequential consistency 顺序一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序一致性-sequential-consistency-freedom-from-data-race-保证程序-predictable-的性质"><span class="nav-number">4.4.</span> <span class="nav-text">顺序一致性 sequential consistency / freedom from data race; 保证程序 predictable 的性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-内存模型的策略-as-if-serial-的进一步解释"><span class="nav-number">5.</span> <span class="nav-text">Java 内存模型的策略; as-if-serial 的进一步解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-内存模型保证成立的-“HB-关系”"><span class="nav-number">6.</span> <span class="nav-text">Java 内存模型保证成立的 “HB 关系”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-内存模型提供的的基本同步工具"><span class="nav-number">7.</span> <span class="nav-text">Java 内存模型提供的的基本同步工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">7.1.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final"><span class="nav-number">7.2.</span> <span class="nav-text">final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部锁-intrinsic-monitor-lock-synchronized"><span class="nav-number">7.3.</span> <span class="nav-text">内部锁, intrinsic/monitor lock, synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”"><span class="nav-number">7.4.</span> <span class="nav-text">volatile 和 synchronized 的经典案例: “Double-Checked Locking is Broken”</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

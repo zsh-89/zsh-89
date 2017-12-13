@@ -1,92 +1,615 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+
+
+
   
-  <title>zsh同学的笔记簿</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zsh同学的笔记簿">
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="zsh同学的笔记">
 <meta property="og:url" content="http://zsh-89.github.io/index.html">
-<meta property="og:site_name" content="zsh同学的笔记簿">
+<meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zsh同学的笔记簿">
+<meta name="twitter:title" content="zsh同学的笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/"/>
+
+
+
+
+
+  <title>zsh同学的笔记</title>
   
-    <link rel="alternate" href="/atom.xml" title="zsh同学的笔记簿" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">zsh同学的笔记簿</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zsh-89.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
   
-    <article id="post-多线程-必要性-常见问题-采纳多线程并发模型之前的考量" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" class="article-date">
-  <time datetime="2017-11-14T09:41:07.000Z" itemprop="datePublished">2017-11-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/">多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量</a>
-    </h1>
+    
   
 
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zsh同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/13/Java-内存模型-volatile-final-synchronized/" itemprop="url">Java 内存模型; volatile, final, synchronized</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:28:15+08:00">
+                2017-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="为什么需要多线程"><a href="#为什么需要多线程" class="headerlink" title="为什么需要多线程?"></a>为什么需要多线程?</h2><ul>
+      
+
+      
+        
+          
+            <h2 id="前言-参考文献"><a href="#前言-参考文献" class="headerlink" title="前言, 参考文献"></a>前言, 参考文献</h2><p>这篇东西的目的是: 做一次比较完整的严谨的调查和总结.<br>我自己这方面知识是不少的, 但不系统.</p>
+<p>于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.<br>毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;<br>但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,<br>最后重要的规则和概念会变得得面目全非.</p>
+<p>唯一拥有定义权的, 一定准确的标准文献只有 Java Language Specification 和 JVM Specification,<br>其中与 Memory Model 相关的部分的内容的前身就是 JSR133.  </p>
+<p>可惜标准文档并不自我完备, 并没有真的把事情写明白;<br>看似简要精准的定义, 其实隐含了大量信息, 关键词组/词汇的含义不明,<br>例如, “be consistent with” “predictable” 就包含了大量含义, 绝不是只看字面上的英文词汇就能明白的. </p>
+<p>我出发的原意是通过标准文档, 总结:</p>
+<ul>
+<li>足以指导我写出正确程序, 分析一切异常行为的规则</li>
+<li>重要的工具/概念 (如 volatile) 的性质, 行为</li>
+</ul>
+<p>标准文档的完备性令人不满, 所以实际的主要参考资料改为:</p>
+<ul>
+<li>JSR133 FAQ; 来自起草 JSR133 的 cs.umd.edu</li>
+<li>Java Concurrency in Practice; </li>
+</ul>
+<p>通过参考这些 “可读” 的资料反过来理解标准中种种定义的含义.</p>
+<p>所有参考资料:</p>
+<ul>
+<li>JSR133: <a href="https://jcp.org/en/jsr/detail?id=133" target="_blank" rel="external">https://jcp.org/en/jsr/detail?id=133</a><br>标准文献: Java Memory Model and Thread Specification Revision</li>
+<li>Java Language Specification (Java 语言标准文献) 其中的 Memory Model 章节</li>
+<li>JSR 133 FAQ: <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html" target="_blank" rel="external">http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html</a> </li>
+<li><a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html" target="_blank" rel="external">https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html</a></li>
+<li>Java Concurrency in Practice</li>
+<li>深入理解 Java 虚拟机, 周志明; </li>
+</ul>
+<h2 id="硬件平台的-Memory-Model"><a href="#硬件平台的-Memory-Model" class="headerlink" title="硬件平台的 Memory Model"></a>硬件平台的 Memory Model</h2><p>本质上, 任何程序代码都要变为某个硬件平台上的机器指令, 才能被执行.<br>这些机器指令是用硬件平台上的汇编语言描述的.</p>
+<p>现代的多核/多CPU架构的硬件上存在 “缓存一致性 (cache coherence)” 问题:<br>多个处理器 (核) 有各自的多级 cache, 跑在它们之上的硬件指令都涉及同一块内存时,<br>有可能出现各自的 cache 中数据不一致的情况.<br>这些问题会使得我们虽然有汇编代码, 却无法从中分析出程序的具体行为.<br>例如, 至少存在以下无法无法绕过的问题:</p>
+<ul>
+<li>某个核对内存的写指令, 何时对另一个核可见?</li>
+<li>某个核对内存的读指令, 究竟是否读到了当前最新值?</li>
+</ul>
+<p>所以说, 各个 CPU/核 对同一块内存的读的效果和写的效果, 都必须严格定义,<br>否则程序员无法通过汇编代码知道 “同时在多CPU/核上在运行的指令” 的含义/效果/行为.</p>
+<p>通过定义 “处理器 (核) 在访问缓存时都需要遵循的读写协议” 或 “内存模型” 来定义执行内存操作的效果.<br>例如, intel 就为自己的产品给出了相关定义: <a href="https://en.wikipedia.org/wiki/Intel_Memory_Model" target="_blank" rel="external">https://en.wikipedia.org/wiki/Intel_Memory_Model</a></p>
+<h2 id="java-内存模型-java-memory-model-JMM-MM-JMM"><a href="#java-内存模型-java-memory-model-JMM-MM-JMM" class="headerlink" title="java 内存模型 (java memory model(JMM), MM, JMM)"></a>java 内存模型 (java memory model(JMM), MM, JMM)</h2><p>硬件平台的汇编语言需要 memory model, 高级语言同样需要.<br>否则, 一旦涉及 “同时并发运行的多线程” 代码, 程序员就无法通过分析高级语言代码本身知道其行为.<br>如果语言标准不规定好内存模型, 那么它的多线程程序就完全没有可移植性;<br>其多线程代码的行为, 必须靠分析具体的编译器的实现和程序所在的硬件平台的内存模型才能得知.</p>
+<p>java 的内存模型是 java 程序跨平台性的保证.<br>java 是最早提供内存模型的语言; 之后, C++ 等其他语言也开始注意到内存模型的重要性, 开始完善.</p>
+<p>内存模型必须足够严格, 使得读写操作的效果不产生歧义;<br>内存模型必须足够宽松, 使得虚拟机可以自由地利用软件硬件的加速技术<br>(如 CPU 的执行乱序执行, 编译器的指令重排序, 等等).</p>
+<p>JDK 1.5 之后, java 的内存模型趋于完善.</p>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="happens-before-规则-Happens-Before-Order-HB-规则-HB"><a href="#happens-before-规则-Happens-Before-Order-HB-规则-HB" class="headerlink" title="happens-before 规则 (Happens-Before Order; HB 规则; HB)"></a>happens-before 规则 (Happens-Before Order; HB 规则; HB)</h3><p>标准中的定义: Two actions can be ordered by a happens-before relationship.<br>If one action happens-before another, then the first is visible to and ordered before the second.<br>记法: If we have two actions x and y, we write hb(x, y) to indicate that x happens-before y.</p>
+<p>为什么需要 HB 规则?<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 线程1</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.important_data = <span class="number">15</span>;</div><div class="line">    <span class="keyword">this</span>.flag = <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 线程2</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">this</span>.flag == <span class="keyword">false</span>) &#123;</div><div class="line">        Thread.yield();</div><div class="line">    &#125;</div><div class="line">    System.out.println(<span class="keyword">this</span>.important_data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>只看代码, 我们可能期望:</p>
+<ol>
+<li>在时序上, “this.important_data 的赋值” (记为 A) 先于 “this.flag 的赋值” (记为 B) 先于<br>“线程2输出 this.important_data” (记为 C)</li>
+<li>线程2在输出 this.important_data 时, 可以看到其最新的值, 即 15</li>
+</ol>
+<p>不过, 由于编译器优化和CPU硬件指令优化, A B 的时序是不确定的;<br>编译器的 “指令重拍” 可能令 B 在时序上先于 A 发生.<br>所以, 第一点期望未必成立.</p>
+<p>假设事件发生的时序确实是 A -&gt; B -&gt; C, 线程2输出的也未必是 15, 因为 A 的结果未必对 C 可见<br>(C 可能跑在另一个 CPU 核上, 其 cache 中 this.important_data 的值未必有及时得到更新).<br>所以, 第二点期望未必成立.</p>
+<p>显然, 在多线程编程中, 我们有些时候需要足够强的工具,<br>让我们能让 “代码上看起来先发生的动作确实先发生”, 而且让 “先发生的动作的结果确实地对后面的动作可见”;<br>这就是 happens-before 规则的意义.</p>
+<p>这里的例子中, 只要保证有 <code>hb(A, B)</code> 和 <code>hb(B, C)</code>, 程序的行为就能满足我们的期望.</p>
+<p>并不是任何时候都用同步工具保证 happens-before 对于每一条语句都成立,<br>这是不经济的; 对于非线程间共享的值, 或者 immutable 的值, 完全没有必要.<br>过于严格的规则相当于禁止了编译器和硬件的优化, 降低性能.</p>
+<h3 id="线程内-as-if-serial-语义-within-thread-as-if-serial-semantic"><a href="#线程内-as-if-serial-语义-within-thread-as-if-serial-semantic" class="headerlink" title="线程内 as-if-serial 语义 (within-thread as-if-serial semantic)"></a>线程内 as-if-serial 语义 (within-thread as-if-serial semantic)</h3><p>同义词:</p>
+<ul>
+<li>within-thread as-if-serial semantic (as-if-serial 语义)</li>
+<li>intra-thread semantics</li>
+</ul>
+<p>Java 语言标准保证: 在任何时候, 在一同线程内部, 一定满足 as-if-serial 语义, 即:<br>Java 编译器, JVM, 硬件可以使用一切优化手段, 包括且不限于调整语句执行顺序, 只要满足:<br>在线程内, 程序的执行效果等价于顺序执行每一个语句的结果.</p>
+<blockquote>
+<p>The compiler, runtime, and hardware are supposed to conspire to create the illusion of as-if-serial semantics, which means<br>that in a single-threaded program, the program should not be able to observe the effects of reorderings.</p>
+<p>— By JSR-133 FAQ</p>
+</blockquote>
+<p>“线程内的 as-if-serial 语义” 并不是很强的约束; 例如前面部分的例子,<br>仅看线程1, “编译器调换 A B 执行顺序” 完全符合 as-if-serial 语义;<br>但一旦考虑线程2的逻辑, “调换 A B 执行顺序” 就完全破坏了我们对代码行为的期望.</p>
+<h3 id="数据竞争-data-race-和-race-condition-不同-虽然有联系-sequential-consistency-顺序一致性"><a href="#数据竞争-data-race-和-race-condition-不同-虽然有联系-sequential-consistency-顺序一致性" class="headerlink" title="数据竞争 data race (和 race condition 不同, 虽然有联系); sequential consistency 顺序一致性"></a>数据竞争 data race (和 race condition 不同, 虽然有联系); sequential consistency 顺序一致性</h3><p>Java 标准文档中对 data race 的定义:<br>When a program contains two <strong>conflicting accesses</strong><br>(if at least one of the accesses is a write) that are not ordered by<br>a happens-before relationship, it is said to contain a data race. </p>
+<p>简单地说, 同时满足这三个条件就存在数据竞争:</p>
+<ul>
+<li>一个进程中, 2个或2个以上的线程同时访问同一块内存空间, </li>
+<li>至少一个线程执行写操作 (即存在 <strong>冲突操作</strong>),</li>
+<li>这些冲突操作 (没有通过编程语言的机制建立) HB 约束关系<br>(不那么准确的大白话: 这些冲突操作没有正确地同步)</li>
+</ul>
+<p>freedom from data race 是相当强的约束, 由于冲突操作间都有 HB 关系, 意味着:<br>对同一块内存, 每一个读操作都一定能读到前一个写操作的结果 (写可以来自包括其他线程的任意线程).</p>
+<p>sequential consistency 等价于 freedom from data race (data race free), 是同义词汇.</p>
+<h3 id="顺序一致性-sequential-consistency-freedom-from-data-race-保证程序-predictable-的性质"><a href="#顺序一致性-sequential-consistency-freedom-from-data-race-保证程序-predictable-的性质" class="headerlink" title="顺序一致性 sequential consistency / freedom from data race; 保证程序 predictable 的性质"></a>顺序一致性 sequential consistency / freedom from data race; 保证程序 predictable 的性质</h3><p>(几乎全引用自标准本身, 晦涩; 参考 <code>volatile</code> 的例子才能解读)</p>
+<p>标准中的定义 intra-thread semantics (线程内语义): </p>
+<ul>
+<li>is the semantics for single-threaded programs</li>
+<li>allow the <strong>complete prediction of the behavior</strong> of a thread<br>based on the values seen by read actions within the thread. </li>
+</ul>
+<p>标准中的定义 program order (of inter-thread actions):<br>Total order (of <strong>inter-thread</strong> / <strong>intra-thread</strong> actions)<br>that <strong>reflects</strong> the order in which these would be performed<br>according to the <strong>intra-thread</strong> semantics.</p>
+<p>标准中的定义 sequential consistency: all <strong>inter-thread actions</strong> occur in a total order<br>(the execution order) that <strong>is consistent with program order</strong>, and<br>对同一块内存, 每一个读操作都一定能读到前一个 (时间上最近的前一个) 写操作的结果<br>(写可以来自包括其他线程的任意线程).</p>
+<p>sequential consistency 等价于 freedom from data race (data race free), 是同义词汇.</p>
+<p>sequential consistency 是相当强的约束; 编写多线程程序的程序员会喜欢它,<br>但是并不能直接拿它作为一个程序语言的 MM, 因为它限制过多, 阻碍了编译器优化和CPU并发技术. </p>
+<p>标准指出: sequential consistency 虽然强, 但它 still allows errors arising<br>from groups of operations that need to be perceived atomically and are not.</p>
+<h2 id="Java-内存模型的策略-as-if-serial-的进一步解释"><a href="#Java-内存模型的策略-as-if-serial-的进一步解释" class="headerlink" title="Java 内存模型的策略; as-if-serial 的进一步解释"></a>Java 内存模型的策略; as-if-serial 的进一步解释</h2><p>Java 语言是允许出现 data race 的; Java 语言只保证 “线程内 as-if-serial 语义”.<br>如果 Java 语言标准要求 “Java 内存模型” 任何时候都满足 sequential consistency,<br>那么非常多的优化技术都不能用了, 这是不经济的.<br>Java 的做法是, 提供足够的同步工具, 让程序员可以为特定重要的代码自己实现 sequential consistency.</p>
+<p>一般未加同步的代码, 我们只能假设:<br>在线程内部, 程序运行的效果等价于一步步顺序地执行每一个语句的结果 (as-if-serial) </p>
+<p>“一步步顺序地执行 (serial)” 包括性质:</p>
+<ul>
+<li>代码中前面的语句在后面的语句之前执行, 完全按照程序代码中的顺序执行 </li>
+<li>后面的语句总是能看到前面的语句执行的结果 (线程内部的 visibility)).</li>
+</ul>
+<p>“as-if-serial” 表示程序运行起来, 从线程内部看, 就好像满足以上性质一样.</p>
+<p>回头看 HB 部分的例子,<br>我们总可以认为, 在线程1中, 语句是顺序执行的;<br><code>this.flag = true</code> 被执行时, 前一个语句已经被执行了, 而且能看到前一个语句执行的结果.<br>但是, 由于 <code>this.flag</code> 没有使用任何同步机制, 所以线程2并不能看到线程1所看到的,<br>“能否看到, 能看到什么, 以什么顺序看到” 几乎都是未定义的<br>(给编译器和硬件留下了充分的自由度, 进行指令优化).</p>
+<h2 id="Java-内存模型保证成立的-“HB-关系”"><a href="#Java-内存模型保证成立的-“HB-关系”" class="headerlink" title="Java 内存模型保证成立的 “HB 关系”"></a>Java 内存模型保证成立的 “HB 关系”</h2><blockquote>
+<ol>
+<li>Each action <strong>in a thread</strong> happens before every action in that thread that comes later in the program’s order.</li>
+<li>An unlock on a monitor happens before every subsequent lock on <strong>that same</strong> monitor.</li>
+<li>A write to a volatile field happens before every subsequent read of <strong>that same</strong> volatile.</li>
+<li>A call to start() on a thread happens before any actions in the started thread.</li>
+<li>All actions in a thread happen before any other thread successfully returns from a join() on that thread.</li>
+</ol>
+<p>— By JSR-133 FAQ</p>
+</blockquote>
+<p>在标准中描述了更多其他 Java MM 保证一定成了的 “HB 关系”, 但是 FAQ 写的这 5 条是重点.</p>
+<p>注意 “comes later”, “subsequent” 这些本身就在描述先后关系的词汇.<br>例如 “An unlock on a monitor happens before every subsequent lock on that same monitor”;<br>如果没有 HB, 可能出现以下行为:</p>
+<ul>
+<li>源代码角度看, 更前面的 unlock 的执行时间可能在更后面的 lock 执行时间之前<br>(重排序, 乱序执行等可以造成这个效果)  </li>
+<li>即使某个 unlock 的执行时间先于后面的 lock, 这个 unlock 执行结果未必对后面那个 lock 可见</li>
+</ul>
+<p>逐点解读:</p>
+<ul>
+<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了</li>
+<li>关于 2-3: 描述了 <code>lock/unlock</code> 和 <code>volatile</code> 的一部分性质; 它们完整的性质将在下文描述</li>
+<li>关于 4-5: 符合程序员对于线程行为的基本期望 </li>
+</ul>
+<h2 id="Java-内存模型提供的的基本同步工具"><a href="#Java-内存模型提供的的基本同步工具" class="headerlink" title="Java 内存模型提供的的基本同步工具"></a>Java 内存模型提供的的基本同步工具</h2><h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a><code>volatile</code></h3><p>volatile 的性质:</p>
+<ul>
+<li>保证被 <code>volatile</code> 修饰的变量的跨线程可见性 (visibility):<br>所有线程都一定能看到 volatile 共享变量上一次 (最近一次) 被写入的值</li>
+<li>Anything that was visible to thread A when it writes to volatile field f<br>becomes visible to thread B when it reads f.<br>注意, 必须是同一个 volatile 变量 (前文中都是 ‘f’), 不同的 volatile 变量是没有这样的保证的.</li>
+</ul>
+<p>关于第二点, 继续参考 HB 部分的例子. 我们可以认为, 在线程1中, 语句执行效果等价于顺序执行的效果;<br><code>this.flag = true</code> 被执行时, 前一个语句 <code>this.important_data = 15</code> 已经被执行了;<br>而且 <code>this.flag = true</code> 能看到前一个语句执行的结果.</p>
+<p>现在, 由于 <code>this.flag</code> 使用了 <code>volatile</code> 同步机制, 所以线程2也像线程1一样,<br>看到 <code>this.flag = true</code> 的结果时, 一定能看到之前的语句 <code>this.important_data = 15</code> 的结果.<br>(准确地说, 实际上 <code>volatile</code> 保证的是 “Java 保证线程2运行的效果等价于<br> 满足 ‘线程2能先看到 <code>this.important_data = 15</code> 的结果, 再看到 <code>this.flag = true</code> 的结果’ 的情况下<br> 程序的运行结果”;<br> 只要求结果等价, 不要求严格地照搬规则执行; 不把话说死, 从而就没有把优化的空间封死.<br> 如果在 <code>volatile</code> 前面的语句运行的结果 “完全无关紧要(不影响结果, totally irrelevant)”,<br> 那么实际的实现可以根本不真正去做<br> ‘让线程2能先看到 <code>this.important_data = 15</code> 的结果,  再看到 <code>this.flag = true</code>‘ 这一点)</p>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a><code>final</code></h3><p><code>final</code> 解决的问题: 早期的 JMM 中, final 的语义约束并没有现在这么强,<br>有时从其他线程观察, <code>final</code> 成员的值会发生变化, 与程序员的期望不一致.<br>就是说, “发布 (publish, 即 make visible) 对象的引用” 的指令被重排序, 提前被执行,<br>而构造函数还没有被执行完, 其他线程看到了 final 成员的 default initial value 或其他中间状态.</p>
+<p>现在的 JMM 中, 只要对象的构造 “不发生逸出”, <code>final</code> 可以保证:</p>
+<ul>
+<li>the values assigned to the final fields in the constructor will be visible to<br>all other threads without synchronization.<br>即, 只要我们能在某个线程看到对象的引用, 我们就一定能 “正确地” 看到对象的 final 域的值,<br>不需要其他同步措施.</li>
+<li>the visible values for any other object or array referenced by those final fields<br>will be at least as up-to-date as the final fields<br>即, final 域的 “正确性” 是递归地得到保证的; (例如, 假如你的类中有一个 final 数组成员,<br>你除了关心数组的引用本身的 “正确性”, 你也关心数组中的每一个元素的 “正确性”;<br>Java MM 可以保证后一点也正确.)</li>
+</ul>
+<p>补充说明: </p>
+<ul>
+<li>构造函数 “没有逸出” 的充要条件:  do not write a reference to the object being<br>constructed in a place where another thread can see it before the object’s constructor<br>is finished. (来自 java 语言标准, jls9)<br>(更多可参考 “可见性, 发布和逸出, 发布对象引用.md”)</li>
+<li>“正确地/正确性” = “up to date as of the end of the object’s constructor”, not “the latest value available”. </li>
+</ul>
+<p>(我认为 <code>final</code> 的效果也可以用类似定义 <code>volatile</code> 一样的方式定义,<br> 都是令 “inter-thread 间的 visibility 和 as-if-serial” 做到了原本<br> “intra-thread 的 visibility 和 as-if-serial”  的效果, 符合程序员的期望)</p>
+<h3 id="内部锁-intrinsic-monitor-lock-synchronized"><a href="#内部锁-intrinsic-monitor-lock-synchronized" class="headerlink" title="内部锁, intrinsic/monitor lock, synchronized"></a>内部锁, intrinsic/monitor lock, <code>synchronized</code></h3><p>intrinsic lock === monitor lock, 又被简称为 monitor.<br><code>synchronized</code> 用到的机制就是 monitor.</p>
+<p>synchronized block: 被 <code>synchronized</code> 保护的代码区域.</p>
+<p><code>synchronized</code> 的性质 &amp; 作用:</p>
+<ul>
+<li>Every object has an intrinsic lock associated with it.<br>从代码角度看, 任何 Java Object (假设名字是 <code>x</code>) 都可以使用 <code>synchronized(x) {}</code> 语句.</li>
+<li>Synchronization ensures that memory writes by a thread before<br>or during a synchronized block are made visible in a <strong>predictable</strong> manner to<br>other threads which synchronize on the <strong>same monitor</strong>.<br>不是同一个 monitor 的, 没有保证.<br>特别地, <code>synchronized (new Object()) {}</code> 可以被认为是毫无用处.<br>如何 “predictable” 在后面具体描述.</li>
+<li>After we <strong>exit a synchronized block</strong>, we <strong>release the monitor</strong>.</li>
+<li>Before we can <strong>enter a synchronized block</strong>, we <strong>acquire the monitor</strong>.</li>
+<li>A thread is said to <strong>own the intrinsic lock</strong> between the time it has<br>acquired the lock and released the lock. As long as a thread owns an intrinsic lock,<br>no other thread can acquire the same lock.<br>The other thread will <strong>block</strong> when it attempts to acquire the lock.</li>
+<li>参考 ‘Java 内存模型保证成立的 “HB 关系”‘ 部分的第一条和第二条; 由于存在这样的 HB 关系,<br>Java MM 实际上保证了:<br>Any memory operations which were visible to a thread before exiting a synchronized block are visible to any thread after it enters a synchronized block protected by the <strong>same monitor</strong>;<br>为什么:<br>All the memory operations happen before the release (被第一条保证, 这里没有跨线程),<br>and the release happens before the acquire(被第二条保证, 这里跨了线程).</li>
+</ul>
+<p>C# 定义了 <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/acquire-and-release-semantics" target="_blank" rel="external">Acquire Semantics 和 Release Semantics</a>, </p>
+<ul>
+<li>An operation has <strong>release semantics</strong> if other processors will see every preceding operation’s effect before the effect of the operation itself</li>
+<li>An operation has <strong>acquire semantics</strong> if other processors will always see its effect before any subsequent operation’s effect. </li>
+</ul>
+<p>这和前面提到的 Java 的 monitor 的 acquire 和 release 是一样的.<br>C# 是通过详细地定义 release 和 acquire 操作而不是通过 HB rule 来解释 <code>volatile</code>, <code>lock() {}</code><br>等同步工具的能力的. Java 主要通过 HB rule. 这两种渠道都是较为常见的, 都要有所了解.</p>
+<h3 id="volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”"><a href="#volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”" class="headerlink" title="volatile 和 synchronized 的经典案例: “Double-Checked Locking is Broken”"></a><code>volatile</code> 和 <code>synchronized</code> 的经典案例: “Double-Checked Locking is Broken”</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123; </div><div class="line">  <span class="keyword">private</span> Helper helper = <span class="keyword">null</span>;</div><div class="line">  <span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (helper == <span class="keyword">null</span>) </div><div class="line">      <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (helper == <span class="keyword">null</span>) </div><div class="line">          helper = <span class="keyword">new</span> Helper();</div><div class="line">      &#125;    </div><div class="line">    <span class="keyword">return</span> helper;</div><div class="line">    &#125;</div><div class="line">  <span class="comment">// other functions and members...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果 <code>helper</code> 没有 <code>volatile</code> 修饰, <strong>这段代码是错误的</strong>. 因为读取到 helper 不为空时,<br>构造函数 Helper() 未必执行完了, Java MM 不存在这样的保证.<br>除了添加 <code>volatile</code>, 也可以把整个方法变为 <code>synchronized</code>. </p>
+<p>详细讨论见 <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" target="_blank" rel="external">The “Double-Checked Locking is Broken” Declaration</a>;<br>里面更详细地讨论了种种看似聪明但不 work 的 “fix 方案”.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" itemprop="url">多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-14T17:41:07+08:00">
+                2017-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="为什么需要多线程"><a href="#为什么需要多线程" class="headerlink" title="为什么需要多线程?"></a>为什么需要多线程?</h2><ul>
 <li>单核和多核情况下, 增加程序的 responsiveness</li>
 <li>单核和多核情况下, 增加程序的 throughput</li>
 <li>充分利用多核, 多处理器的计算资源</li>
@@ -107,7 +630,8 @@
 <li>timer: 部分 timer 库会有一个 thread pool, 在 “时间到了” 等 event 触发时, 专门来跑用户指定的 callback;<br>这时候用户的 callback 将在 timer 的 threadpool 中运行</li>
 <li>GUI: GUI 库不可能让你阻塞 GUI 线程, 必须开多线程在后台负责 workload 计算</li>
 </ul>
-<h2 id="在决定用多线程模型前-需要审视…"><a href="#在决定用多线程模型前-需要审视…" class="headerlink" title="在决定用多线程模型前, 需要审视…"></a>在决定用多线程模型前, 需要审视…</h2><p>多线程本身是一种并发的模型, 未必适用于所有的问题.<br>一般来说, 如果不是写较为底层的库, 可以考虑用 Actor 模式等更加 high-level 的并发模型.<br>如果采用多线程, 那么:</p>
+<h2 id="“能不用则不用”-考虑用更好-更简单的工具"><a href="#“能不用则不用”-考虑用更好-更简单的工具" class="headerlink" title="“能不用则不用”, 考虑用更好/更简单的工具"></a>“能不用则不用”, 考虑用更好/更简单的工具</h2><p>多线程本身是诸多并发模型的一种; 在所有并发模型中, 多线程是偏底层的, 较难驾驭的;<br>而且未必适用于所有的问题.</p>
+<p>一般来说, 如果不是写较为底层的库, 可以考虑用 Actor 模式等更加 high-level 的并发模型.<br>如果采用多线程, 那么:</p>
 <ul>
 <li>看是否存在 shared state; 整理出 shared state 的清单</li>
 <li>看能否去掉不必要的 shared state</li>
@@ -117,44 +641,125 @@
 <li>最后, 开始考虑如何利用已知的 synchronization model, 及建立正确的 sync model, 利用多线程解决问题.</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" data-id="cj9zgg71e000a3jurh3eraeh4" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multithreading/">multithreading</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-Windows-Credential-Guard-简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/13/Windows-Credential-Guard-简介/" class="article-date">
-  <time datetime="2017-11-13T10:58:38.000Z" itemprop="datePublished">2017-11-13</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-Credential-Guard-简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/13/Windows-Credential-Guard-简介/">Windows Credential Guard 简介</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/13/Windows-Credential-Guard-简介/" itemprop="url">Windows Credential Guard 简介</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-13T18:58:38+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+      
+
+      
+        
+          
+            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
 <li>Credential Guard (CG): 微软提出的保护系统 credential 的机制</li>
 <li>TCB (Trusted Computing Base): 一小部分软件, 系统安全的基石, 一旦有问题整个系统安全性完蛋;<br>其他的软件都可以 misbehave, TCB 不可以. </li>
 </ul>
@@ -184,44 +789,125 @@
 <li>Defeating Pass-the-Hash-Separation-Of-Powers, win credential guards.pdf<br>幻灯片形式, 良心教程</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/11/13/Windows-Credential-Guard-简介/" data-id="cj9zgg6zw00003jurdwhzuf3l" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/credential-guard/">credential guard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-Windows-的-memory-mapped-file-简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/13/Windows-的-memory-mapped-file-简介/" class="article-date">
-  <time datetime="2017-11-13T09:59:55.000Z" itemprop="datePublished">2017-11-13</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/13/Windows-的-memory-mapped-file-简介/">Windows 的 memory-mapped file 简介</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/13/Windows-的-memory-mapped-file-简介/" itemprop="url">Windows 的 memory-mapped file 简介</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-13T17:59:55+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="what-amp-why"><a href="#what-amp-why" class="headerlink" title="what &amp; why"></a>what &amp; why</h2><p>memory-mapped file (MMF): 将一个文件映射到一个进程的 virtual memory address 中,<br>像读写一片连续的内存空间一样读写文件.</p>
+      
+
+      
+        
+          
+            <h2 id="what-amp-why"><a href="#what-amp-why" class="headerlink" title="what &amp; why"></a>what &amp; why</h2><p>memory-mapped file (MMF): 将一个文件映射到一个进程的 virtual memory address 中,<br>像读写一片连续的内存空间一样读写文件.</p>
 <h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>读写方便:<br>writing data to MMF:   <code>*p = 23</code><br>reading date from MMF: <code>x = *p</code></p>
 <p>由 virtual-memory manager (VMM) 管理, 优化 read/write 性能(减少了磁盘 I/O 的次数),<br>减少了碎片读, 碎片写带来的问题: </p>
 <ul>
@@ -256,86 +942,385 @@
 <li><a href="https://msdn.microsoft.com/en-us/library/ms810613.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/ms810613.aspx</a><br>良心文档, with good detail</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/" data-id="cj9zgg70800013jurhsb2woxz" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory-management/">memory management</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-python-工程习惯-最好不要依赖-SheBang-Line" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" class="article-date">
-  <time datetime="2017-10-16T09:39:00.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/">python 工程习惯: 最好不要依赖 SheBang Line  </a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/" itemprop="url">C# 的 SynchronizationContext: 让另一个线程执行 code 的机制</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T22:53:32+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>真实的案例.<br>一个在大部分机器工作得很好的 code, 首行是 <code>#!/usr/bin/python</code>.<br>在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了.</p>
+      
+
+      
+        
+          
+            <h2 id="了解-SynchronizationContext-有何价值"><a href="#了解-SynchronizationContext-有何价值" class="headerlink" title="了解 SynchronizationContext 有何价值"></a>了解 SynchronizationContext 有何价值</h2><p>SynchronizationContext 是 C# GUI 编程中, 实现 “令后台工作线程更新 UI” 功能的必备知识.<br>同时, <code>async/await</code> 机制也用到了 SynchronizationContext.<br>SynchronizationContext 也是理解 async/await 的预备知识.</p>
+<p>当然, 标题中的 “A 线程让 B 线程执行一段 code”指的不是<br>“A 线程创建 B 线程, 同时给 B 线程指定一个 method to run” 这样基础的东西. </p>
+<h2 id="SynchronizationContext"><a href="#SynchronizationContext" class="headerlink" title="SynchronizationContext"></a>SynchronizationContext</h2><p>拥有什么能力: “marshal code from thread A to thread B, let thread B execuate the code”.<br>解决什么问题:<br>最经典的例子: background worker thread 通过 SynchronizationContext, 让 UI 线程 update UI.<br>(Windows 上, 所有的 UI 资源只能在 UI 所在的线程执行 update, 否则程序就会崩)</p>
+<p>后台 thread 更新 UI 是非常常见而且必须的操作. 以前的办法有:<br>利用 Control.BeginInvoke (in WinForm) Dispatcher.BeginInvoke (WPF).</p>
+<p>不过, 设计上 “we never want to have a UI object reference within your bussiness layer”.<br>(有了 UI object reference 之后, bussiness layer 就和特定的 UI Object 类型绑定了, 从而对 UI 的 library 产生了依赖)</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        InitializeComponent();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">mToolStripButtonThreads_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"mToolStripButtonThreads_Click thread: "</span> + id);</div><div class="line"></div><div class="line">        <span class="comment">// 把 GUI 线程的 SynchronizationContext 拿来传递给后台工作线程</span></div><div class="line">        SynchronizationContext uiContext = SynchronizationContext.Current;</div><div class="line"></div><div class="line">        <span class="comment">// create a thread and associate it to the run method</span></div><div class="line">        Thread thread = <span class="keyword">new</span> Thread(Run);</div><div class="line">        thread.Start(uiContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"Run thread: "</span> + id);</div><div class="line"></div><div class="line">        SynchronizationContext uiContext = state <span class="keyword">as</span> SynchronizationContext;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// normally you would do some code here</span></div><div class="line">            <span class="comment">// to grab items from the database. or some long</span></div><div class="line">            <span class="comment">// computation</span></div><div class="line">            Thread.Sleep(<span class="number">10</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 利用 SynchronizationContext.Post, 使得 UpdateUI 函数在 GUI 线程得到执行</span></div><div class="line">            uiContext.Post(UpdateUI, <span class="string">"line "</span> + i.ToString());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"><span class="doctag">///</span> This method is executed on the main UI thread. 目的达成</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">UpdateUI</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"UpdateUI thread:"</span> + id);</div><div class="line">        <span class="keyword">string</span> text = state <span class="keyword">as</span> <span class="keyword">string</span>;</div><div class="line">        mListBox.Items.Add(text);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>“marshal code to another thread” 没有 “魔法”:<br>什么是 marshal: Computations often need to move data from one site to another, and don’t have any shared memory.<br>实际上, 这是 <strong>另一个 thread 主动地支持该功能</strong> 才达成的.<br>UI 的 Invoke 机制是通过 Windows message 队列(它是 thread-safe 的)来实现信息传递.</p>
+<h2 id="其他实现-“后台-worker-thread-更新-UI”-的机制"><a href="#其他实现-“后台-worker-thread-更新-UI”-的机制" class="headerlink" title="其他实现 “后台 worker thread 更新 UI” 的机制"></a>其他实现 “后台 worker thread 更新 UI” 的机制</h2><ul>
+<li>MFC: <code>SendMessage(), PostMessage()</code></li>
+<li>WinForm: <code>Control.BeginInvoke()</code></li>
+<li>WPF: <code>Dispatcher.BeginInvoke()</code></li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Understanding SynchronizationContext 三部曲; 只看的 Part-I, 已经足以理解; 后面讲如何自己实现其派生类.</p>
+<ul>
+<li><a href="http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I" target="_blank" rel="external">http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I</a></li>
+<li><a href="http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II" target="_blank" rel="external">http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II</a></li>
+<li><a href="http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III" target="_blank" rel="external">http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" itemprop="url">python 工程习惯: 最好不要依赖 SheBang Line  </a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-16T17:39:00+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>真实的案例.<br>一个在大部分机器工作得很好的 code, 首行是 <code>#!/usr/bin/python</code>.<br>在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了.</p>
 <p>单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.<br>例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 <code>$PATH</code>,<br>但是 hard code 的路径是无视 <code>$PATH</code> 的.</p>
 <p>更好的写法是: <code>#!/usr/bin/env python</code>, 这样会调用 <code>$PATH</code> 中对应的 python;<br>这相当于给用户一个主动决定使用的 python 的版本的机会.</p>
 <p>不过我觉得其实倒不如明确地注明 dependency 的版本, 不写 SheBang,<br>让用户显式地用 python 可执行文件来执行 code, 这样出问题时调试代价要低得多;<br>其实大部分时候代码并没有那么 portable.</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" data-id="cj9zgg71700083jur09np9zdj" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-kerberos-prestash-简介-自动更新-TGT-的机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" class="article-date">
-  <time datetime="2017-10-13T04:19:24.000Z" itemprop="datePublished">2017-10-13</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">kerberos pre-stash 简介: 自动更新 TGT 的机制</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" itemprop="url">kerberos pre-stash 简介: 自动更新 TGT 的机制</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T12:19:24+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
+      
+
+      
+        
+          
+            <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
 <p>解决什么问题:<br>我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.<br>所以, 需要一个定期帮助 long running service 获取和刷新 TGT.<br>当然解决方法有很多种, pre-stash 是其中一种</p>
 <p>pre-stashed tickets:<br>Used by long running client to authenticate itself to kerberized services.</p>
 <p>“pre-stashed” 这个动词的含义:<br>将 client 需要的 kerberos ticket 预先保存到某个本地的 credential file 中.</p>
@@ -355,44 +1340,125 @@
 </ul>
 <p>由于 stash file 的存在, “把 kerberos TGT 放进某文件” 这个操作常常用动词 ‘stash’ 来描述;<br>如前文所言, 由于 prestash 机制的存在, 这个操作也常常用 ‘prestash’ 来描述.</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" data-id="cj9zgg70o00043jurr2334tx9" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-kerberos-算法简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/12/kerberos-算法简介/" class="article-date">
-  <time datetime="2017-10-12T11:37:20.000Z" itemprop="datePublished">2017-10-12</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/kerberos-算法简介/">kerberos 算法简介</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/12/kerberos-算法简介/" itemprop="url">kerberos 算法简介</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T19:37:20+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Kerberos-简介"><a href="#Kerberos-简介" class="headerlink" title="Kerberos 简介"></a>Kerberos 简介</h2><ul>
+      
+
+      
+        
+          
+            <h2 id="Kerberos-简介"><a href="#Kerberos-简介" class="headerlink" title="Kerberos 简介"></a>Kerberos 简介</h2><ul>
 <li>它是 authentication protocol, 只管认证, 不管授权(authorization).</li>
 <li>可以实现单点登录 (single sign-on authentication), 一个密码, 认证所有 service.</li>
 <li>work over untrusted networks.</li>
@@ -442,291 +1508,580 @@
 <li><a href="https://msdn.microsoft.com/en-us/library/bb742516.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/bb742516.aspx</a> kerberos explained 重点分明, 把核心介绍得清楚, 略去不少细节</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/" data-id="cj9zgg70z00053jurri9jf9lg" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/authentication/">authentication</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-使用-hexo-建立-github-io-个人-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/" class="article-date">
-  <time datetime="2017-08-14T08:28:01.000Z" itemprop="datePublished">2017-08-14</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/">使用 hexo 建立 github.io 个人 blog</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/14/使用-hexo-建立-github-io-个人-blog/" itemprop="url">使用 hexo 建立 github.io 个人 blog</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-14T16:28:01+08:00">
+                2017-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="背景-amp-准备"><a href="#背景-amp-准备" class="headerlink" title="背景 &amp; 准备"></a>背景 &amp; 准备</h2><p>把个人 blog 放在 github.io 上已经是现在的主流了.<br>先根据 <a href="https://pages.github.com/" target="_blank" rel="external">这里</a> 的指南建立属于你的 <code>username.github.io</code> 主页.</p>
+      
+
+      
+        
+          
+            <h2 id="背景-amp-准备"><a href="#背景-amp-准备" class="headerlink" title="背景 &amp; 准备"></a>背景 &amp; 准备</h2><p>把个人 blog 放在 github.io 上已经是现在的主流了.<br>先根据 <a href="https://pages.github.com/" target="_blank" rel="external">这里</a> 的指南建立属于你的 <code>username.github.io</code> 主页.</p>
 <p>接着, 为什么用 hexo?</p>
 <ul>
 <li>第一, 够用, 很强. </li>
 <li>第二, 比起 “官方钦定” 的 jekyll, hexo 是纯基于 node.js 的工具, 不需要 ruby. 相信会成为未来的主流.</li>
 </ul>
 <p>生活在墙内的朋友, 先配置好 <a href="https://npm.taobao.org" target="_blank" rel="external">cnpm</a>.<br>之后的命令中, 我都使用了 <code>cnpm</code>; 如果是墙外的朋友直接用 <code>npm</code> 即可. </p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>hexo 官网: <a href="https://hexo.io" target="_blank" rel="external">https://hexo.io</a></li>
+<li>Next 主题官方文档: <a href="http://theme-next.iissnan.com" target="_blank" rel="external">http://theme-next.iissnan.com</a></li>
+</ul>
 <h2 id="hexo-安装-创建-blog-project"><a href="#hexo-安装-创建-blog-project" class="headerlink" title="hexo 安装; 创建 blog project"></a>hexo 安装; 创建 blog project</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install hexo-cli -g</div><div class="line"></div><div class="line"><span class="comment">## 创建 blog project</span></div><div class="line">hexo init my-blog</div><div class="line"><span class="built_in">cd</span> my-blog</div><div class="line">cnpm install</div></pre></td></tr></table></figure>
-<h2 id="安装配置-next-theme"><a href="#安装配置-next-theme" class="headerlink" title="安装配置 next theme"></a>安装配置 next theme</h2><p>(更新: 这个 theme 并不稳定, 已弃坑. 用回 hexo 默认的 theme 了)</p>
-<p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure></p>
-<p>在 <code>_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">theme:</span> <span class="string">next</span></div><div class="line"><span class="attr">scheme:</span> <span class="string">Mist</span>   <span class="comment">## 参考 hexo-theme-next 的文档</span></div></pre></td></tr></table></figure></p>
+<h2 id="安装配置-next-theme"><a href="#安装配置-next-theme" class="headerlink" title="安装配置 next theme"></a>安装配置 next theme</h2><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure></p>
+<p>在 <code>_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">theme:</span> <span class="string">next</span></div></pre></td></tr></table></figure></p>
+<p>在 <code>themes/next/_config.yml</code> 中配置:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 选取 next 主题中的 Gemini 风格; 此步可以跳过</span></div><div class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span>   <span class="comment">## 在编辑器搜索相关字眼, 并且把原来的配置注释掉</span></div></pre></td></tr></table></figure></p>
+<p>注意, 不要混淆 next 主题的配置文件 (<code>themes/next/_config.yml</code>) 和 hexo 的配置文件 (直接就在 my-blog 目录下 的<code>_config.yml</code>).<br>更多关于 next 主题参考 <a href="http://theme-next.iissnan.com" target="_blank" rel="external">Next 主题官方文档</a>.</p>
 <h3 id="为-next-theme-创建-tags-页面"><a href="#为-next-theme-创建-tags-页面" class="headerlink" title="为 next theme 创建 tags 页面"></a>为 next theme 创建 tags 页面</h3><p>执行:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cnpm install hexo-generator-tag --save</div><div class="line">hexo new page <span class="string">"tags"</span></div></pre></td></tr></table></figure></p>
 <p>在 <code>source/tags/index.md</code> 中填入:<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: Tags</div><div class="line">date: 2016-12-22 12:39:04</div><div class="line">type: "tags"</div><div class="line">---</div></pre></td></tr></table></figure></p>
+<p>配置 blog 的页面, 在  <code>themes/next/_config.yml</code> menu 配置项就增加 <code>tags</code> 页:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">menu:</span></div><div class="line"><span class="attr">  home:</span> <span class="string">/</span></div><div class="line"><span class="attr">  archives:</span> <span class="string">/archives</span></div><div class="line"><span class="attr">  tags:</span> <span class="string">/tags</span></div><div class="line">  <span class="comment">## about: /about  </span></div><div class="line">    <span class="comment">## hexo 也支持 about 页面; 创建方式和创建 tags 页面相同; </span></div><div class="line">    <span class="comment">## 不过 about 页面对应的 index.md 里面可以写正文</span></div></pre></td></tr></table></figure></p>
 <h2 id="配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页"><a href="#配置-hexo-deploy-的行为-自动-deploy-到个人-github-io-主页" class="headerlink" title="配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页"></a>配置 hexo deploy 的行为: 自动 deploy 到个人 github.io 主页</h2><p>安装工具: <code>cnpm install hexo-deployer-git --save</code></p>
 <p>在 <code>_config.yml</code> 中配置:</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/zsh-89/zsh-89.github.io.git</span>  </div><div class="line">    <span class="comment">## 换成你的 github.io repo 地址</span></div><div class="line"><span class="attr">  branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure>
 <h2 id="hexo-基本命令"><a href="#hexo-基本命令" class="headerlink" title="hexo 基本命令"></a>hexo 基本命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">hexo new <span class="string">"My New Post"</span>  <span class="comment">## [Writing](https://hexo.io/docs/writing.html)</span></div><div class="line">hexo server             <span class="comment">## [Server](https://hexo.io/docs/server.html)</span></div><div class="line">                        <span class="comment">## 开启 local http server. 查看效果</span></div><div class="line">hexo generate           <span class="comment">## [Generating](https://hexo.io/docs/generating.html)</span></div><div class="line">hexo deploy             <span class="comment">## [Deployment](https://hexo.io/docs/deployment.html)</span></div><div class="line"></div><div class="line"><span class="comment">## gen + deploy</span></div><div class="line">hexo generate --deploy</div><div class="line">hexo gen --deploy</div><div class="line">hexo deploy --generate</div></pre></td></tr></table></figure>
-<h2 id="Next"><a href="#Next" class="headerlink" title="Next?"></a>Next?</h2><ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><ul>
 <li>推荐将 blog 的项目作为一个 git repo 管理, 参考: <a href="https://github.com/zsh-89/zsh-blog-src" target="_blank" rel="external">https://github.com/zsh-89/zsh-blog-src</a></li>
-<li>考虑用 <a href="http://zsh-89.github.io/2017/08/10/git-submodule-%E9%85%8D%E7%BD%AE%E6%9F%A5%E7%9C%8B-submodule-%E7%9A%84%E5%85%B7%E4%BD%93%E7%89%88%E6%9C%AC/">git submodule</a> 管理 blog 项目和第三方 theme repo 之间的关系</li>
+<li>由于需要修改 theme/next 下的内容才能对 next 主题进行配置, 不推荐将 next theme 作为 git submodule 进行管理</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/" data-id="cj9zgg71300073juru37ptgtj" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-git-submodule-配置查看-submodule-的具体版本" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" class="article-date">
-  <time datetime="2017-08-10T02:57:53.000Z" itemprop="datePublished">2017-08-10</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">git submodule: 配置查看 submodule 的具体版本</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" itemprop="url">git submodule: 配置查看 submodule 的具体版本</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-10T10:57:53+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>git submodule 存在的价值, 基本的教程可以查看<a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="external">这里</a>.<br>比较遗憾的是, 目前看到的教程都没有说清: </p>
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>git submodule 存在的价值, 基本的教程可以查看<a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="external">这里</a>.<br>比较遗憾的是, 目前看到的教程都没有说清: </p>
 <ul>
 <li>如何配置 submodule 的具体版本 (具体哪一个 commit)</li>
 <li>在哪里查看当前的配置信息</li>
 </ul>
 <p>某个<a href="https://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tag" target="_blank" rel="external">stackoverflow 回答(第二个回答)</a>提供了完全错误的信息.</p>
 <h2 id="为什么需要配置-submodule-的具体版本-commit-sha-1"><a href="#为什么需要配置-submodule-的具体版本-commit-sha-1" class="headerlink" title="为什么需要配置 submodule 的具体版本 ( commit sha-1 )"></a>为什么需要配置 submodule 的具体版本 ( commit sha-1 )</h2><p>从工程的角度看, 配置主项目的 submodule 时,<br>我们必然是将主 git 项目和 dependency git 项目的某个 stable release 版本关联在一起;<br>毕竟我们所有的测试都是针对特定版本的; 和版本 1 一起工作良好, 换版本 2 可能编译都不通过.</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>以 “个人 blog” 作为实例.<br>可以在 <a href="https://github.com/zsh-89/zsh-blog-src" target="_blank" rel="external">这里</a> 看到我的个人 blog 的源码; 可以看到 themes/next 关联到了另一个 git repo.</p>
-<p>第一次用 <code>git submodule add https://github.com/iissnan/hexo-theme-next.git themes/next</code> 命令添加 submodule 时,<br>命令帮我们将 hexo-theme-next.git 的 master branch 的最新版本 (假设这个版本的 commit sha-1 是 123456) checkout 到本地.<br>这时, 我们如果直接 commit 主 project,<br>git 就 <strong>隐式地指定了</strong> 主 project 采用 hexo-theme-next.git project 中 123456 这个 commit 版本作为 submodule (在 github Web 上可以看到 track 的 sha-1).</p>
-<p>“submodule 的版本的 sha-1” 可以在进入 “themes/next” 文件夹后, 运行 <code>git rev-parse HEAD</code> 查看; 也可以通过 <code>git status</code> 查看状态;<br>可以看到, 这个目录相当于是一个独立的 git repo 目录.</p>
-<p>如果不希望主 project 使用 subproject 的 master branch 的最新版,<br>可以在 <code>git submodule add</code> 之后,<br>进入 submodule 目录 (这里例子里, 是 themes/next 目录), 手动 checkout 到希望使用的版本 (如 <code>git checkout tags/&lt;some_stable_release&gt;</code>), 再 commit.</p>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><p><code>git submodule add &lt;git repo URL&gt;  &lt;submodule folder&gt;</code> 命令添加 submodule.</p>
+<p>进入 submodule 对应的文件夹后, 运行 <code>git rev-parse HEAD</code> 查看 “submodule 的版本的 sha-1”;<br>也可以通过 <code>git status</code> 查看状态;</p>
+<p>submodule 对应的文件夹相当于是一个独立的 git repo 目录.</p>
+<p>如果不希望主 project 使用 subproject 的 master branch 的最新版,<br>可以在 <code>git submodule add</code> 之后,<br>进入 submodule 目录, 手动 checkout 到希望使用的版本 (如 <code>git checkout tags/&lt;some_stable_release&gt;</code>),<br>再在主 project 中 commit.</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" data-id="cj9zgg70l00033jurr366x84h" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-submodule/">git submodule</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+  </section>
 
   
-    <article id="post-实现权限分配遇到的算法问题-简化的-set-cover-problem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" class="article-date">
-  <time datetime="2017-07-17T14:20:55.000Z" itemprop="datePublished">2017-07-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
         
+          
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">实现权限分配遇到的算法问题: 简化的 set cover problem</a>
-    </h1>
-  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
 
-      </header>
+  <aside id="sidebar" class="sidebar">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.<br>最后列出的 code 是 <a href="https://github.com/feizhengyang" target="_blank" rel="external">zhengyang 同学</a> 的实现方式的剪裁版 (已得到授权 ;D).<br>跟公司相关的信息都已经去掉.</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>每一个 <code>HighLevelRole</code> 拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;<br>每一个 <code>RawRole</code> 也拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;</p>
-<p>现在, 需要把一个 <code>HighLevelRole</code> 的集合 (记为 A) 转换成一个 <code>RawRole</code> 的集合 (记为 B);<br>要求:</p>
-<ol>
-<li>B 的所有元素的并集 == A 的所有元素的并集; 即 A 和 B 拥有的 <code>Activity</code> 不变多也不变少</li>
-<li>B 不能包含冗余的 <code>RawRole</code> 元素;<br>即结果集合中每一个 <code>RawRole</code> 都至少应该拥有一个集合中其他 <code>RawRole</code> 没有的 <code>Activity</code></li>
-</ol>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>正如标题所说的, 这个问题有那么一点像 <a href="https://en.wikipedia.org/wiki/Set_cover_problem" target="_blank" rel="external">set cover problem</a>;<br>如果问题要求结果的集合 B 的元素个数 <code>最小</code>, 那么该问题就是 set cover problem.<br>好在原始问题只要求 <code>无冗余</code>, 而不要求 <code>最小</code>.</p>
-<p>思路:</p>
-<ol>
-<li>求出 A 的所有元素的并集, 结果是 Activity 的集合, 记为 <code>actSet</code></li>
-<li>用 <code>actSet</code> 的每一个元素对全部的 RawRole 进行染色; <ul>
-<li>RawRole 为黑色 = RawRole 包含的所有 Activity 都在 <code>actSet</code> 中出现;</li>
-<li>RawRole 为灰色 = RawRole 包含的部分 Activity 在 <code>actSet</code> 中出现, 但并非全都在 <code>actSet</code> 中出现;</li>
-<li>RawRole 为白色 = RawRole 包含的所有 Activity 都不在 <code>actSet</code> 中出现</li>
-</ul>
-</li>
-<li>将所有黑色的 RawRole 留下, 得到一个都是黑色的 RawRole 集合, 记为 <code>roleList</code><br>(这时候可以验证一下 <code>roleList</code> 包含的 Activity 集合是不是等于 <code>actSet</code>; 若不等, 说明无法找到满足要求的解)</li>
-<li>用一个 dictionary (记为 <code>actTable</code>), 记录 <code>roleList</code> 包含的每个 Activity 出现的次数 (遍历 <code>roleList</code> 即可算出);<br>dictionary 的 Key 是 Activity, Value 是 “出现的次数” 的 counter.</li>
-<li>逐个尝试从 <code>roleList</code> 中去掉一个 RawRole.<br>如果某一个 RawRole 的每一个 Activity 在 <code>actTable</code> 中的 counter 都 &gt; 1, 说明这个 RawRole 是冗余的;<br>去掉这个 RawRole, 并在 <code>actTable</code> 中把它包含的 Activity 的 counter 都减 1.</li>
-</ol>
-<p>这样得到的结果, 它包含的元素个数不会是最少的, 但是已经符合需求.</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 仅供参考, 省去了一些 edge case 判断.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// rawRoleActMappings: 定义了每个 RawRole 和它对应的 Acttivity 集合</span></div><div class="line"><span class="comment">// actSet: 就是前面提到 actSet. 假设已经这项计算完成.</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">CalcRawRoles</span>(<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    Dictionary&lt;<span class="keyword">string</span>, HashSet&lt;<span class="keyword">string</span>&gt;&gt; rawRoleActMappings, </span></span></div><div class="line"><span class="function"><span class="params">    HashSet&lt;<span class="keyword">string</span>&gt; actSet</span></span></div><div class="line"><span class="function"><span class="params"></span>)</span></div><div class="line"><span class="function"></span>&#123;   </div><div class="line">    List&lt;<span class="keyword">string</span>&gt; roleList = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; actTable = actSet.ToDictionary(</div><div class="line">        act =&gt; act, act =&gt; <span class="number">0</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="comment">// C# 大法好: IsSuperSetOf 就迅速完成 '染色' 过程... </span></div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> roleActMap <span class="keyword">in</span> rawRoleActMappings.Where(</div><div class="line">        roleActMap =&gt; actSet.IsSuperSetOf(roleActMap))</div><div class="line">    ) </div><div class="line">    &#123;</div><div class="line">        roleList.Add(roleActMap.Key);</div><div class="line">        roleActMap.Value.ForEach(act =&gt; actTable[act]++);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    List&lt;<span class="keyword">string</span>&gt; resultRoles = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> role <span class="keyword">in</span> roleList.OrderBy(</div><div class="line">        roleName =&gt; rawRoleActMappings[roleName].Count).ToList()</div><div class="line">    )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (rawRoleActMappings[role].All(act =&gt; actTable[act]&gt;<span class="number">1</span>))</div><div class="line">            rawRoleActMappings[role].ForEach(act =&gt; actTable[act]--);</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            resultRoles.Add(role);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> resultRoles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    <div class="sidebar-inner">
 
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" data-id="cj9zgg71h000b3jurhls35o8l" class="article-share-link">Partager</a>
+
       
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zsh同学" />
+          <p class="site-author-name" itemprop="name">zsh同学</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
+      
 
-
-  
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/authentication/">authentication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/best-practice/">best practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/credential-guard/">credential guard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-submodule/">git submodule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-个人-blog/">github.io 个人 blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kerberos/">kerberos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory-management/">memory management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory-mapped-file/">memory-mapped file</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multithreading/">multithreading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pre-stash/">pre-stash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set-cover-problem/">set cover problem</a></li></ul>
     </div>
-  </div>
+  </aside>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/algorithm/" style="font-size: 15px;">algorithm</a> <a href="/tags/authentication/" style="font-size: 10px;">authentication</a> <a href="/tags/best-practice/" style="font-size: 10px;">best practice</a> <a href="/tags/credential-guard/" style="font-size: 10px;">credential guard</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-submodule/" style="font-size: 10px;">git submodule</a> <a href="/tags/github-io-个人-blog/" style="font-size: 10px;">github.io 个人 blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kerberos/" style="font-size: 15px;">kerberos</a> <a href="/tags/memory-management/" style="font-size: 10px;">memory management</a> <a href="/tags/memory-mapped-file/" style="font-size: 10px;">memory-mapped file</a> <a href="/tags/multithreading/" style="font-size: 10px;">multithreading</a> <a href="/tags/pre-stash/" style="font-size: 10px;">pre-stash</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/security/" style="font-size: 20px;">security</a> <a href="/tags/set-cover-problem/" style="font-size: 10px;">set cover problem</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/">多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/13/Windows-Credential-Guard-简介/">Windows Credential Guard 简介</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/13/Windows-的-memory-mapped-file-简介/">Windows 的 memory-mapped file 简介</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/">python 工程习惯: 最好不要依赖 SheBang Line  </a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">kerberos pre-stash 简介: 自动更新 TGT 的机制</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 zsh同学<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-</nav>
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

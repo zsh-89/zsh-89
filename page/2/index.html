@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="zsh同学的笔记">
+<meta property="og:url" content="http://zsh-89.github.io/page/2/index.html">
+<meta property="og:site_name" content="zsh同学的笔记">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zsh同学的笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/page/2/"/>
+
+
+
+
+
+  <title>zsh同学的笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zsh同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/" itemprop="url">实现权限分配遇到的算法问题: 简化的 set cover problem</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-17T22:20:55+08:00">
+                2017-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>小组项目遇到的一个 “有点算法性质” 的问题, 最后用了我想的方法, 比较开心.<br>最后列出的 code 是 <a href="https://github.com/feizhengyang" target="_blank" rel="external">zhengyang 同学</a> 的实现方式的剪裁版 (已得到授权 ;D).<br>跟公司相关的信息都已经去掉.</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>每一个 <code>HighLevelRole</code> 拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;<br>每一个 <code>RawRole</code> 也拥有大于等于 1 个的, 能合法执行的 <code>Activity</code>;</p>
+<p>现在, 需要把一个 <code>HighLevelRole</code> 的集合 (记为 A) 转换成一个 <code>RawRole</code> 的集合 (记为 B);<br>要求:</p>
+<ol>
+<li>B 的所有元素的并集 == A 的所有元素的并集; 即 A 和 B 拥有的 <code>Activity</code> 不变多也不变少</li>
+<li>B 不能包含冗余的 <code>RawRole</code> 元素;<br>即结果集合中每一个 <code>RawRole</code> 都至少应该拥有一个集合中其他 <code>RawRole</code> 没有的 <code>Activity</code></li>
+</ol>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>正如标题所说的, 这个问题有那么一点像 <a href="https://en.wikipedia.org/wiki/Set_cover_problem" target="_blank" rel="external">set cover problem</a>;<br>如果问题要求结果的集合 B 的元素个数 <code>最小</code>, 那么该问题就是 set cover problem.<br>好在原始问题只要求 <code>无冗余</code>, 而不要求 <code>最小</code>.</p>
+<p>思路:</p>
+<ol>
+<li>求出 A 的所有元素的并集, 结果是 Activity 的集合, 记为 <code>actSet</code></li>
+<li>用 <code>actSet</code> 的每一个元素对全部的 RawRole 进行染色; <ul>
+<li>RawRole 为黑色 = RawRole 包含的所有 Activity 都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为灰色 = RawRole 包含的部分 Activity 在 <code>actSet</code> 中出现, 但并非全都在 <code>actSet</code> 中出现;</li>
+<li>RawRole 为白色 = RawRole 包含的所有 Activity 都不在 <code>actSet</code> 中出现</li>
+</ul>
+</li>
+<li>将所有黑色的 RawRole 留下, 得到一个都是黑色的 RawRole 集合, 记为 <code>roleList</code><br>(这时候可以验证一下 <code>roleList</code> 包含的 Activity 集合是不是等于 <code>actSet</code>; 若不等, 说明无法找到满足要求的解)</li>
+<li>用一个 dictionary (记为 <code>actTable</code>), 记录 <code>roleList</code> 包含的每个 Activity 出现的次数 (遍历 <code>roleList</code> 即可算出);<br>dictionary 的 Key 是 Activity, Value 是 “出现的次数” 的 counter.</li>
+<li>逐个尝试从 <code>roleList</code> 中去掉一个 RawRole.<br>如果某一个 RawRole 的每一个 Activity 在 <code>actTable</code> 中的 counter 都 &gt; 1, 说明这个 RawRole 是冗余的;<br>去掉这个 RawRole, 并在 <code>actTable</code> 中把它包含的 Activity 的 counter 都减 1.</li>
+</ol>
+<p>这样得到的结果, 它包含的元素个数不会是最少的, 但是已经符合需求.</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 仅供参考, 省去了一些 edge case 判断.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// rawRoleActMappings: 定义了每个 RawRole 和它对应的 Acttivity 集合</span></div><div class="line"><span class="comment">// actSet: 就是前面提到 actSet. 假设已经这项计算完成.</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">CalcRawRoles</span>(<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    Dictionary&lt;<span class="keyword">string</span>, HashSet&lt;<span class="keyword">string</span>&gt;&gt; rawRoleActMappings, </span></span></div><div class="line"><span class="function"><span class="params">    HashSet&lt;<span class="keyword">string</span>&gt; actSet</span></span></div><div class="line"><span class="function"><span class="params"></span>)</span></div><div class="line"><span class="function"></span>&#123;   </div><div class="line">    List&lt;<span class="keyword">string</span>&gt; roleList = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; actTable = actSet.ToDictionary(</div><div class="line">        act =&gt; act, act =&gt; <span class="number">0</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="comment">// C# 大法好: IsSuperSetOf 就迅速完成 '染色' 过程... </span></div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> roleActMap <span class="keyword">in</span> rawRoleActMappings.Where(</div><div class="line">        roleActMap =&gt; actSet.IsSuperSetOf(roleActMap))</div><div class="line">    ) </div><div class="line">    &#123;</div><div class="line">        roleList.Add(roleActMap.Key);</div><div class="line">        roleActMap.Value.ForEach(act =&gt; actTable[act]++);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    List&lt;<span class="keyword">string</span>&gt; resultRoles = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> role <span class="keyword">in</span> roleList.OrderBy(</div><div class="line">        roleName =&gt; rawRoleActMappings[roleName].Count).ToList()</div><div class="line">    )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (rawRoleActMappings[role].All(act =&gt; actTable[act]&gt;<span class="number">1</span>))</div><div class="line">            rawRoleActMappings[role].ForEach(act =&gt; actTable[act]--);</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            resultRoles.Add(role);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> resultRoles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zsh同学" />
+          <p class="site-author-name" itemprop="name">zsh同学</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
