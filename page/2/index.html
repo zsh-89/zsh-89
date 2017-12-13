@@ -270,6 +270,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zsh同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/10/git-submodule-配置查看-submodule-的具体版本/" itemprop="url">git submodule: 配置查看 submodule 的具体版本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-10T10:57:53+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>git submodule 存在的价值, 基本的教程可以查看<a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="external">这里</a>.<br>比较遗憾的是, 目前看到的教程都没有说清: </p>
+<ul>
+<li>如何配置 submodule 的具体版本 (具体哪一个 commit)</li>
+<li>在哪里查看当前的配置信息</li>
+</ul>
+<p>某个<a href="https://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tag" target="_blank" rel="external">stackoverflow 回答(第二个回答)</a>提供了完全错误的信息.</p>
+<h2 id="为什么需要配置-submodule-的具体版本-commit-sha-1"><a href="#为什么需要配置-submodule-的具体版本-commit-sha-1" class="headerlink" title="为什么需要配置 submodule 的具体版本 ( commit sha-1 )"></a>为什么需要配置 submodule 的具体版本 ( commit sha-1 )</h2><p>从工程的角度看, 配置主项目的 submodule 时,<br>我们必然是将主 git 项目和 dependency git 项目的某个 stable release 版本关联在一起;<br>毕竟我们所有的测试都是针对特定版本的; 和版本 1 一起工作良好, 换版本 2 可能编译都不通过.</p>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><p><code>git submodule add &lt;git repo URL&gt;  &lt;submodule folder&gt;</code> 命令添加 submodule.</p>
+<p>进入 submodule 对应的文件夹后, 运行 <code>git rev-parse HEAD</code> 查看 “submodule 的版本的 sha-1”;<br>也可以通过 <code>git status</code> 查看状态;</p>
+<p>submodule 对应的文件夹相当于是一个独立的 git repo 目录.</p>
+<p>如果不希望主 project 使用 subproject 的 master branch 的最新版,<br>可以在 <code>git submodule add</code> 之后,<br>进入 submodule 目录, 手动 checkout 到希望使用的版本 (如 <code>git checkout tags/&lt;some_stable_release&gt;</code>),<br>再在主 project 中 commit.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -449,7 +579,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -462,7 +592,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
