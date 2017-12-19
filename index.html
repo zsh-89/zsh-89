@@ -344,8 +344,9 @@
             <h2 id="线程封闭-Thread-Confinement"><a href="#线程封闭-Thread-Confinement" class="headerlink" title="线程封闭 (Thread Confinement)"></a>线程封闭 (Thread Confinement)</h2><p>线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.<br>让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”.</p>
 <p>线程封闭常见类型:</p>
 <ul>
-<li>Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框架上的辅助</li>
+<li>Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框架上的辅助;<br>在文档中注明, 否则接手代码的工程师会在无意中使得原本封闭在线程中的对象逸出;</li>
 <li>栈封闭 (Stack Confinement): 多用局部变量, 让尽可能多的对象的引用不超出局部作用域</li>
+<li>使用 <code>volatile</code> 变量作为共享状态, 把写操作限定在一个线程内部;</li>
 <li>Java/C# 的 ThreadLocal 类, 语言的库/机制提供的 per Thread 的对象存储; </li>
 <li>单线程子系统 (single-threaded subsystem)</li>
 </ul>
@@ -498,11 +499,12 @@
 <h2 id="“可见性”-问题的根源"><a href="#“可见性”-问题的根源" class="headerlink" title="“可见性” 问题的根源"></a>“可见性” 问题的根源</h2><p>‘可见性问题’ 和 ‘发布问题’ 是 “多核架构”, “多 CPU 架构”, “操作的多线程机制”,<br>“编译器优化对指令进行重排序 (Instruction Reorder)”, “存储器的层次架构 (存在多层次的 cache)”,<br>“CPU 指令级并行技术, 特别是同时发射执行多条指令技术, 指令乱序执行 (out-of-order execution)” 的副产品.</p>
 <p>“线程” 对于编译器是不可见的; 编译器看不到 “线程”;<br>编译器保证优化前后, 代码的功能性在单线程的情况下等价, 但是可能在多线程情况下就不等价了;<br>例如前面的例子中, <code>shouldStop</code> 和 <code>number</code> 的修改顺序, 在单线程情况下, 完全可以任意改变.</p>
 <p>即使编译器没有做调整, 现代的 CPU 同时发射多条指令, 也会导致同样的问题.<br>CPU 不知道哪些变量是特殊的, 哪些不是.</p>
-<h2 id="安全发布引用的方法"><a href="#安全发布引用的方法" class="headerlink" title="安全发布引用的方法"></a>安全发布引用的方法</h2><ul>
+<h2 id="安全发布引用的方法"><a href="#安全发布引用的方法" class="headerlink" title="安全发布引用的方法"></a>安全发布引用的方法</h2><p>一切安全发布能成功的前提都是 “对象被正确构造” (即, 不发生 “逸出”); 否则绝无可能成功.</p>
+<ul>
 <li>Java 的静态初始化, 如 <code>public static Holder h = new Holder(10)</code>, 由 JVM 保证正确性</li>
 <li>让引用成为某个类的 <code>final</code> 成员; 且成员所在的类没有 this 逸出.<br>早期的 java 内存模型中, 在另一个线程访问 final 成员,<br>可能会看到初始化完毕 (构造函数执行完毕) 之前的值;<br>(例如, 对于 int 类型成员, 可能一次看到的值是 0, 另一次看到的是在构造函数中赋予的值).<br>现在, 其他线程看到的一定是 <code>final</code> 成员构造函数执行完毕之后的值.</li>
 <li>让引用成为某个类的 <code>volatile</code> 成员; 或使用 <code>AtomicReference</code></li>
-<li>让引用成为某个类的成员, 并且用 <code>synchronized</code> 等锁将 “操作/读取该成员” 的代码保护起来</li>
+<li>让引用成为某个类的成员, 并且用 <code>synchronized</code> 等锁将所有 “操作/读写该成员” 的代码保护起来</li>
 <li>利用其他现有的并发库/框架.<br>如, 放入线程安全的容器中, 如 java 的 <code>ConcurrentHashMap</code>, <code>Hashtable</code>, <code>synchronizedMap</code>,<br><code>synchronizedList</code>, <code>Vector</code>, <code>CopyOnWriteArrayList</code>, <code>CopyOnWriteArraySet</code>,<br><code>synchronizedSet</code>, <code>BlockingQueue</code>, <code>ConcurrentLinkedQueue</code>, 再通过容器访问</li>
 </ul>
 <h2 id="immutable-对象发布"><a href="#immutable-对象发布" class="headerlink" title="immutable 对象发布"></a>immutable 对象发布</h2><p>‘不可变’ (immutable) 存在两种情况; 根据语境, immutable 可能指以下两者的一种或全部:</p>
@@ -515,16 +517,19 @@
 </li>
 <li>逻辑上不可变: 或者称为 ‘事实上不可变 (effectively immutable)’;<br>即没有严格地使用编程语言 feature 加以硬性控制, 但是本身被正确地构造, 且从不被修改的变量</li>
 </ul>
-<p>真正的 immutable 对象可以用任意方式发布.<br>“事实 immutable 对象” 必须用安全的方式发布.</p>
-<h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布.</p>
-<p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 即可. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
+<p>真正的 immutable 对象, 一旦它的引用对某个线程可见, 它的所有成员的值都能被 “正确地” 读取到.<br>(‘正确’ 的含义: 所有的成员都被构造完毕了, 不会读取到未构造完毕的状态.<br> 这是由 <code>final</code> 的性质保证的; 参见 “内存模型” 笔记); </p>
+<p>“真正的 immutable 对象” 和 “事实 immutable 对象” 都必须用安全的方式发布.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</p>
+<p>immutable 对象一旦被正确发布, 就是线程安全的.</p>
+<h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布. 如果跨线程共享的 mutable 对象没有被安全发布, 代码 <strong>一定有错</strong>. </p>
+<p>通常来说, 需要用到多线程共享 mutable 对象时, 我们 <strong>几乎不可能只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已.<br>如果多线程共享 mutable 状态<strong>仅仅解决了可见性问题</strong>, 代码 <strong>一定有错</strong>.</p>
+<p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 就可以解决问题. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
 <ul>
 <li>RunnerThread 能看到两者的最新值</li>
-<li>RunnerThread 能看到 <code>shouldStop = true</code> 时, 必能看到 <code>number = 100</code> (与代码的顺序一致) </li>
+<li>RunnerThread 能看到 <code>shouldStop = true</code> 时, 必能看到 <code>number = 100</code> (与代码中的顺序一致) </li>
 </ul>
-<p><code>volatile</code> 的完整功能需要通过 java 的内存模型才能完全描述.</p>
-<p>通常来说, 需要用到多线程共享 mutable 对象解决稍微复杂的问题时, <strong>几乎不会只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已. 例如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 多线程的 serial generator</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialGen</span> </span>&#123;</div><div class="line">    <span class="comment">// volatile 虽然解决了 gen_ 发布问题, 但是无法保证 "计算不重复的序列号";</span></div><div class="line">    <span class="comment">// gen_ 发布是正确的, 代码的逻辑是错误的.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// 对于这个问题, 应该使用 AtomicInteger, volatile 是不够的</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> gen_;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">()</span> </span>&#123;</div><div class="line">        gen_ = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSerial</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> gen_++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们通常是用 “可变共享状态” 配合同步算法来解决一个更复杂的问题, 例如 “生产者消费者问题” 等.</p>
+<p><code>volatile</code> 的完整功能需要通过 java 的内存模型才能完全描述.<br>这个例子中, 我们实际上算是 <strong>用到了简单的 “线程封闭” 思想</strong>: <code>shouldStop</code> 的写操作只在一个线程中出现.<br>所以, 这个例子中, 我们利用 <code>volatile</code> 发布变量, 解决了 <code>shouldStop</code> 的可见性问题;<br>同时, 我们用最简单的 “线程封闭”, 解决了跨线程共享状态的 <strong>写操作的同步问题</strong>.</p>
+<p>下面的例子中, <code>volatile</code> 解决且仅仅解决了可见性问题, 代码的逻辑依旧是错的:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 多线程的 serial generator</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialGen</span> </span>&#123;</div><div class="line">    <span class="comment">// volatile 虽然解决了 gen_ 发布问题, 但是无法保证 "计算不重复的序列号";</span></div><div class="line">    <span class="comment">// gen_ 发布是正确的, 代码的逻辑是错误的.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// 对于这个问题, 应该使用 AtomicInteger, volatile 是不够的</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> gen_;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">()</span> </span>&#123;</div><div class="line">        gen_ = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSerial</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> gen_++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们通常是用 “可变共享状态” 配合一套同步算法来解决一个更复杂的问题, 例如 “生产者消费者问题” 等.</p>
 
           
         
@@ -709,7 +714,7 @@
 <ul>
 <li>一个进程中, 2个或2个以上的线程同时访问同一块内存空间, </li>
 <li>至少一个线程执行写操作 (即存在 <strong>冲突操作</strong>),</li>
-<li>这些冲突操作 (没有通过编程语言的机制建立) HB 约束关系<br>(不那么准确的大白话: 这些冲突操作没有正确地同步)</li>
+<li>这些冲突操作 (没有通过编程语言的机制建立) HB 约束关系.<br>(白话版: 这些冲突的读/写操作没有正确地通过同步机制建立顺序关系<br> (白话版的英文: are not <strong>ordered</strong> by synchronization))</li>
 </ul>
 <p>freedom from data race 是相当强的约束, 由于冲突操作间都有 HB 关系, 意味着:<br>对同一块内存, 每一个读操作都一定能读到前一个写操作的结果 (写可以来自包括其他线程的任意线程).</p>
 <p>sequential consistency 等价于 freedom from data race (data race free), 是同义词汇.</p>
@@ -782,7 +787,7 @@
 <li>Synchronization ensures that memory writes by a thread before<br>or during a synchronized block are made visible in a <strong>predictable</strong> manner to<br>other threads which synchronize on the <strong>same monitor</strong>.<br>不是同一个 monitor 的, 没有保证.<br>特别地, <code>synchronized (new Object()) {}</code> 可以被认为是毫无用处.<br>如何 “predictable” 在后面具体描述.</li>
 <li>After we <strong>exit a synchronized block</strong>, we <strong>release the monitor</strong>.</li>
 <li>Before we can <strong>enter a synchronized block</strong>, we <strong>acquire the monitor</strong>.</li>
-<li>A thread is said to <strong>own the intrinsic lock</strong> between the time it has<br>acquired the lock and released the lock. As long as a thread owns an intrinsic lock,<br>no other thread can acquire the same lock.<br>The other thread will <strong>block</strong> when it attempts to acquire the lock.</li>
+<li>A thread is said to <strong>own the intrinsic lock</strong> between the time it has<br>acquired the lock and released the lock. As long as a thread owns an intrinsic lock,<br>no other thread can acquire the same lock.<br>The other thread will <strong>block</strong> when it attempts to acquire the lock.<br>(互斥 (mutex) 能力)</li>
 <li>参考 ‘Java 内存模型保证成立的 “HB 关系”‘ 部分的第一条和第二条; 由于存在这样的 HB 关系,<br>Java MM 实际上保证了:<br>Any memory operations which were visible to a thread before exiting a synchronized block are visible to any thread after it enters a synchronized block protected by the <strong>same monitor</strong>;<br>为什么:<br>All the memory operations happen before the release (被第一条保证, 这里没有跨线程),<br>and the release happens before the acquire(被第二条保证, 这里跨了线程).</li>
 </ul>
 <p>C# 定义了 <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/acquire-and-release-semantics" target="_blank" rel="external">Acquire Semantics 和 Release Semantics</a>, </p>
@@ -793,7 +798,10 @@
 <p>这和前面提到的 Java 的 monitor 的 acquire 和 release 是一样的.<br>C# 是通过详细地定义 release 和 acquire 操作而不是通过 HB rule 来解释 <code>volatile</code>, <code>lock() {}</code><br>等同步工具的能力的. Java 主要通过 HB rule. 这两种渠道都是较为常见的, 都要有所了解.</p>
 <h3 id="volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”"><a href="#volatile-和-synchronized-的经典案例-“Double-Checked-Locking-is-Broken”" class="headerlink" title="volatile 和 synchronized 的经典案例: “Double-Checked Locking is Broken”"></a><code>volatile</code> 和 <code>synchronized</code> 的经典案例: “Double-Checked Locking is Broken”</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123; </div><div class="line">    <span class="keyword">private</span> Helper helper = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (helper == <span class="keyword">null</span>) &#123; </div><div class="line">            <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (helper == <span class="keyword">null</span>) </div><div class="line">                    helper = <span class="keyword">new</span> Helper();</div><div class="line">            &#125;</div><div class="line">        &#125;    </div><div class="line">        <span class="keyword">return</span> helper;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// other functions and members...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如果 <code>helper</code> 没有 <code>volatile</code> 修饰, <strong>这段代码是错误的</strong>. 因为读取到 helper 不为空时,<br><strong>构造函数 Helper() 未必执行完</strong>, 其他线程有可能读到脏状态的对象.<br>除了添加 <code>volatile</code>, 也可以把整个方法变为 <code>synchronized</code>. </p>
+<p>这段代码的意图是让 helper 对象对外可见, 这被称为 “发布问题”;<br>由于代码没有使用正确的同步机制发布 helper, 这个现象被成为 “不正确的发布”.<br>(更多见 “可见性, 发布和逸出” 笔记)</p>
 <p>详细讨论见 <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" target="_blank" rel="external">The “Double-Checked Locking is Broken” Declaration</a>;<br>里面更详细地讨论了种种看似聪明但不 work 的 “fix 方案”.</p>
+<h2 id="什么同步都不做-最低安全性-out-of-thin-air-safety"><a href="#什么同步都不做-最低安全性-out-of-thin-air-safety" class="headerlink" title="什么同步都不做? 最低安全性 (out-of-thin-air safety)"></a>什么同步都不做? 最低安全性 (out-of-thin-air safety)</h2><p>当线程在没有同步机制的情况下读取变量, 可能会得到一个 ‘失效的’ (stale) 值;<br>但是这个值一定是 <strong>被之前某个线程设置的值</strong>, 而不是一个随机的值.<br>一般变量的读取和写入都是 ‘原子操作’, 所以有 ‘最低安全性’;<br>非 <code>volatile</code> 类型的 64bit 变量的读写 <strong>未必有 ‘最低安全性’</strong>,<br>因为 java 内存模型允许它被拆分为两个 32bit 的操作.</p>
+<p>Java 的 “最低安全性” 事实上已经是是相当强的保证了; C/C++ 没有类似的保证,<br>读取到 undefined 的值完全是正常的, 符合语言标准的.</p>
 
           
         
@@ -921,10 +929,10 @@
 </ul>
 <h2 id="多线程程序常见问题"><a href="#多线程程序常见问题" class="headerlink" title="多线程程序常见问题"></a>多线程程序常见问题</h2><p>有以下问题之一就称为 “没有线程安全性”:</p>
 <ul>
-<li>正确性问题: 程序不正确. 如: 不加保护的 <code>return id++</code> 作为多线程的 serial generator</li>
+<li>正确性问题: 程序不正确 (狭义的正确性, 指不出现错误运算结果/side-effect).<br>如: 不加保护的 <code>return id++</code> 作为多线程的 serial generator</li>
 <li>活跃性问题: 死锁, 活锁, 饥饿</li>
 </ul>
-<p>性能问题在工程中同样重要</p>
+<p>常见问题还包括 ‘性能问题’:</p>
 <ul>
 <li>性能问题: 没有充分利用多核计算资源; 并发度不足;</li>
 </ul>
@@ -944,6 +952,8 @@
 <li>对于 mutable share state, 看是否能 Copy-On-Write 等方法消除掉一些, 使之 immutable 化;</li>
 <li>最后, 开始考虑如何利用已知的 synchronization model, 及建立正确的 sync model, 利用多线程解决问题.</li>
 </ul>
+<h2 id="文档非常重要-不假设有安全性"><a href="#文档非常重要-不假设有安全性" class="headerlink" title="文档非常重要; 不假设有安全性"></a>文档非常重要; 不假设有安全性</h2><p>很多广为应用的 java 库都曾经没有好好地说明某个类是否是线程安全的.<br>许多程序员都错误地假设某个类是线程安全的, 结果并不是.<br>一般情况下, 如果没有说明, 那么就应该假设类/接口不是线程安全的.</p>
+<p>在注释和文档中至少说明关键类的线程安全性, 注明代码的同步策略.</p>
 
           
         

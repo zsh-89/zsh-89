@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:description" content="什么是 “可见性” 问题 (visibility)经典的 ‘不可见’ 问题的例子:123456789101112131415161718192021222324252627public class Main &amp;#123;    // shouldStop 和 number 都是被主线程和 RunnerThread 线程之间的 &quot;可变共享状态变量 (mutable shared state)&quot;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-13T11:43:59.947Z">
+<meta property="og:updated_time" content="2017-12-19T11:24:47.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程: 可见性, 发布和逸出">
 <meta name="twitter:description" content="什么是 “可见性” 问题 (visibility)经典的 ‘不可见’ 问题的例子:123456789101112131415161718192021222324252627public class Main &amp;#123;    // shouldStop 和 number 都是被主线程和 RunnerThread 线程之间的 &quot;可变共享状态变量 (mutable shared state)&quot;">
@@ -355,11 +355,12 @@
 <h2 id="“可见性”-问题的根源"><a href="#“可见性”-问题的根源" class="headerlink" title="“可见性” 问题的根源"></a>“可见性” 问题的根源</h2><p>‘可见性问题’ 和 ‘发布问题’ 是 “多核架构”, “多 CPU 架构”, “操作的多线程机制”,<br>“编译器优化对指令进行重排序 (Instruction Reorder)”, “存储器的层次架构 (存在多层次的 cache)”,<br>“CPU 指令级并行技术, 特别是同时发射执行多条指令技术, 指令乱序执行 (out-of-order execution)” 的副产品.</p>
 <p>“线程” 对于编译器是不可见的; 编译器看不到 “线程”;<br>编译器保证优化前后, 代码的功能性在单线程的情况下等价, 但是可能在多线程情况下就不等价了;<br>例如前面的例子中, <code>shouldStop</code> 和 <code>number</code> 的修改顺序, 在单线程情况下, 完全可以任意改变.</p>
 <p>即使编译器没有做调整, 现代的 CPU 同时发射多条指令, 也会导致同样的问题.<br>CPU 不知道哪些变量是特殊的, 哪些不是.</p>
-<h2 id="安全发布引用的方法"><a href="#安全发布引用的方法" class="headerlink" title="安全发布引用的方法"></a>安全发布引用的方法</h2><ul>
+<h2 id="安全发布引用的方法"><a href="#安全发布引用的方法" class="headerlink" title="安全发布引用的方法"></a>安全发布引用的方法</h2><p>一切安全发布能成功的前提都是 “对象被正确构造” (即, 不发生 “逸出”); 否则绝无可能成功.</p>
+<ul>
 <li>Java 的静态初始化, 如 <code>public static Holder h = new Holder(10)</code>, 由 JVM 保证正确性</li>
 <li>让引用成为某个类的 <code>final</code> 成员; 且成员所在的类没有 this 逸出.<br>早期的 java 内存模型中, 在另一个线程访问 final 成员,<br>可能会看到初始化完毕 (构造函数执行完毕) 之前的值;<br>(例如, 对于 int 类型成员, 可能一次看到的值是 0, 另一次看到的是在构造函数中赋予的值).<br>现在, 其他线程看到的一定是 <code>final</code> 成员构造函数执行完毕之后的值.</li>
 <li>让引用成为某个类的 <code>volatile</code> 成员; 或使用 <code>AtomicReference</code></li>
-<li>让引用成为某个类的成员, 并且用 <code>synchronized</code> 等锁将 “操作/读取该成员” 的代码保护起来</li>
+<li>让引用成为某个类的成员, 并且用 <code>synchronized</code> 等锁将所有 “操作/读写该成员” 的代码保护起来</li>
 <li>利用其他现有的并发库/框架.<br>如, 放入线程安全的容器中, 如 java 的 <code>ConcurrentHashMap</code>, <code>Hashtable</code>, <code>synchronizedMap</code>,<br><code>synchronizedList</code>, <code>Vector</code>, <code>CopyOnWriteArrayList</code>, <code>CopyOnWriteArraySet</code>,<br><code>synchronizedSet</code>, <code>BlockingQueue</code>, <code>ConcurrentLinkedQueue</code>, 再通过容器访问</li>
 </ul>
 <h2 id="immutable-对象发布"><a href="#immutable-对象发布" class="headerlink" title="immutable 对象发布"></a>immutable 对象发布</h2><p>‘不可变’ (immutable) 存在两种情况; 根据语境, immutable 可能指以下两者的一种或全部:</p>
@@ -372,16 +373,19 @@
 </li>
 <li>逻辑上不可变: 或者称为 ‘事实上不可变 (effectively immutable)’;<br>即没有严格地使用编程语言 feature 加以硬性控制, 但是本身被正确地构造, 且从不被修改的变量</li>
 </ul>
-<p>真正的 immutable 对象可以用任意方式发布.<br>“事实 immutable 对象” 必须用安全的方式发布.</p>
-<h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布.</p>
-<p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 即可. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
+<p>真正的 immutable 对象, 一旦它的引用对某个线程可见, 它的所有成员的值都能被 “正确地” 读取到.<br>(‘正确’ 的含义: 所有的成员都被构造完毕了, 不会读取到未构造完毕的状态.<br> 这是由 <code>final</code> 的性质保证的; 参见 “内存模型” 笔记); </p>
+<p>“真正的 immutable 对象” 和 “事实 immutable 对象” 都必须用安全的方式发布.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</p>
+<p>immutable 对象一旦被正确发布, 就是线程安全的.</p>
+<h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布. 如果跨线程共享的 mutable 对象没有被安全发布, 代码 <strong>一定有错</strong>. </p>
+<p>通常来说, 需要用到多线程共享 mutable 对象时, 我们 <strong>几乎不可能只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已.<br>如果多线程共享 mutable 状态<strong>仅仅解决了可见性问题</strong>, 代码 <strong>一定有错</strong>.</p>
+<p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 就可以解决问题. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
 <ul>
 <li>RunnerThread 能看到两者的最新值</li>
-<li>RunnerThread 能看到 <code>shouldStop = true</code> 时, 必能看到 <code>number = 100</code> (与代码的顺序一致) </li>
+<li>RunnerThread 能看到 <code>shouldStop = true</code> 时, 必能看到 <code>number = 100</code> (与代码中的顺序一致) </li>
 </ul>
-<p><code>volatile</code> 的完整功能需要通过 java 的内存模型才能完全描述.</p>
-<p>通常来说, 需要用到多线程共享 mutable 对象解决稍微复杂的问题时, <strong>几乎不会只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已. 例如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 多线程的 serial generator</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialGen</span> </span>&#123;</div><div class="line">    <span class="comment">// volatile 虽然解决了 gen_ 发布问题, 但是无法保证 "计算不重复的序列号";</span></div><div class="line">    <span class="comment">// gen_ 发布是正确的, 代码的逻辑是错误的.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// 对于这个问题, 应该使用 AtomicInteger, volatile 是不够的</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> gen_;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">()</span> </span>&#123;</div><div class="line">        gen_ = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSerial</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> gen_++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们通常是用 “可变共享状态” 配合同步算法来解决一个更复杂的问题, 例如 “生产者消费者问题” 等.</p>
+<p><code>volatile</code> 的完整功能需要通过 java 的内存模型才能完全描述.<br>这个例子中, 我们实际上算是 <strong>用到了简单的 “线程封闭” 思想</strong>: <code>shouldStop</code> 的写操作只在一个线程中出现.<br>所以, 这个例子中, 我们利用 <code>volatile</code> 发布变量, 解决了 <code>shouldStop</code> 的可见性问题;<br>同时, 我们用最简单的 “线程封闭”, 解决了跨线程共享状态的 <strong>写操作的同步问题</strong>.</p>
+<p>下面的例子中, <code>volatile</code> 解决且仅仅解决了可见性问题, 代码的逻辑依旧是错的:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 多线程的 serial generator</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialGen</span> </span>&#123;</div><div class="line">    <span class="comment">// volatile 虽然解决了 gen_ 发布问题, 但是无法保证 "计算不重复的序列号";</span></div><div class="line">    <span class="comment">// gen_ 发布是正确的, 代码的逻辑是错误的.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// 对于这个问题, 应该使用 AtomicInteger, volatile 是不够的</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> gen_;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">()</span> </span>&#123;</div><div class="line">        gen_ = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSerial</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> gen_++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们通常是用 “可变共享状态” 配合一套同步算法来解决一个更复杂的问题, 例如 “生产者消费者问题” 等.</p>
 
       
     </div>

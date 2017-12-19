@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:description" content="线程封闭 (Thread Confinement)线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”. 线程封闭常见类型:  Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-13T11:56:19.825Z">
+<meta property="og:updated_time" content="2017-12-19T11:25:30.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统">
 <meta name="twitter:description" content="线程封闭 (Thread Confinement)线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”. 线程封闭常见类型:  Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框">
@@ -343,8 +343,9 @@
         <h2 id="线程封闭-Thread-Confinement"><a href="#线程封闭-Thread-Confinement" class="headerlink" title="线程封闭 (Thread Confinement)"></a>线程封闭 (Thread Confinement)</h2><p>线程封闭 (Thread Confinement) 是一个让减少 “shared mutable state” 的技术/方法.<br>让尽可能多的 mutable state 成为 “某个线程专有的 mutable state”.</p>
 <p>线程封闭常见类型:</p>
 <ul>
-<li>Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框架上的辅助</li>
+<li>Ad-hoc 线程封闭: 维护 “线程封闭性” 的职责完全交给程序员, 而不提供系统的, 机制上的, 框架上的辅助;<br>在文档中注明, 否则接手代码的工程师会在无意中使得原本封闭在线程中的对象逸出;</li>
 <li>栈封闭 (Stack Confinement): 多用局部变量, 让尽可能多的对象的引用不超出局部作用域</li>
+<li>使用 <code>volatile</code> 变量作为共享状态, 把写操作限定在一个线程内部;</li>
 <li>Java/C# 的 ThreadLocal 类, 语言的库/机制提供的 per Thread 的对象存储; </li>
 <li>单线程子系统 (single-threaded subsystem)</li>
 </ul>
