@@ -518,7 +518,7 @@
 <li>逻辑上不可变: 或者称为 ‘事实上不可变 (effectively immutable)’;<br>即没有严格地使用编程语言 feature 加以硬性控制, 但是本身被正确地构造, 且从不被修改的变量</li>
 </ul>
 <p>真正的 immutable 对象, 一旦它的引用对某个线程可见, 它的所有成员的值都能被 “正确地” 读取到.<br>(‘正确’ 的含义: 所有的成员都被构造完毕了, 不会读取到未构造完毕的状态.<br> 这是由 <code>final</code> 的性质保证的; 参见 “内存模型” 笔记); </p>
-<p>“真正的 immutable 对象” 由于由 <code>final</code> 提供的 “Initialization safety” (初始化安全性, 见内存模型笔记),<br>所以可以用任意的方式发布, 一定线程安全(<java concurrency="" in="" practice,="" ch16="">).<br>“事实 immutable 对象” 必须用安全的方式发布; 一旦被正确发布, 就是线程安全的.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</java></p>
+<p>“真正的 immutable 对象” 由于由 <code>final</code> 提供的 “Initialization safety” (初始化安全性, 见内存模型笔记),<br>所以可以用任意的方式发布, 一定线程安全(见 “Java Concurrency in Practice, Ch16”).<br>“事实 immutable 对象” 必须用安全的方式发布; 一旦被正确发布, 就是线程安全的.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</p>
 <h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布. 如果跨线程共享的 mutable 对象没有被安全发布, 代码 <strong>一定有错</strong>. </p>
 <p>通常来说, 需要用到多线程共享 mutable 对象时, 我们 <strong>几乎不可能只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已.<br>如果多线程共享 mutable 状态<strong>仅仅解决了可见性问题</strong>, 代码 <strong>一定有错</strong>.</p>
 <p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 就可以解决问题. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
@@ -755,7 +755,7 @@
 </ul>
 <p>逐点解读:</p>
 <ul>
-<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了;<br>program order 是灵活的, 允许重排序的.<br>这一条在 <java concurrency="" in="" practice=""> 中被成为 “Program order rule”.</java></li>
+<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了;<br>program order 是灵活的, 允许重排序的.<br>这一条在 “Java Concurrency in Practice” 中被成为 “Program order rule”.</li>
 <li>关于 2-3: 描述了 <code>lock/unlock</code> 和 <code>volatile</code> 的一部分性质; 它们完整的性质将在下文描述</li>
 <li>关于 4-5: 符合程序员对于线程行为的基本期望 </li>
 </ul>
@@ -820,7 +820,7 @@
 <p>Java 的 “最低安全性” 事实上已经是是相当强的保证了; C/C++ 没有类似的保证,<br>读取到 undefined 的值完全是正常的, 符合语言标准的.</p>
 <h2 id="“piggybacking”-捎带-利用库提供的同步能力-happens-before-性质-实现需要的-visibility-性质"><a href="#“piggybacking”-捎带-利用库提供的同步能力-happens-before-性质-实现需要的-visibility-性质" class="headerlink" title="“piggybacking” (捎带); 利用库提供的同步能力 (happens-before 性质) 实现需要的 visibility 性质"></a>“piggybacking” (捎带); 利用库提供的同步能力 (happens-before 性质) 实现需要的 visibility 性质</h2><p>概念: 参考前文的 [Java 内存模型保证成立的 “HB 关系”], 利用已有的工具 (<code>volatile</code> 等) 已有的<br>happens-before 性质, 加上 “Program order rule”, 保证代码有满足需要的 visibility 性质. </p>
 <p>通常来说, 这是为了榨干性能而使用的技术, 不应该随便使用;<br>大部分非关键路径的代码用了这个办法反而使得代码晦涩难懂, 毫无意义.</p>
-<p>可以利用的库以及它们拥有的 happens-before 性质 (from <java concurrency="" in="" practice="">):</java></p>
+<p>可以利用的库以及它们拥有的 happens-before 性质 (见 “Java Concurrency in Practice”):</p>
 <ul>
 <li>线程安全容器: Placing an item in a thread‐safe collection happens‐before another thread retrieves that item from the<br>collection;</li>
 <li><code>CountDownLatch</code>: Counting down on a CountDownLatch happens‐before a thread returns from await on that latch;</li>

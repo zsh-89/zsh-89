@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-21T08:11:52.314Z">
+<meta property="og:updated_time" content="2017-12-21T08:16:31.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 内存模型; volatile, final, synchronized">
 <meta name="twitter:description" content="前言, 参考文献这篇东西的目的是: 做一次比较完整的严谨的调查和总结.我自己这方面知识是不少的, 但不系统. 于是, 在开始写这篇之前就不希望参考除了标准文献之外的其他资料.毕竟每个作者在写材料的时候都抱着不同的目标, 有些不严谨的简化确实有其用处;但是犹如传话游戏, 经过多次层叠引用不是完全准确的信息, 每个人都添加一点自己的主观因素,最后重要的规则和概念会变得得面目全非. 唯一拥有定义权的,">
@@ -447,7 +447,7 @@
 </ul>
 <p>逐点解读:</p>
 <ul>
-<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了;<br>program order 是灵活的, 允许重排序的.<br>这一条在 <java concurrency="" in="" practice=""> 中被成为 “Program order rule”.</java></li>
+<li>关于 1: 事实上 1 就是保证了 as-if-serial 效果. 这句话在标准中对应的一句话是:<br>“If x and y are actions of the same thread and x comes before y in program order,<br>then hb(x, y).”<br>注意: 措辞上 “in a thread”/“of the same thread” 表示描述的是线程内部的效果;<br>还有, program order 未必是唯一的, program order 只要 “<strong>reflects</strong> the order in which these actions<br>would be performed according to the <strong>intra-thread</strong> semantics.” 就可以了;<br>program order 是灵活的, 允许重排序的.<br>这一条在 “Java Concurrency in Practice” 中被成为 “Program order rule”.</li>
 <li>关于 2-3: 描述了 <code>lock/unlock</code> 和 <code>volatile</code> 的一部分性质; 它们完整的性质将在下文描述</li>
 <li>关于 4-5: 符合程序员对于线程行为的基本期望 </li>
 </ul>
@@ -512,7 +512,7 @@
 <p>Java 的 “最低安全性” 事实上已经是是相当强的保证了; C/C++ 没有类似的保证,<br>读取到 undefined 的值完全是正常的, 符合语言标准的.</p>
 <h2 id="“piggybacking”-捎带-利用库提供的同步能力-happens-before-性质-实现需要的-visibility-性质"><a href="#“piggybacking”-捎带-利用库提供的同步能力-happens-before-性质-实现需要的-visibility-性质" class="headerlink" title="“piggybacking” (捎带); 利用库提供的同步能力 (happens-before 性质) 实现需要的 visibility 性质"></a>“piggybacking” (捎带); 利用库提供的同步能力 (happens-before 性质) 实现需要的 visibility 性质</h2><p>概念: 参考前文的 [Java 内存模型保证成立的 “HB 关系”], 利用已有的工具 (<code>volatile</code> 等) 已有的<br>happens-before 性质, 加上 “Program order rule”, 保证代码有满足需要的 visibility 性质. </p>
 <p>通常来说, 这是为了榨干性能而使用的技术, 不应该随便使用;<br>大部分非关键路径的代码用了这个办法反而使得代码晦涩难懂, 毫无意义.</p>
-<p>可以利用的库以及它们拥有的 happens-before 性质 (from <java concurrency="" in="" practice="">):</java></p>
+<p>可以利用的库以及它们拥有的 happens-before 性质 (见 “Java Concurrency in Practice”):</p>
 <ul>
 <li>线程安全容器: Placing an item in a thread‐safe collection happens‐before another thread retrieves that item from the<br>collection;</li>
 <li><code>CountDownLatch</code>: Counting down on a CountDownLatch happens‐before a thread returns from await on that latch;</li>
