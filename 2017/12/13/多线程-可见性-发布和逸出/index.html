@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="zsh同学的笔记">
 <meta property="og:description" content="什么是 “可见性” 问题 (visibility)经典的 ‘不可见’ 问题的例子:123456789101112131415161718192021222324252627public class Main &amp;#123;    // shouldStop 和 number 都是被主线程和 RunnerThread 线程之间的 &quot;可变共享状态变量 (mutable shared state)&quot;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-19T11:24:47.567Z">
+<meta property="og:updated_time" content="2017-12-21T08:11:08.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程: 可见性, 发布和逸出">
 <meta name="twitter:description" content="什么是 “可见性” 问题 (visibility)经典的 ‘不可见’ 问题的例子:123456789101112131415161718192021222324252627public class Main &amp;#123;    // shouldStop 和 number 都是被主线程和 RunnerThread 线程之间的 &quot;可变共享状态变量 (mutable shared state)&quot;">
@@ -374,8 +374,7 @@
 <li>逻辑上不可变: 或者称为 ‘事实上不可变 (effectively immutable)’;<br>即没有严格地使用编程语言 feature 加以硬性控制, 但是本身被正确地构造, 且从不被修改的变量</li>
 </ul>
 <p>真正的 immutable 对象, 一旦它的引用对某个线程可见, 它的所有成员的值都能被 “正确地” 读取到.<br>(‘正确’ 的含义: 所有的成员都被构造完毕了, 不会读取到未构造完毕的状态.<br> 这是由 <code>final</code> 的性质保证的; 参见 “内存模型” 笔记); </p>
-<p>“真正的 immutable 对象” 和 “事实 immutable 对象” 都必须用安全的方式发布.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</p>
-<p>immutable 对象一旦被正确发布, 就是线程安全的.</p>
+<p>“真正的 immutable 对象” 由于由 <code>final</code> 提供的 “Initialization safety” (初始化安全性, 见内存模型笔记),<br>所以可以用任意的方式发布, 一定线程安全(<java concurrency="" in="" practice,="" ch16="">).<br>“事实 immutable 对象” 必须用安全的方式发布; 一旦被正确发布, 就是线程安全的.<br>“真正的 immutable 对象” 不害怕被不可靠的第三方修改, 而且它对于维护者来说更清晰, 更可靠.</java></p>
 <h2 id="mutable-对象的发布"><a href="#mutable-对象的发布" class="headerlink" title="mutable 对象的发布"></a>mutable 对象的发布</h2><p>mutable 对象必须用安全的方式发布. 如果跨线程共享的 mutable 对象没有被安全发布, 代码 <strong>一定有错</strong>. </p>
 <p>通常来说, 需要用到多线程共享 mutable 对象时, 我们 <strong>几乎不可能只关心变量/对象的发布问题</strong>;<br>因为发布问题 <strong>仅仅解决了 “可见性”</strong> 而已.<br>如果多线程共享 mutable 状态<strong>仅仅解决了可见性问题</strong>, 代码 <strong>一定有错</strong>.</p>
 <p>在最经典最简单的情形中, 如上面的例子中, 我们需要一个 flag 来标志另一个线程是否该退出,<br>这时候用 <code>volatile</code> 就可以解决问题. 如果 <code>shouldStop</code> 和 <code>number</code> 都加上 <code>volatile</code>, java 会保证:</p>
