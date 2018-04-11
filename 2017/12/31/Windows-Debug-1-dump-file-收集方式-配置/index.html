@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="分类按照程序所在 mode 分类:  usermode dump file kernel mode dump file  为什么要收集 dump file? 对于 kernel mode 程序, 一出错基本上就蓝屏, 所以必须通过 dump file 来分析错误原因. 对于 user mode 程序, 有时候不允许工程师远程登录生产环境, 或者不允许工程师拿到源码,也只能借助 dump file">
+<meta name="keywords" content="Windows Debugging,dump file,windbg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Debug - 1: dump file; 收集方式; 配置">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/31/Windows-Debug-1-dump-file-收集方式-配置/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:description" content="分类按照程序所在 mode 分类:  usermode dump file kernel mode dump file  为什么要收集 dump file? 对于 kernel mode 程序, 一出错基本上就蓝屏, 所以必须通过 dump file 来分析错误原因. 对于 user mode 程序, 有时候不允许工程师远程登录生产环境, 或者不允许工程师拿到源码,也只能借助 dump file">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T08:01:37.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows Debug - 1: dump file; 收集方式; 配置">
+<meta name="twitter:description" content="分类按照程序所在 mode 分类:  usermode dump file kernel mode dump file  为什么要收集 dump file? 对于 kernel mode 程序, 一出错基本上就蓝屏, 所以必须通过 dump file 来分析错误原因. 对于 user mode 程序, 有时候不允许工程师远程登录生产环境, 或者不允许工程师拿到源码,也只能借助 dump file">
+
+
+
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-1-dump-file-收集方式-配置/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Windows Debug - 1: dump file; 收集方式; 配置 | Shuhan 同学的笔记</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shuhan 同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-1-dump-file-收集方式-配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows Debug - 1: dump file; 收集方式; 配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:45:35+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>按照程序所在 mode 分类:</p>
+<ul>
+<li>usermode dump file</li>
+<li>kernel mode dump file</li>
+</ul>
+<h2 id="为什么要收集-dump-file"><a href="#为什么要收集-dump-file" class="headerlink" title="为什么要收集 dump file?"></a>为什么要收集 dump file?</h2><ul>
+<li>对于 kernel mode 程序, 一出错基本上就蓝屏, 所以必须通过 dump file 来分析错误原因.</li>
+<li>对于 user mode 程序, 有时候不允许工程师远程登录生产环境, 或者不允许工程师拿到源码,<br>也只能借助 dump file 来分析错误.</li>
+</ul>
+<h2 id="抓取-usermode-dump-file"><a href="#抓取-usermode-dump-file" class="headerlink" title="抓取 usermode dump file"></a>抓取 usermode dump file</h2><p>不推荐用 “任务管理器”.<br>推荐用 debugDiag (可以方便用 GUI 设定生成 dump 的 rule) 或 procDump.</p>
+<h3 id="procDump"><a href="#procDump" class="headerlink" title="procDump"></a>procDump</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">procdump -ma -u -c 24 -s 5 -n 3 -o BaddApp.exe C:\temp</div><div class="line">    -ma           full dump</div><div class="line">    -u            Treat CPU usage relative to a single core (used with -c)</div><div class="line">    -c            24: 4核机器, 超过 24% (有一个核几乎完全被占用) 时抓 dump</div><div class="line">    -n            3 抓 3 个</div><div class="line">    -o            overwrite existing dump</div><div class="line">    [Dump_Folder] 上面的命令中, dump 文件输出的目录是 `C:\temp`</div><div class="line"></div><div class="line">procdump -e -ma debuglab        ## -e  monitor crash</div></pre></td></tr></table></figure>
+<h3 id="DebugDiag"><a href="#DebugDiag" class="headerlink" title="DebugDiag"></a>DebugDiag</h3><p>DebugDiag 安装完有好多个 exe. 配置抓取 dump 的 rule, 在 DebugDiagCollection 里做.<br>DebugDiag 通过一个后台运行的 service 来抓去 dump. 相比之下, procdump 更加轻量级.</p>
+<p>DebugDiag 中配置 “dump 抓取的 rule” 时的注意点:</p>
+<ul>
+<li>action limits: 代表采集几次 dump, 收集几次 log, 等等</li>
+<li>crash 类型的 dump 基本上就是 second chance exception;<br>first change exception 是被程序内部的 exception handler 处理的 exception.</li>
+</ul>
+<p>debugDiag 的用法例子参见 debug 实例.</p>
+<h2 id="抓取-kernelmode-dump-file"><a href="#抓取-kernelmode-dump-file" class="headerlink" title="抓取 kernelmode dump file"></a>抓取 kernelmode dump file</h2><p>原则: 如果怀疑驱动有问题，早早地直接 dump，免得错误扩散。</p>
+<h3 id="kernel-dump-file-的级别介绍-配置-dump-file-级别"><a href="#kernel-dump-file-的级别介绍-配置-dump-file-级别" class="headerlink" title="kernel dump file 的级别介绍; 配置 dump file 级别"></a>kernel dump file 的级别介绍; 配置 dump file 级别</h3><p>minimal dump: 几百 K;<br>kernel dump: paged out 的 memory 进不了;<br>full dump: 内存多大就多大;</p>
+<p>配置 dump 的级别:<br><code>[修改环境变量的 dialog]-&gt;[Advanced]-&gt;[starup and recovery]</code></p>
+<p><code>Kernel memory dump</code> 一般足够了。<br>如果 C 盘不够大：搜索 <code>delegate dump file</code></p>
+<p>minidump 的位置：<code>C:\Windows\minidump\*</code><br>内存数据：<code>C:\Windows\MEMORY.DMP</code></p>
+<h3 id="利用-OS-“蓝屏后-dump-file-的生成”-的原理-从-pagefile-中拿-dump-file"><a href="#利用-OS-“蓝屏后-dump-file-的生成”-的原理-从-pagefile-中拿-dump-file" class="headerlink" title="利用 OS “蓝屏后 dump file 的生成” 的原理; 从 pagefile 中拿 dump file;"></a>利用 OS “蓝屏后 dump file 的生成” 的原理; 从 pagefile 中拿 dump file;</h3><p>原理:</p>
+<ol>
+<li>系统把内存信息放到 pagefile 里。</li>
+<li>正常启动一次，系统检查 dump 配置，根据配置，把 pagefile 中东西放入 dump file。</li>
+</ol>
+<p>结论:</p>
+<ul>
+<li>挂掉、关机、正常重启之后才能有 dump 。</li>
+<li>如果不能正常再启动了，那就 <strong>手动把 pagefile 拿出来，它就是 dumpfile</strong> 。改下后缀名即可。</li>
+</ul>
+<p>[相关问题] 即使 NTFS 文件系统挂了，一样可以生成 dump file?</p>
+<blockquote>
+<p>系统有 ntfs_dummy 这个进程，专门负责写 dump pagefile。</p>
+</blockquote>
+<h3 id="强制-蓝屏法-收集-Kernel-mode-dump-file"><a href="#强制-蓝屏法-收集-Kernel-mode-dump-file" class="headerlink" title="(强制) 蓝屏法; 收集 Kernel mode dump file"></a>(强制) 蓝屏法; 收集 Kernel mode dump file</h3><p>强制蓝屏的方式</p>
+<ul>
+<li>SystemInternal: NotMyFault 强制蓝屏的工具</li>
+<li>改注册表，用特殊键盘按键来触发蓝屏。</li>
+<li>Call kernel 函数: KeBugCheck(), KeBugCheckEx().</li>
+</ul>
+<h3 id="windbg-法-live-debug-中-收集-Kernel-mode-dump-file"><a href="#windbg-法-live-debug-中-收集-Kernel-mode-dump-file" class="headerlink" title="windbg 法; live debug 中, 收集 Kernel mode dump file"></a>windbg 法; live debug 中, 收集 Kernel mode dump file</h3><p>用 Windbg <code>dump</code> 命令直接生成dump (系统不停住)。<br>这样生成的 <strong>dump 文件不好</strong>, 因为系统并没有真正停住, 收集到的不是纯粹的 snapshot。</p>
+<p>所以, 要发 dump 给 support 时，要说明白是通过这个办法生成的。<br><strong>推荐用蓝屏法来 dump</strong>。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Windows-Debugging/" rel="tag"># Windows Debugging</a>
+          
+            <a href="/tags/dump-file/" rel="tag"># dump file</a>
+          
+            <a href="/tags/windbg/" rel="tag"># windbg</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/LDAP-简介/" rel="next" title="LDAP 简介">
+                <i class="fa fa-chevron-left"></i> LDAP 简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/Windows-Debug-2-windbg-和-os-配置/" rel="prev" title="Windows Debug - 2: windbg 和 os 配置">
+                Windows Debug - 2: windbg 和 os 配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要收集-dump-file"><span class="nav-number">2.</span> <span class="nav-text">为什么要收集 dump file?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取-usermode-dump-file"><span class="nav-number">3.</span> <span class="nav-text">抓取 usermode dump file</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#procDump"><span class="nav-number">3.1.</span> <span class="nav-text">procDump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DebugDiag"><span class="nav-number">3.2.</span> <span class="nav-text">DebugDiag</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取-kernelmode-dump-file"><span class="nav-number">4.</span> <span class="nav-text">抓取 kernelmode dump file</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-dump-file-的级别介绍-配置-dump-file-级别"><span class="nav-number">4.1.</span> <span class="nav-text">kernel dump file 的级别介绍; 配置 dump file 级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-OS-“蓝屏后-dump-file-的生成”-的原理-从-pagefile-中拿-dump-file"><span class="nav-number">4.2.</span> <span class="nav-text">利用 OS “蓝屏后 dump file 的生成” 的原理; 从 pagefile 中拿 dump file;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制-蓝屏法-收集-Kernel-mode-dump-file"><span class="nav-number">4.3.</span> <span class="nav-text">(强制) 蓝屏法; 收集 Kernel mode dump file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windbg-法-live-debug-中-收集-Kernel-mode-dump-file"><span class="nav-number">4.4.</span> <span class="nav-text">windbg 法; live debug 中, 收集 Kernel mode dump file</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

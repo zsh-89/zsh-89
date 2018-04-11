@@ -5,12 +5,15 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -37,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -75,32 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zsh同学的笔记">
-<meta property="og:url" content="http://zsh-89.github.io/page/2/index.html">
-<meta property="og:site_name" content="zsh同学的笔记">
-<meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zsh同学的笔记">
+
+
+
 
 
 
@@ -109,14 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -128,14 +94,35 @@
 </script>
 
 
+  
+
+
+
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Shuhan 同学的笔记">
+<meta property="og:url" content="http://zsh-89.github.io/page/2/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shuhan 同学的笔记">
+
+
+
+
+
 
   <link rel="canonical" href="http://zsh-89.github.io/page/2/"/>
 
 
 
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title>zsh同学的笔记</title>
+  <title>Shuhan 同学的笔记</title>
   
 
 
@@ -146,14 +133,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -161,19 +170,20 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">zsh同学的笔记</span>
+        <span class="site-title">Shuhan 同学的笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -183,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -198,44 +208,44 @@
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
       
 
       
@@ -243,16 +253,28 @@
   
 
   
+
+  
 </nav>
+
+
+  
 
 
 
  </div>
     </header>
 
+    
+
+
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -265,6 +287,883 @@
   
   
 
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" itemprop="url">多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T17:41:07+08:00">2017-11-14</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="为什么需要多线程"><a href="#为什么需要多线程" class="headerlink" title="为什么需要多线程?"></a>为什么需要多线程?</h2><ul>
+<li>单核和多核情况下, 增加程序的 responsiveness</li>
+<li>单核和多核情况下, 增加程序的 throughput</li>
+<li>充分利用多核, 多处理器的计算资源</li>
+<li>可能带来: 更简单的 modeling;<br>阻塞的同步 I/O 比异步 I/O 简单;<br>可以用于 decompose complicated async workflow;</li>
+</ul>
+<h2 id="多线程程序常见问题"><a href="#多线程程序常见问题" class="headerlink" title="多线程程序常见问题"></a>多线程程序常见问题</h2><p>有以下问题之一就称为 “没有线程安全性”:</p>
+<ul>
+<li>正确性问题: 程序不正确 (狭义的正确性, 指不出现错误运算结果/side-effect).<br>如: 不加保护的 <code>return id++</code> 作为多线程的 serial generator</li>
+<li>活跃性问题: 死锁, 活锁, 饥饿</li>
+</ul>
+<p>常见问题还包括 ‘性能问题’:</p>
+<ul>
+<li>性能问题: 没有充分利用多核计算资源; 并发度不足;</li>
+</ul>
+<h2 id="为什么-“线程安全性”-的知识是程序员必备的"><a href="#为什么-“线程安全性”-的知识是程序员必备的" class="headerlink" title="为什么 “线程安全性” 的知识是程序员必备的:"></a>为什么 “线程安全性” 的知识是程序员必备的:</h2><p>例如, library 为了性能, 大部分是多线程的; 一旦你的代码需要传递一个 callback function<br>给 library 时, 自然地就要求你的代码有 “线程安全性”;<br>这样的 ‘传染性’ 很强, 可能扩散到整个程序.</p>
+<p>真实例子:</p>
+<ul>
+<li>timer: 部分 timer 库会有一个 thread pool, 在 “时间到了” 等 event 触发时, 专门来跑用户指定的 callback;<br>这时候用户的 callback 将在 timer 的 threadpool 中运行</li>
+<li>GUI: GUI 库不可能让你阻塞 GUI 线程, 必须开多线程在后台负责 workload 计算</li>
+</ul>
+<h2 id="“能不用则不用”-考虑用更好-更简单的工具"><a href="#“能不用则不用”-考虑用更好-更简单的工具" class="headerlink" title="“能不用则不用”, 考虑用更好/更简单的工具"></a>“能不用则不用”, 考虑用更好/更简单的工具</h2><p>多线程本身是诸多并发模型的一种; 在所有并发模型中, 多线程是偏底层的, 较难驾驭的;<br>而且未必适用于所有的问题.</p>
+<p>一般来说, 如果不是写较为底层的库, 可以考虑用 Actor 模式等更加 high-level 的并发模型.<br>如果采用多线程, 那么:</p>
+<ul>
+<li>看是否存在 shared state; 整理出 shared state 的清单</li>
+<li>看能否去掉不必要的 shared state</li>
+<li>将 share state 分类: immutable 的 mutable 的</li>
+<li>immutable 的, 看是否已经通过正当的方式 publish value (可见性 visibility);</li>
+<li>对于 mutable share state, 看是否能 Copy-On-Write 等方法消除掉一些, 使之 immutable 化;</li>
+<li>最后, 开始考虑如何利用已知的 synchronization model, 及建立正确的 sync model, 利用多线程解决问题.</li>
+</ul>
+<h2 id="文档非常重要-不假设有安全性"><a href="#文档非常重要-不假设有安全性" class="headerlink" title="文档非常重要; 不假设有安全性"></a>文档非常重要; 不假设有安全性</h2><p>很多广为应用的 java 库都曾经没有好好地说明某个类是否是线程安全的.<br>许多程序员都错误地假设某个类是线程安全的, 结果并不是.<br>一般情况下, 如果没有说明, 那么就应该假设类/接口不是线程安全的.</p>
+<p>在注释和文档中至少说明关键类的线程安全性, 注明代码的同步策略.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-Credential-Guard-简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/13/Windows-Credential-Guard-简介/" itemprop="url">Windows Credential Guard 简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T18:58:38+08:00">2017-11-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>Credential Guard (CG): 微软提出的保护系统 credential 的机制</li>
+<li>TCB (Trusted Computing Base): 一小部分软件, 系统安全的基石, 一旦有问题整个系统安全性完蛋;<br>其他的软件都可以 misbehave, TCB 不可以. </li>
+</ul>
+<h2 id="解决安全问题-攻击者通过读取-RAM-进行-credential-theft"><a href="#解决安全问题-攻击者通过读取-RAM-进行-credential-theft" class="headerlink" title="解决安全问题: 攻击者通过读取 RAM 进行 credential theft"></a>解决安全问题: 攻击者通过读取 RAM 进行 credential theft</h2><p>“Pass-the-Hash 攻击” 是十分典型的 credential theft.</p>
+<ul>
+<li>从 OS RAM 中读取 “hash 过的密码/hash 过的 identity credential” (如 kerberos 的 TGT),<br>并加以利用 (OS 保存 “hash 过的密码” 是为了实现 SSO (Single Sign-On) 功能)</li>
+<li>通过 “lateral traversal” (用已经窃取到的身份, 在 network 上不同的机器上登录, 重复同样的攻击)<br>拿到更多的 credential 和权限</li>
+<li>已经窃取的 credential 在 network 的部分机器上可能是 admin. </li>
+<li>攻击者进一步利用已有的 user credential, 去读取 network 上所有能读取 RAM 的机器的 RAM.<br>拿到更多的 credential.</li>
+</ul>
+<h2 id="CG-Credential-Guard-如何解决-credential-theft"><a href="#CG-Credential-Guard-如何解决-credential-theft" class="headerlink" title="CG (Credential Guard) 如何解决 credential theft"></a>CG (Credential Guard) 如何解决 credential theft</h2><ul>
+<li>do not trust admin</li>
+<li>do not trust kernel<br>kernel 运行在 ring 0. 现在引入新的 hypervisor 机制,<br>运行的级别比 ring 0 更低 (ring -1, 硬件保证);<br>hypervisor 允许 TCB 运行在 “ring -1”, 从 kernel 隔离开.</li>
+<li>硬件级别的保护</li>
+</ul>
+<h2 id="新机制-VTL-Virtual-Trust-Levels"><a href="#新机制-VTL-Virtual-Trust-Levels" class="headerlink" title="新机制 VTL (Virtual Trust Levels)"></a>新机制 VTL (Virtual Trust Levels)</h2><p>除了新的 hypervisor, 原本的 kernel space, user space 都可以认为跑在 VTL-0 上.</p>
+<p>现在, kernel space 和 user space 都多出了一个 VTL-1 层, only selectively accessible to VTL-0.<br>也就是说: [新 kernel space] = [旧 kernel space (kernel space VTL-0)] + [kernel space VTL-1]<br>user space 同理.</p>
+<p>VTL-1 被认为是 “secure world”, VTL-1 kernel mode 也叫做 “secure kernel mode” (user mode 同理).<br>VTL-0 VTL-1 之间的 communication 通过 secure channel 进行.<br>VTL 利用了新 CPU 的 SLAT (second level address translation) 技术<br>(SLAT 原本用于 “虚拟机 physical/virtual page, 物理机 physical page 三者之间的 mapping”)</p>
+<p>trustlets: 在 VTL-1 的 user mode app 被成为 trustlets.</p>
+<h2 id="一些重要的事实"><a href="#一些重要的事实" class="headerlink" title="一些重要的事实"></a>一些重要的事实</h2><ul>
+<li>CG 带来的性能差别: typically less than 5%</li>
+<li>CG 的价值是不可替代的, 但它本身可以被 disable;<br>故必须配合 win server 的 authen policy/armoring 使用.</li>
+<li>Win10 有 CG 机制</li>
+<li>CG 对于 kerberos 来说: CG 保护了 TGT;<br>这也导致了开启了 win10 的机器上, 部分跨平台的 kerberos 如 heimdal kerberos 的<br>“读取保存 TGT” 的操作都失效. 在开启 CG 的机器上, 最好都改用 Windows 内置的 kerberos API</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li>Defeating Pass-the-Hash-Separation-Of-Powers, win credential guards.pdf<br>幻灯片形式, 良心教程</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/13/Windows-的-memory-mapped-file-简介/" itemprop="url">Windows 的 memory-mapped file 简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T17:59:55+08:00">2017-11-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="what-amp-why"><a href="#what-amp-why" class="headerlink" title="what &amp; why"></a>what &amp; why</h2><p>memory-mapped file (MMF): 将一个文件映射到一个进程的 virtual memory address 中,<br>像读写一片连续的内存空间一样读写文件.</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>读写方便:<br>writing data to MMF:   <code>*p = 23</code><br>reading date from MMF: <code>x = *p</code></p>
+<p>由 virtual-memory manager (VMM) 管理, 优化 read/write 性能(减少了磁盘 I/O 的次数),<br>减少了碎片读, 碎片写带来的问题: </p>
+<ul>
+<li>Much of the file input/output (I/O) is cached, to improve general system performance.<br>Several smaller reads or writes are effectively cached into one larger operation.<br>使用 <code>FlushViewOfFile()</code> 可以强制执行 “写回 disk” 操作.</li>
+<li>读相当于有 lazy-load/on-demand-load 特性:<br>一次将过多内容一次性读入内存, 很多时候既慢又没有必要;<br>on-demand 地按 page 大小 (一般 4k) 读, 快速而经济</li>
+<li>system performs all data transfers for it in 4K pages of data</li>
+</ul>
+<h3 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h3><ul>
+<li>作为 windows 系统的 “两个或多个 process 间共享数据” 的方案.</li>
+<li>快速读写大文件: </li>
+<li>方便地 persist 内存中复杂的数据结构</li>
+</ul>
+<h2 id="原理-充分利用-virtual-memory-manager-VMM"><a href="#原理-充分利用-virtual-memory-manager-VMM" class="headerlink" title="原理: 充分利用 virtual-memory manager (VMM)"></a>原理: 充分利用 virtual-memory manager (VMM)</h2><p>Windows 有段页式的 virtual memory 机制.<br>exe 文件本身, 就是一个程序的部分 code page 和部分的 data page<br>(还有其他的 code page 可能来自于 shared library, 等等) 等构成的.</p>
+<p>windows 的 system pagefile 和应用程序的所有的 executable image 加在一起, 就可以认为是<br>该程序的 virtual memory space 在磁盘上的映射.</p>
+<p>MMF 本身充分利用了操作系统的 virtual-memory manager,<br>所以 :</p>
+<ul>
+<li>“only an extension of an existing, internal memory management component”,<br>本身是建立在一个 OS 必备的, 而且稳定的, 被广泛使用的 “virtual memory management 系统” 之上;<br>所以 MMF 也稳定可靠</li>
+<li>“no overhead to manage”, 本来 VMM 就一直存在, 为每个进程提供 virtual memory 服务</li>
+</ul>
+<h2 id="Windows-API"><a href="#Windows-API" class="headerlink" title="Windows API"></a>Windows API</h2><ul>
+<li>CreateFileMapping</li>
+<li>OpenFileMapping</li>
+<li>MapViewOfFile</li>
+<li>MapViewOfFileEx</li>
+<li>UnmapViewOfFile</li>
+<li>FlushViewOfFile</li>
+<li>CloseHandle</li>
+</ul>
+<h2 id="Example-code"><a href="#Example-code" class="headerlink" title="Example code"></a>Example code</h2><p>功能: 建立 20M 大小的 <code>D:\mm.file</code> 文件, 用 memory-mapped file 的方式写入一个字符串.<br>程序运行&amp;退出后, <code>D:\mm.file</code> 的头几个字符是 <code>&quot;HELLO, WORLD!&quot;</code> 剩余的都是 <code>\0</code>.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">try_mmf</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    LPSECURITY_ATTRIBUTES p_sec_attr = <span class="literal">NULL</span>;  <span class="comment">// no secure customize</span></div><div class="line">    HANDLE h_template_file = <span class="literal">NULL</span>;  <span class="comment">// no template file</span></div><div class="line">    HANDLE file_handle = CreateFileW(</div><div class="line">        <span class="string">L"D:\\mm.file"</span></div><div class="line">        , GENERIC_WRITE | GENERIC_READ</div><div class="line">        , FILE_SHARE_WRITE</div><div class="line">        , p_sec_attr</div><div class="line">        , CREATE_ALWAYS</div><div class="line">        , FILE_ATTRIBUTE_NORMAL</div><div class="line">        , h_template_file</div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (file_handle == INVALID_HANDLE_VALUE) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to create file"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// high-order bits of the maximum size of the file mapping object</span></div><div class="line">    DWORD max_size_high_bits = <span class="number">0</span>;</div><div class="line">    <span class="comment">// low-order bits of the maximum size of the file mapping object</span></div><div class="line">    <span class="comment">// For x64 architecture, we need 2 32 bit integer to represent the size of memory-mapped file</span></div><div class="line">    DWORD max_size_low_bits = <span class="number">0x01400000</span>; <span class="comment">// 20 MB mapping file</span></div><div class="line"></div><div class="line">    HANDLE mmf_handle = CreateFileMappingW(</div><div class="line">        file_handle</div><div class="line">        , p_sec_attr</div><div class="line">        , PAGE_READWRITE</div><div class="line">        , max_size_high_bits</div><div class="line">        , max_size_low_bits</div><div class="line">        , <span class="string">L"hello_world_mmf"</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (mmf_handle == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to create file"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// The handle to the MMF object is used to map views of the file to your process's address space.</span></div><div class="line">    <span class="comment">// Views can be mapped and un-mapped at will while the MMF object exists</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// When a view of the file is mapped, system resources are finally allocated.</span></div><div class="line">    <span class="comment">// A continuous range of addresses, large enough to span the size of the file view,</span></div><div class="line">    <span class="comment">// are now committed in your process's address space.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// virtual memory address 的一段地址被征用了, 但是物理内存依旧是 on demand 地被征用; 所以高效</span></div><div class="line">    DWORD file_offset_high_bits = <span class="number">0</span>;</div><div class="line">    DWORD file_offset_low_bits = <span class="number">0</span>;</div><div class="line">    DWORD bytes_to_map = <span class="number">0</span>;    <span class="comment">// map all</span></div><div class="line">    <span class="keyword">void</span> *map_view = MapViewOfFile(</div><div class="line">        mmf_handle</div><div class="line">        , FILE_MAP_READ | FILE_MAP_WRITE</div><div class="line">        , file_offset_high_bits</div><div class="line">        , file_offset_low_bits</div><div class="line">        , bytes_to_map</div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (map_view == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to get mapped view!"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 现在, 操作 "从 map_view 指针为起始的 20M 内存空间", 等同于在操作文件.</span></div><div class="line">    <span class="keyword">wchar_t</span> *write_ptr = (<span class="keyword">wchar_t</span> *)map_view;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">wchar_t</span> *data = <span class="string">L"HELLO, WORLD!"</span>;</div><div class="line">    <span class="keyword">while</span> (*data) &#123;</div><div class="line">        *write_ptr++ = *data++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    SIZE_T bytes_to_flush = <span class="number">0</span>; <span class="comment">// flush all</span></div><div class="line">    FlushViewOfFile(map_view, bytes_to_flush);</div><div class="line"></div><div class="line">    UnmapViewOfFile(map_view);</div><div class="line">    CloseHandle(mmf_handle);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    try_mmf();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/ms810613.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/ms810613.aspx</a><br>良心文档, with good detail</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/" itemprop="url">C# 的 SynchronizationContext: 让另一个线程执行 code 的机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T22:53:32+08:00">2017-10-20</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="了解-SynchronizationContext-有何价值"><a href="#了解-SynchronizationContext-有何价值" class="headerlink" title="了解 SynchronizationContext 有何价值"></a>了解 SynchronizationContext 有何价值</h2><p>SynchronizationContext 是 C# GUI 编程中, 实现 “令后台工作线程更新 UI” 功能的必备知识.<br>同时, <code>async/await</code> 机制也用到了 SynchronizationContext.<br>SynchronizationContext 也是理解 async/await 的预备知识.</p>
+<p>当然, 标题中的 “A 线程让 B 线程执行一段 code”指的不是<br>“A 线程创建 B 线程, 同时给 B 线程指定一个 method to run” 这样基础的东西. </p>
+<h2 id="SynchronizationContext"><a href="#SynchronizationContext" class="headerlink" title="SynchronizationContext"></a>SynchronizationContext</h2><p>拥有什么能力: “marshal code from thread A to thread B, let thread B execuate the code”.<br>解决什么问题:<br>最经典的例子: background worker thread 通过 SynchronizationContext, 让 UI 线程 update UI.<br>(Windows 上, 所有的 UI 资源只能在 UI 所在的线程执行 update, 否则程序就会崩)</p>
+<p>后台 thread 更新 UI 是非常常见而且必须的操作. 以前的办法有:<br>利用 Control.BeginInvoke (in WinForm) Dispatcher.BeginInvoke (WPF).</p>
+<p>不过, 设计上 “we never want to have a UI object reference within your bussiness layer”.<br>(有了 UI object reference 之后, bussiness layer 就和特定的 UI Object 类型绑定了, 从而对 UI 的 library 产生了依赖)</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        InitializeComponent();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">mToolStripButtonThreads_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"mToolStripButtonThreads_Click thread: "</span> + id);</div><div class="line"></div><div class="line">        <span class="comment">// 把 GUI 线程的 SynchronizationContext 拿来传递给后台工作线程</span></div><div class="line">        SynchronizationContext uiContext = SynchronizationContext.Current;</div><div class="line"></div><div class="line">        <span class="comment">// create a thread and associate it to the run method</span></div><div class="line">        Thread thread = <span class="keyword">new</span> Thread(Run);</div><div class="line">        thread.Start(uiContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"Run thread: "</span> + id);</div><div class="line"></div><div class="line">        SynchronizationContext uiContext = state <span class="keyword">as</span> SynchronizationContext;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// normally you would do some code here</span></div><div class="line">            <span class="comment">// to grab items from the database. or some long</span></div><div class="line">            <span class="comment">// computation</span></div><div class="line">            Thread.Sleep(<span class="number">10</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 利用 SynchronizationContext.Post, 使得 UpdateUI 函数在 GUI 线程得到执行</span></div><div class="line">            uiContext.Post(UpdateUI, <span class="string">"line "</span> + i.ToString());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"><span class="doctag">///</span> This method is executed on the main UI thread. 目的达成</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">UpdateUI</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"UpdateUI thread:"</span> + id);</div><div class="line">        <span class="keyword">string</span> text = state <span class="keyword">as</span> <span class="keyword">string</span>;</div><div class="line">        mListBox.Items.Add(text);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>“marshal code to another thread” 没有 “魔法”:<br>什么是 marshal: Computations often need to move data from one site to another, and don’t have any shared memory.<br>实际上, 这是 <strong>另一个 thread 主动地支持该功能</strong> 才达成的.<br>UI 的 Invoke 机制是通过 Windows message 队列(它是 thread-safe 的)来实现信息传递.</p>
+<h2 id="其他实现-“后台-worker-thread-更新-UI”-的机制"><a href="#其他实现-“后台-worker-thread-更新-UI”-的机制" class="headerlink" title="其他实现 “后台 worker thread 更新 UI” 的机制"></a>其他实现 “后台 worker thread 更新 UI” 的机制</h2><ul>
+<li>MFC: <code>SendMessage(), PostMessage()</code></li>
+<li>WinForm: <code>Control.BeginInvoke()</code></li>
+<li>WPF: <code>Dispatcher.BeginInvoke()</code></li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Understanding SynchronizationContext 三部曲; 只看的 Part-I, 已经足以理解; 后面讲如何自己实现其派生类.</p>
+<ul>
+<li><a href="http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I" target="_blank" rel="external">http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I</a></li>
+<li><a href="http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II" target="_blank" rel="external">http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II</a></li>
+<li><a href="http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III" target="_blank" rel="external">http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" itemprop="url">python 工程习惯: 最好不要依赖 SheBang Line  </a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T17:39:00+08:00">2017-10-16</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>真实的案例.<br>一个在大部分机器工作得很好的 code, 首行是 <code>#!/usr/bin/python</code>.<br>在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了.</p>
+<p>单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.<br>例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 <code>$PATH</code>,<br>但是 hard code 的路径是无视 <code>$PATH</code> 的.</p>
+<p>更好的写法是: <code>#!/usr/bin/env python</code>, 这样会调用 <code>$PATH</code> 中对应的 python;<br>这相当于给用户一个主动决定使用的 python 的版本的机会.</p>
+<p>不过我觉得其实倒不如明确地注明 dependency 的版本, 不写 SheBang,<br>让用户显式地用 python 可执行文件来执行 code, 这样出问题时调试代价要低得多;<br>其实大部分时候代码并没有那么 portable.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" itemprop="url">kerberos pre-stash 简介: 自动更新 TGT 的机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T12:19:24+08:00">2017-10-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
+<p>解决什么问题:<br>我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.<br>所以, 需要一个定期帮助 long running service 获取和刷新 TGT.<br>当然解决方法有很多种, pre-stash 是其中一种</p>
+<p>pre-stashed tickets:<br>Used by long running client to authenticate itself to kerberized services.</p>
+<p>“pre-stashed” 这个动词的含义:<br>将 client 需要的 kerberos ticket 预先保存到某个本地的 credential file 中.</p>
+<p>具体机制:</p>
+<ul>
+<li>一个特定的 long running service 拥有一个称之为 production-id 的特殊的用户; 一一对应</li>
+<li>任何 long running service 会用对应的 production-id 的身份启动</li>
+<li>一个 linux 定期任务帮助每个活跃的 production-id 定期刷新 TGT, 保存在本地 credential file 中</li>
+<li>long running service 只需要从 credential file 读取 TGT</li>
+</ul>
+<p>这个方法的特点还是集中管理吧, 否则解决这个问题的方法有很多;<br>通过 keytab file + 用户创建自己的周期任务自动调用 kinit 也可以实现自动更新 TGT,<br>如: <a href="https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos" target="_blank" rel="external">https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos</a><br>不过这就是野路子了.</p>
+<p>如果要做严格的权限管理, 势必有 production-id 的概念 (保证 service 不会有过多的权限),<br>可能会有 production-id 对应的密码的定期更新, 可能每次登录都必须用专门系统生成的随机密码,<br>所以 pre-stash 的思路还是有可以参考之处.</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>一个相关的概念是 stash file, 参见:</p>
+<ul>
+<li><a href="https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html</a></li>
+<li>相关的命令行 <a href="https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html</a></li>
+</ul>
+<p>由于 stash file 的存在, “把 kerberos TGT 放进某文件” 这个操作常常用动词 ‘stash’ 来描述;<br>如前文所言, 由于 prestash 机制的存在, 这个操作也常常用 ‘prestash’ 来描述.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -273,13 +1172,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/12/kerberos-算法简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -299,13 +1198,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T19:37:20+08:00">
-                2017-10-12
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T19:37:20+08:00">2017-10-12</time>
             
 
+            
             
 
             
@@ -395,6 +1293,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -433,6 +1334,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -441,13 +1344,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/14/使用-hexo-建立-github-io-个人-blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -467,13 +1370,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-14T16:28:01+08:00">
-                2017-08-14
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T16:28:01+08:00">2017-08-14</time>
             
 
+            
             
 
             
@@ -541,6 +1443,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -579,6 +1484,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -587,13 +1494,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/08/10/git-submodule-配置查看-submodule-的具体版本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -613,13 +1520,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-10T10:57:53+08:00">
-                2017-08-10
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T10:57:53+08:00">2017-08-10</time>
             
 
+            
             
 
             
@@ -671,6 +1577,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -709,6 +1618,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -717,13 +1628,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/07/17/实现权限分配遇到的算法问题-简化的-set-cover-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -743,13 +1654,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-17T22:20:55+08:00">
-                2017-07-17
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T22:20:55+08:00">2017-07-17</time>
             
 
+            
             
 
             
@@ -813,6 +1723,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -847,15 +1760,12 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -878,26 +1788,34 @@
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="zsh同学" />
-          <p class="site-author-name" itemprop="name">zsh同学</p>
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-
-        
-
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -914,30 +1832,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
 
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Gemini
-  </a>
-</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -948,6 +1877,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -968,7 +1899,6 @@
 
 
 
-  
 
 
 
@@ -981,62 +1911,56 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
 
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
 
   
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
 
 
 
   
-
-
-  
-
 
 
 
@@ -1059,6 +1983,10 @@
 
 
 
+
+
+
+
   
 
 
@@ -1067,6 +1995,13 @@
 
   
 
+  
+
+  
+
+  
+
+  
   
 
   

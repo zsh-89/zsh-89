@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基本synchronized == 内部锁 (Intrinsic Lock) == 监视器锁 (Monitor Lock / Monitor) 性质, 能力有三个方面重要性质:  互斥 (mutex) 能力 可见性 (visibility) 能力 可重入性 (re-entrant)  互斥能力 + 可见性(内部锁关于互斥和可见性的性质见 “内存模型” 笔记) 可重入, 可重入性 (re-entra">
+<meta name="keywords" content="multithreading,Intrinsic Lock,Monitor Lock,Monitor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 的 synchronized, 内部锁">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:description" content="基本synchronized == 内部锁 (Intrinsic Lock) == 监视器锁 (Monitor Lock / Monitor) 性质, 能力有三个方面重要性质:  互斥 (mutex) 能力 可见性 (visibility) 能力 可重入性 (re-entrant)  互斥能力 + 可见性(内部锁关于互斥和可见性的性质见 “内存模型” 笔记) 可重入, 可重入性 (re-entra">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T08:01:37.003Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 的 synchronized, 内部锁">
+<meta name="twitter:description" content="基本synchronized == 内部锁 (Intrinsic Lock) == 监视器锁 (Monitor Lock / Monitor) 性质, 能力有三个方面重要性质:  互斥 (mutex) 能力 可见性 (visibility) 能力 可重入性 (re-entrant)  互斥能力 + 可见性(内部锁关于互斥和可见性的性质见 “内存模型” 笔记) 可重入, 可重入性 (re-entra">
+
+
+
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java 的 synchronized, 内部锁 | Shuhan 同学的笔记</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shuhan 同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 的 synchronized, 内部锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:38:13+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><p><code>synchronized</code> == 内部锁 (Intrinsic Lock) == 监视器锁 (Monitor Lock / Monitor)</p>
+<h2 id="性质-能力"><a href="#性质-能力" class="headerlink" title="性质, 能力"></a>性质, 能力</h2><p>有三个方面重要性质:</p>
+<ul>
+<li>互斥 (mutex) 能力</li>
+<li>可见性 (visibility) 能力</li>
+<li>可重入性 (re-entrant)</li>
+</ul>
+<h3 id="互斥能力-可见性"><a href="#互斥能力-可见性" class="headerlink" title="互斥能力 + 可见性"></a>互斥能力 + 可见性</h3><p>(内部锁关于互斥和可见性的性质见 “内存模型” 笔记)</p>
+<h3 id="可重入-可重入性-re-entrant-re-entrancy"><a href="#可重入-可重入性-re-entrant-re-entrancy" class="headerlink" title="可重入, 可重入性 (re-entrant, re-entrancy)"></a>可重入, 可重入性 (re-entrant, re-entrancy)</h3><p>用于描述同步工具的性质. Java 的内置锁 <code>synchronized</code> 和 C# 的 <code>lock() {}</code> 语句都是可重入的.<br>含义是: 某个线程如果试图获得一个已被该线程获得的锁, 这个请求会成功.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">FatherClass</span> </span>&#123;</div><div class="line">    <span class="comment">// synchronized 是可重入的 =&gt; 调用 foo() 不会死锁;</span></div><div class="line">    <span class="comment">// 多线程下的递归的代码, 可能会用到 '可重入' 的锁;</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</div><div class="line">        bar();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">       System.out.println(<span class="string">"I am doing something ..."</span>);</div><div class="line">       <span class="comment">// 如果 synchronized 不是可重入的, 这里就会死锁</span></div><div class="line">       <span class="keyword">super</span>.doSomething();    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>相比之下, C/C++ 的许多互斥锁 (如 pthread 的 mutex) 通常是没有可重入性;</p>
+<p>“获取粒度” 的概念: (per-thread acquire 和 per-invocation acquire)<br>我们常常说, 有 “可重入性” 的锁的获取 <strong>粒度</strong> 是 “线程” (per-thread acquire),<br>而没有 “可重入性” 的锁的获取粒度是 “调用” (per-invocation acquire).</p>
+<p>“可重入性” 有时会带来意想不到的奇怪行为.</p>
+<h3 id="与-volatile-的比较"><a href="#与-volatile-的比较" class="headerlink" title="与 volatile 的比较"></a>与 <code>volatile</code> 的比较</h3><p><code>synchronized</code> 比 <code>volatile</code> 功能更强; 不仅可以实现可见性,<br>由于有 mutex 能力, 可以让复合操作拥有 “原子性”;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">AddIfNotExist</span><span class="params">(Element e)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (container.find(e) == <span class="keyword">false</span>) &#123;</div><div class="line">        container.add(e);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子是经典的实现 “check then execute” 逻辑的代码;<br>在多线程情况下, 即使 container 成员本身自身有线程安全性,<br>如果 “check then execute” 没有用恰当的同步机制保证原子性, 代码的整体逻辑依旧会错.</p>
+<p>这里用 <code>synchronized</code> 实现了 “原子性”; 但如果其他操作 container 的代码没有用同样<br>正确地用 <code>synchronized</code> 保护 (参见下文), 那么 “原子性” 可能被破坏 (或这说 ‘不成立’).</p>
+<h2 id="正确使用-synchronized-什么是-“用-内部-锁保护某状态变量”"><a href="#正确使用-synchronized-什么是-“用-内部-锁保护某状态变量”" class="headerlink" title="正确使用 synchronized; 什么是 “用 (内部) 锁保护某状态变量”;"></a>正确使用 <code>synchronized</code>; 什么是 “用 (内部) 锁保护某状态变量”;</h2><p>首先要理解 “用 (内部) 锁保护某状态变量” 术语, 其含义:<br>==等于== 对于所有访问某状态变量的代码, <strong>都</strong> 用 <strong>同一个</strong> 锁保护起来<br>==等于== 访问某状态变量之前, <strong>都</strong> 必须先持有 <strong>同一个</strong> 锁.</p>
+<p><strong>都</strong> 和 <strong>同一个</strong> 这两点都是重点, 否则起不到保护作用:</p>
+<ul>
+<li>对于某个状态变量, 只要有一个关于它的操作未被锁保护, 那么那个操作就是不安全的;<br>而且大多数时候, 这会导致其他操作的安全性也被破坏</li>
+<li>被不同的锁保护的代码, 相互之间绝无互斥和可见性的保证;<br>这是 Java 内存模型决定的</li>
+</ul>
+<p>第二, 通常涉及同一个 “不变性条件 (invariant)” 的多个变量, 会用同一个锁来保护.<br>例如, 一个容器的 <code>size</code> 和 <code>isEmpty</code> 成员逻辑上是强耦合的, 通常会用同一个锁来保护.</p>
+<p>第三, 持有锁的时间应该尽可能短; 需要长时间才能完成的操作 (无论是CPU密集还是IO密集),<br>不应该在持有锁的时候做.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/multithreading/" rel="tag"># multithreading</a>
+          
+            <a href="/tags/Intrinsic-Lock/" rel="tag"># Intrinsic Lock</a>
+          
+            <a href="/tags/Monitor-Lock/" rel="tag"># Monitor Lock</a>
+          
+            <a href="/tags/Monitor/" rel="tag"># Monitor</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/28/内存模型-多线程博文索引/" rel="next" title="内存模型, 多线程博文索引">
+                <i class="fa fa-chevron-left"></i> 内存模型, 多线程博文索引
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/LDAP-简介/" rel="prev" title="LDAP 简介">
+                LDAP 简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质-能力"><span class="nav-number">2.</span> <span class="nav-text">性质, 能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥能力-可见性"><span class="nav-number">2.1.</span> <span class="nav-text">互斥能力 + 可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重入-可重入性-re-entrant-re-entrancy"><span class="nav-number">2.2.</span> <span class="nav-text">可重入, 可重入性 (re-entrant, re-entrancy)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与-volatile-的比较"><span class="nav-number">2.3.</span> <span class="nav-text">与 volatile 的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确使用-synchronized-什么是-“用-内部-锁保护某状态变量”"><span class="nav-number">3.</span> <span class="nav-text">正确使用 synchronized; 什么是 “用 (内部) 锁保护某状态变量”;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

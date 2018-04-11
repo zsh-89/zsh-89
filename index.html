@@ -5,12 +5,15 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -37,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -75,32 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zsh同学的笔记">
-<meta property="og:url" content="http://zsh-89.github.io/index.html">
-<meta property="og:site_name" content="zsh同学的笔记">
-<meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zsh同学的笔记">
+
+
+
 
 
 
@@ -109,14 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -128,14 +94,35 @@
 </script>
 
 
+  
+
+
+
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Shuhan 同学的笔记">
+<meta property="og:url" content="http://zsh-89.github.io/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shuhan 同学的笔记">
+
+
+
+
+
 
   <link rel="canonical" href="http://zsh-89.github.io/"/>
 
 
 
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title>zsh同学的笔记</title>
+  <title>Shuhan 同学的笔记</title>
   
 
 
@@ -146,14 +133,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -161,19 +170,20 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">zsh同学的笔记</span>
+        <span class="site-title">Shuhan 同学的笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -183,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -198,44 +208,44 @@
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
       
 
       
@@ -243,16 +253,28 @@
   
 
   
+
+  
 </nav>
+
+
+  
 
 
 
  </div>
     </header>
 
+    
+
+
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -265,6 +287,1033 @@
   
   
 
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2018/04/08/C-同样算法-手写的循环不如直接写递归快/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/08/C-同样算法-手写的循环不如直接写递归快/" itemprop="url">C++, 同样算法, 手写的循环不如直接写递归快?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T16:50:29+08:00">2018-04-08</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>起因是 leetcode 上的一道题 <a href="https://leetcode.com/problems/target-sum/description/" target="_blank" rel="external">https://leetcode.com/problems/target-sum/description/</a> .<br>这道题本身应该用动态规划做. 不过, 如果用搜索, 这道题仍可以通过, 并不会超时.</p>
+<p>zy同学说, 他用暴力搜索算法, 手写的循环怎么写都不如递归快.<br>于是我也试了一下, 确实如此.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; </div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Frame2</span> &#123;</span></div><div class="line">    Frame2() &#123;&#125;</div><div class="line">    Frame2(<span class="keyword">int</span> _level, <span class="keyword">int</span> _sum) &#123;</div><div class="line">        level = _level;</div><div class="line">        sum = _sum;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> level;</div><div class="line">    <span class="keyword">int</span> sum;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTargetSumWaysQ</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> N = nums.size();</div><div class="line">        <span class="keyword">if</span> (!N) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</div><div class="line">        <span class="comment">// vector&lt;Frame2&gt; stk(nums.size()+1);</span></div><div class="line">        Frame2* stk = (Frame2*)<span class="built_in">malloc</span>((N+<span class="number">1</span>)*<span class="keyword">sizeof</span>(Frame2));</div><div class="line">        stk[<span class="number">0</span>].sum = <span class="number">0</span>;  stk[<span class="number">0</span>].level = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> stk_ptr = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> (stk_ptr&gt;=<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> pre_sum = stk[stk_ptr].sum;</div><div class="line">            <span class="keyword">int</span> level = stk[stk_ptr].level;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (level == N) &#123;</div><div class="line">                --stk_ptr;</div><div class="line">                <span class="keyword">if</span> (pre_sum == target) &#123;</div><div class="line">                    ++total;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">int</span> num = nums[level];</div><div class="line">            stk[stk_ptr].sum = pre_sum + num;</div><div class="line">            stk[stk_ptr].level = <span class="number">1</span>+level;</div><div class="line"></div><div class="line">            stk[stk_ptr+<span class="number">1</span>].sum = pre_sum - num;</div><div class="line">            stk[stk_ptr+<span class="number">1</span>].level = <span class="number">1</span>+level;</div><div class="line"></div><div class="line">            stk_ptr += <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">free</span>(stk);</div><div class="line">        <span class="keyword">return</span> total;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTargetSumWaysR</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> findTargetSumWaysRecursiveImpl(nums, <span class="number">0</span>, <span class="number">0</span>, target);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTargetSumWaysRecursiveImpl</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> level, <span class="keyword">int</span> sum, <span class="keyword">int</span> target)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span> (level &gt;= nums.size())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> (<span class="keyword">int</span>)(sum == target);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> findTargetSumWaysRecursiveImpl(nums, level + <span class="number">1</span>, sum + nums[level], target) +</div><div class="line">                    findTargetSumWaysRecursiveImpl(nums, level + <span class="number">1</span>, sum - nums[level], target);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>findTargetSumWaysQ()</code> 和 <code>findTargetSumWaysR()</code> 算法完全相同</li>
+<li><code>findTargetSumWaysR()</code> 是zy同学写的递归版</li>
+<li><code>findTargetSumWaysQ()</code> 是我的手写循环版本. 不敢说写得最好, 但有以下性质: <ul>
+<li>只有一次申请 <code>(N+1)*sizeof(Frame2)</code> 空间的 memory allocation 操作. 这个空间是我手动维护的 call stack.<br>其他都是简单地使用局部变量和赋值操作. 之后编译时将开启优化, 局部变量都应该是放在寄存器里的.</li>
+<li><code>if</code> 语句在我看来已经最少了</li>
+</ul>
+</li>
+</ul>
+<p>可以去 leetcode 上提交看看, 确实递归版比手写的循环版本更快.</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h3><p>使用 gcc (g++) 和 clang (clang++), 在本地 Ubuntu 做实验<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ clang -v</div><div class="line">clang version 3.8.0-2ubuntu4 (tags/RELEASE_380/final)</div><div class="line">Target: x86_64-pc-linux-gnu</div><div class="line">Thread model: posix</div><div class="line">InstalledDir: /usr/bin</div><div class="line">Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0</div><div class="line">Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/6.0.0</div><div class="line">Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0</div><div class="line">Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.0.0</div><div class="line">Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0</div><div class="line">Candidate multilib: .;@m64</div><div class="line">Selected multilib: .;@m64</div><div class="line"></div><div class="line"></div><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ gcc -v</div><div class="line">Using built-in specs.</div><div class="line">COLLECT_GCC=gcc</div><div class="line">COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper</div><div class="line">Target: x86_64-linux-gnu</div><div class="line">Configured with: ../src/configure -v --with-pkgversion=<span class="string">'Ubuntu 5.4.0-6ubuntu1~16.04.9'</span> --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --<span class="built_in">enable</span>-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --<span class="built_in">enable</span>-shared --<span class="built_in">enable</span>-linker-build-id --libexecdir=/usr/lib --without-included-gettext --<span class="built_in">enable</span>-threads=posix --libdir=/usr/lib --<span class="built_in">enable</span>-nls --with-sysroot=/ --<span class="built_in">enable</span>-clocale=gnu --<span class="built_in">enable</span>-libstdcxx-debug --<span class="built_in">enable</span>-libstdcxx-time=yes --with-default-libstdcxx-abi=new --<span class="built_in">enable</span>-gnu-unique-object --<span class="built_in">disable</span>-vtable-verify --<span class="built_in">enable</span>-libmpx --<span class="built_in">enable</span>-plugin --with-system-zlib --<span class="built_in">disable</span>-browser-plugin --<span class="built_in">enable</span>-java-awt=gtk --<span class="built_in">enable</span>-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --<span class="built_in">enable</span>-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --<span class="built_in">enable</span>-objc-gc --<span class="built_in">enable</span>-multiarch --<span class="built_in">disable</span>-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --<span class="built_in">enable</span>-multilib --with-tune=generic --<span class="built_in">enable</span>-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu</div><div class="line">Thread model: posix</div><div class="line">gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.9)</div></pre></td></tr></table></figure></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><p>前面已经贴出了算法部分的代码, 这里贴出 <code>main()</code> 函数<br><code>iter_main.cpp</code>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    Solution s;</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, s.findTargetSumWaysQ(nums, <span class="number">3</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>recur_main.cpp</code>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    Solution s;</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>, <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, s.findTargetSumWaysR(nums, <span class="number">3</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>编译命令分别为:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">clang++ -o ./iter2  -O3 cpp_src/iter_main.cpp   -std=c++11 </div><div class="line">clang++ -o ./recur2 -O3 cpp_src/recur_main.cpp  -std=c++11 </div><div class="line"></div><div class="line">g++     -o ./iter3  -O3 cpp_src/iter_main.cpp   -std=c++11 </div><div class="line">g++     -o ./recur3 -O3 cpp_src/recur_main.cpp  -std=c++11</div></pre></td></tr></table></figure></p>
+<p>测试速度的命令为:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">time  ./iter2</div><div class="line">time  ./recur2</div><div class="line">time  ./iter3</div><div class="line">time  ./recur3</div></pre></td></tr></table></figure></p>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p>注: 每个情形事实上都跑了多次, 并计算了平均的耗时.<br>这里对于每个情形, 仅仅贴出一份能够代表平均耗时的数据, 便于观看.</p>
+<p><code>g++</code> 编译的递归版本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ time ./recur3</div><div class="line">4457400</div><div class="line"></div><div class="line">real	0m0.088s</div><div class="line">user	0m0.084s</div><div class="line">sys	0m0.004s</div></pre></td></tr></table></figure></p>
+<p><code>clang++</code> 编译的递归版本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ time ./recur2</div><div class="line">4457400</div><div class="line"></div><div class="line">real	0m0.230s</div><div class="line">user	0m0.204s</div><div class="line">sys	0m0.004s</div></pre></td></tr></table></figure></p>
+<p><code>g++</code> 编译的循环版本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ time ./iter3</div><div class="line">4457400</div><div class="line"></div><div class="line">real	0m0.109s</div><div class="line">user	0m0.084s</div><div class="line">sys	0m0.008s</div></pre></td></tr></table></figure></p>
+<p><code>clang++</code> 编译的循环版本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">zsh@zsh-ubuntu:~/workspace/acm_alike$ time ./iter2</div><div class="line">4457400</div><div class="line"></div><div class="line">real	0m0.106s</div><div class="line">user	0m0.092s</div><div class="line">sys	0m0.000s</div></pre></td></tr></table></figure></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>性能排序(从好到差): <code>g++递归</code> &gt; <code>clang++循环</code> = <code>g++循环</code> &gt; <code>clang++递归</code>.<br><code>clang++</code> 编译出来的递归版本的性能是符合预期的.<br><code>g++</code> 究竟做了什么优化, 使得递归版本超越了手写的循环版本呢?</p>
+<p>注意到, 可执行文件 <code>recur3</code> 大小竟然是 12.9 KB, <code>recur2</code> 仅仅是 8.65 KB;<br>作为比较, <code>iter2</code> 大小是 8.66 KB, <code>iter3</code> 大小是 8.85 KB. </p>
+<p>递归版本的源码是远远比循环版本要短的. 然而 <code>g++</code> 编译出来的 <code>recur3</code> 竟然是所有可执行文件中最大的一个.<br>通过命令 <code>g++ -S -o recur3.s  -O3 cpp_src/main.cpp  -std=c++11</code> 观察 <code>g++</code> 编译出的 <code>Solution::findTargetSumWaysRecursiveImpl</code> 函数的汇编代码 (附于本文最后),<br>得出结论: <code>g++</code> <strong>对递归函数做了展开(Recursion flattening), 略微牺牲了二进制文件的大小, 减少了条件跳转, 换取了性能.</strong></p>
+<p>这个案例有趣之处在于, <code>g++</code> 对于 <strong>non-tail recursion</strong> 也能进行展开 (flattening), 并能做到超过手工的优化.<br>参考阅读: <a href="http://32leav.es/?p=674" target="_blank" rel="external">http://32leav.es/?p=674</a></p>
+<h2 id="g-编译出的-Solution-findTargetSumWaysRecursiveImpl-汇编代码"><a href="#g-编译出的-Solution-findTargetSumWaysRecursiveImpl-汇编代码" class="headerlink" title="g++ 编译出的 Solution::findTargetSumWaysRecursiveImpl 汇编代码"></a><code>g++</code> 编译出的 <code>Solution::findTargetSumWaysRecursiveImpl</code> 汇编代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div></pre></td><td class="code"><pre><div class="line">_ZN8Solution30findTargetSumWaysRecursiveImplERSt6vectorIiSaIiEEiii:</div><div class="line">.LFB8874:</div><div class="line">	.cfi_startproc</div><div class="line">	pushq	%r15</div><div class="line">	.cfi_def_cfa_offset 16</div><div class="line">	.cfi_offset 15, -16</div><div class="line">	pushq	%r14</div><div class="line">	.cfi_def_cfa_offset 24</div><div class="line">	.cfi_offset 14, -24</div><div class="line">	movslq	%edx, %rdx</div><div class="line">	pushq	%r13</div><div class="line">	.cfi_def_cfa_offset 32</div><div class="line">	.cfi_offset 13, -32</div><div class="line">	pushq	%r12</div><div class="line">	.cfi_def_cfa_offset 40</div><div class="line">	.cfi_offset 12, -40</div><div class="line">	pushq	%rbp</div><div class="line">	.cfi_def_cfa_offset 48</div><div class="line">	.cfi_offset 6, -48</div><div class="line">	pushq	%rbx</div><div class="line">	.cfi_def_cfa_offset 56</div><div class="line">	.cfi_offset 3, -56</div><div class="line">	subq	$232, %rsp</div><div class="line">	.cfi_def_cfa_offset 288</div><div class="line">	movq	(%rsi), %r13</div><div class="line">	movq	8(%rsi), %rax</div><div class="line">	movq	%rdi, 16(%rsp)</div><div class="line">	movq	%rsi, 24(%rsp)</div><div class="line">	movl	%edx, 124(%rsp)</div><div class="line">	movl	%ecx, 100(%rsp)</div><div class="line">	subq	%r13, %rax</div><div class="line">	movl	%r8d, 12(%rsp)</div><div class="line">	movq	%rdx, 136(%rsp)</div><div class="line">	sarq	$2, %rax</div><div class="line">	cmpq	%rdx, %rax</div><div class="line">	movq	%rax, (%rsp)</div><div class="line">	jbe	.L21</div><div class="line">	movl	$0, 216(%rsp)</div><div class="line">	movq	%r13, %r15</div><div class="line">	movq	%rdx, %rax</div><div class="line">.L3:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 124(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movq	%rax, 136(%rsp)</div><div class="line">	movl	%edx, 128(%rsp)</div><div class="line">	addl	100(%rsp), %edx</div><div class="line">	cmpq	(%rsp), %rax</div><div class="line">	movl	%edx, 96(%rsp)</div><div class="line">	movl	124(%rsp), %edx</div><div class="line">	jnb	.L4</div><div class="line">	movq	%rax, 152(%rsp)</div><div class="line">	movl	%edx, 104(%rsp)</div><div class="line">	movl	$0, 220(%rsp)</div><div class="line">.L14:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 104(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movq	%rax, 152(%rsp)</div><div class="line">	movl	%edx, 160(%rsp)</div><div class="line">	addl	96(%rsp), %edx</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edx, 92(%rsp)</div><div class="line">	movl	104(%rsp), %edx</div><div class="line">	jbe	.L5</div><div class="line">	movq	%rax, 168(%rsp)</div><div class="line">	movl	%edx, 112(%rsp)</div><div class="line">	movl	$0, 212(%rsp)</div><div class="line">.L15:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 112(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movl	112(%rsp), %esi</div><div class="line">	movq	%rax, 168(%rsp)</div><div class="line">	movl	%edx, 164(%rsp)</div><div class="line">	addl	92(%rsp), %edx</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edx, 88(%rsp)</div><div class="line">	jbe	.L6</div><div class="line">	movq	%rax, 192(%rsp)</div><div class="line">	movl	%esi, 116(%rsp)</div><div class="line">	movl	$0, 204(%rsp)</div><div class="line">.L16:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 116(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movl	116(%rsp), %esi</div><div class="line">	movq	%rax, 192(%rsp)</div><div class="line">	movl	%edx, 180(%rsp)</div><div class="line">	addl	88(%rsp), %edx</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edx, 84(%rsp)</div><div class="line">	jbe	.L7</div><div class="line">	movq	%rax, 184(%rsp)</div><div class="line">	movl	%esi, 120(%rsp)</div><div class="line">	movl	%edx, %edi</div><div class="line">	movl	$0, 176(%rsp)</div><div class="line">.L17:</div><div class="line">	movl	(%r15,%rax,4), %esi</div><div class="line">	addl	$1, 120(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movl	120(%rsp), %edx</div><div class="line">	movq	%rax, 184(%rsp)</div><div class="line">	addl	%esi, %edi</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%esi, 200(%rsp)</div><div class="line">	movl	%edi, 80(%rsp)</div><div class="line">	jbe	.L8</div><div class="line">	movq	%rax, 144(%rsp)</div><div class="line">	movl	%edx, 108(%rsp)</div><div class="line">	movl	$0, 132(%rsp)</div><div class="line">.L18:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 108(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movl	108(%rsp), %esi</div><div class="line">	movq	%rax, 144(%rsp)</div><div class="line">	addl	%edx, %edi</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edx, 208(%rsp)</div><div class="line">	movl	%edi, 60(%rsp)</div><div class="line">	jbe	.L9</div><div class="line">	movl	%esi, 56(%rsp)</div><div class="line">	movq	%rax, 64(%rsp)</div><div class="line">	movl	%edi, %esi</div><div class="line">	movl	$0, 76(%rsp)</div><div class="line">.L20:</div><div class="line">	movl	(%r15,%rax,4), %edx</div><div class="line">	addl	$1, 56(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movq	%rax, 64(%rsp)</div><div class="line">	addl	%edx, %esi</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edx, 72(%rsp)</div><div class="line">	movl	%esi, 44(%rsp)</div><div class="line">	movl	56(%rsp), %edx</div><div class="line">	jbe	.L10</div><div class="line">	movq	%rax, 32(%rsp)</div><div class="line">	movl	%edx, 40(%rsp)</div><div class="line">	movl	%esi, %r14d</div><div class="line">	movl	$0, 52(%rsp)</div><div class="line">	.p2align 4,,10</div><div class="line">	.p2align 3</div><div class="line">.L19:</div><div class="line">	movl	(%r15,%rax,4), %edi</div><div class="line">	addl	$1, 40(%rsp)</div><div class="line">	addq	$1, %rax</div><div class="line">	movl	40(%rsp), %esi</div><div class="line">	movq	%rax, 32(%rsp)</div><div class="line">	addl	%edi, %r14d</div><div class="line">	cmpq	%rax, (%rsp)</div><div class="line">	movl	%edi, 48(%rsp)</div><div class="line">	jbe	.L11</div><div class="line">	movq	%rax, %rbx</div><div class="line">	xorl	%ebp, %ebp</div><div class="line">	movl	%esi, %r12d</div><div class="line">	movl	%r14d, %r13d</div><div class="line">	.p2align 4,,10</div><div class="line">	.p2align 3</div><div class="line">.L13:</div><div class="line">	movl	(%r15,%rbx,4), %r14d</div><div class="line">	movl	12(%rsp), %r8d</div><div class="line">	addl	$1, %r12d</div><div class="line">	movq	24(%rsp), %rsi</div><div class="line">	movq	16(%rsp), %rdi</div><div class="line">	movl	%r12d, %edx</div><div class="line">	addq	$1, %rbx</div><div class="line">	leal	0(%r13,%r14), %ecx</div><div class="line">	subl	%r14d, %r13d</div><div class="line">	call	_ZN8Solution30findTargetSumWaysRecursiveImplERSt6vectorIiSaIiEEiii</div><div class="line">	addl	%eax, %ebp</div><div class="line">	cmpq	%rbx, (%rsp)</div><div class="line">	ja	.L13</div><div class="line">	xorl	%eax, %eax</div><div class="line">	movl	48(%rsp), %edx</div><div class="line">	subl	%edx, 44(%rsp)</div><div class="line">	cmpl	%r13d, 12(%rsp)</div><div class="line">	movl	44(%rsp), %r14d</div><div class="line">	sete	%al</div><div class="line">	addl	%eax, %ebp</div><div class="line">	movq	32(%rsp), %rax</div><div class="line">	addl	%ebp, 52(%rsp)</div><div class="line">	jmp	.L19</div><div class="line">.L11:</div><div class="line">	movl	44(%rsp), %eax</div><div class="line">	subl	48(%rsp), %eax</div><div class="line">	movl	12(%rsp), %esi</div><div class="line">	movl	72(%rsp), %edx</div><div class="line">	subl	%edx, 60(%rsp)</div><div class="line">	cmpl	%esi, %eax</div><div class="line">	sete	%dl</div><div class="line">	cmpl	%r14d, %esi</div><div class="line">	movl	60(%rsp), %esi</div><div class="line">	sete	%al</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	52(%rsp), %eax</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 76(%rsp)</div><div class="line">	movq	64(%rsp), %rax</div><div class="line">	jmp	.L20</div><div class="line">.L10:</div><div class="line">	movl	12(%rsp), %edi</div><div class="line">	movl	208(%rsp), %esi</div><div class="line">	subl	%esi, 80(%rsp)</div><div class="line">	movl	44(%rsp), %esi</div><div class="line">	movl	60(%rsp), %edx</div><div class="line">	cmpl	%esi, %edi</div><div class="line">	sete	%al</div><div class="line">	subl	72(%rsp), %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	76(%rsp), %eax</div><div class="line">	cmpl	%edi, %edx</div><div class="line">	movl	80(%rsp), %edi</div><div class="line">	sete	%dl</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 132(%rsp)</div><div class="line">	movq	144(%rsp), %rax</div><div class="line">	jmp	.L18</div><div class="line">.L9:</div><div class="line">	movl	200(%rsp), %edx</div><div class="line">	movl	12(%rsp), %esi</div><div class="line">	subl	%edx, 84(%rsp)</div><div class="line">	movl	60(%rsp), %edx</div><div class="line">	movl	84(%rsp), %edi</div><div class="line">	cmpl	%edx, %esi</div><div class="line">	movl	80(%rsp), %edx</div><div class="line">	sete	%al</div><div class="line">	subl	208(%rsp), %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	132(%rsp), %eax</div><div class="line">	cmpl	%esi, %edx</div><div class="line">	sete	%dl</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 176(%rsp)</div><div class="line">	movq	184(%rsp), %rax</div><div class="line">	jmp	.L17</div><div class="line">.L8:</div><div class="line">	movl	12(%rsp), %esi</div><div class="line">	movl	%edi, %edx</div><div class="line">	movl	180(%rsp), %edi</div><div class="line">	subl	%edi, 88(%rsp)</div><div class="line">	cmpl	%edx, %esi</div><div class="line">	movl	84(%rsp), %edx</div><div class="line">	sete	%al</div><div class="line">	subl	200(%rsp), %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	176(%rsp), %eax</div><div class="line">	cmpl	%esi, %edx</div><div class="line">	sete	%dl</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 204(%rsp)</div><div class="line">	movq	192(%rsp), %rax</div><div class="line">	jmp	.L16</div><div class="line">.L7:</div><div class="line">	movl	12(%rsp), %edi</div><div class="line">	movl	164(%rsp), %esi</div><div class="line">	subl	%esi, 92(%rsp)</div><div class="line">	cmpl	%edx, %edi</div><div class="line">	movl	88(%rsp), %edx</div><div class="line">	sete	%al</div><div class="line">	subl	180(%rsp), %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	204(%rsp), %eax</div><div class="line">	cmpl	%edi, %edx</div><div class="line">	sete	%dl</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 212(%rsp)</div><div class="line">	movq	168(%rsp), %rax</div><div class="line">	jmp	.L15</div><div class="line">.L6:</div><div class="line">	movl	92(%rsp), %eax</div><div class="line">	subl	164(%rsp), %eax</div><div class="line">	xorl	%edx, %edx</div><div class="line">	movl	12(%rsp), %esi</div><div class="line">	movl	160(%rsp), %edi</div><div class="line">	subl	%edi, 96(%rsp)</div><div class="line">	cmpl	%esi, %eax</div><div class="line">	sete	%dl</div><div class="line">	xorl	%eax, %eax</div><div class="line">	cmpl	88(%rsp), %esi</div><div class="line">	sete	%al</div><div class="line">	addl	212(%rsp), %eax</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 220(%rsp)</div><div class="line">	movq	152(%rsp), %rax</div><div class="line">	jmp	.L14</div><div class="line">.L5:</div><div class="line">	movl	128(%rsp), %edi</div><div class="line">	movl	92(%rsp), %esi</div><div class="line">	subl	%edi, 100(%rsp)</div><div class="line">	movl	12(%rsp), %edi</div><div class="line">	movl	96(%rsp), %edx</div><div class="line">	cmpl	%esi, %edi</div><div class="line">	sete	%al</div><div class="line">	subl	160(%rsp), %edx</div><div class="line">	movzbl	%al, %eax</div><div class="line">	addl	220(%rsp), %eax</div><div class="line">	cmpl	%edi, %edx</div><div class="line">	sete	%dl</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	addl	%edx, %eax</div><div class="line">	addl	%eax, 216(%rsp)</div><div class="line">	movq	136(%rsp), %rax</div><div class="line">	jmp	.L3</div><div class="line">.L4:</div><div class="line">	movl	128(%rsp), %edx</div><div class="line">	xorl	%eax, %eax</div><div class="line">	subl	%edx, 100(%rsp)</div><div class="line">	movl	96(%rsp), %edi</div><div class="line">	cmpl	%edi, 12(%rsp)</div><div class="line">	movl	100(%rsp), %edx</div><div class="line">	sete	%al</div><div class="line">	addl	216(%rsp), %eax</div><div class="line">.L2:</div><div class="line">	cmpl	%edx, 12(%rsp)</div><div class="line">	sete	%dl</div><div class="line">	addq	$232, %rsp</div><div class="line">	.cfi_remember_state</div><div class="line">	.cfi_def_cfa_offset 56</div><div class="line">	movzbl	%dl, %edx</div><div class="line">	popq	%rbx</div><div class="line">	.cfi_def_cfa_offset 48</div><div class="line">	addl	%edx, %eax</div><div class="line">	popq	%rbp</div><div class="line">	.cfi_def_cfa_offset 40</div><div class="line">	popq	%r12</div><div class="line">	.cfi_def_cfa_offset 32</div><div class="line">	popq	%r13</div><div class="line">	.cfi_def_cfa_offset 24</div><div class="line">	popq	%r14</div><div class="line">	.cfi_def_cfa_offset 16</div><div class="line">	popq	%r15</div><div class="line">	.cfi_def_cfa_offset 8</div><div class="line">	ret</div><div class="line">.L21:</div><div class="line">	.cfi_restore_state</div><div class="line">	xorl	%eax, %eax</div><div class="line">	movl	%ecx, %edx</div><div class="line">	jmp	.L2</div><div class="line">	.cfi_endproc</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-3-windows-usermode-debug-基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/Windows-Debug-3-windows-usermode-debug-基础/" itemprop="url">Windows Debug - 3: windows usermode debug 基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:45:37+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不同 debug 场景, 不同 debug 难度.</p>
+<ul>
+<li>最简单的是 dev 环境, 可以用 visual studio, 随意增减代码, 打断点, 可以 debug 编译;</li>
+<li>最难的 production 环境, 可能只有一个 dump file.</li>
+</ul>
+<p>本文说的 debug 技术主要是 “拿不到源码” 情况下的 debug 技术.<br>目标是尽可能分析出问题的所在, 由于没有源码, 不试图修复问题.<br>在微软存在专门帮客户分析 production 环境的程序错误的业务.</p>
+<p>Windows 操作系统上, 调试 usermode code 的技术:</p>
+<ul>
+<li>调试 native code (C, C++)</li>
+<li>调试 managed code (C#)</li>
+<li>Remote debugging</li>
+</ul>
+<h2 id="词汇术语"><a href="#词汇术语" class="headerlink" title="词汇术语"></a>词汇术语</h2><ul>
+<li>attach/detach</li>
+<li>break point/conditional break point</li>
+<li>debug(checked) build/retail(free) build</li>
+<li>local process/remote process</li>
+<li>dump file (memory dump)</li>
+<li>exception; first-chance exception; second-chance exception<br>Windows 操作系统有 structured exception handling (try-except-finally 语句).<br>有 exception handler 的称为 first-chance, 没有的则为 second-chance.<br>Win32 API: <code>RaiseException()</code> 主动 raise.</li>
+<li>step over, step into, step out, run to cursor</li>
+<li>symbols, private symbols, public symbols;<br>通常是 .pdb 文件.<br>包含内容: global var, local var, function name, function entry address, source line-number</li>
+<li>symbol server</li>
+<li>call stack</li>
+<li>register</li>
+<li>disassembly code</li>
+<li>user mode / kernel mode</li>
+<li>thread local storage</li>
+</ul>
+<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><h3 id="Windows-Virtual-Memory-小知识"><a href="#Windows-Virtual-Memory-小知识" class="headerlink" title="Windows Virtual Memory 小知识"></a>Windows Virtual Memory 小知识</h3><ul>
+<li>Virtual Memory Type: MEM_IMAGE, MEM_MAPPED, MEM_PRIVATE</li>
+<li>Virtual Page State: Free, Reserved, Committed, Shared</li>
+<li>Virtual Memory Protection: PAGE_READONLY, PAGE_GUARD, PAGE_EXECUTE_READ, 等等</li>
+</ul>
+<h3 id="CPU-寄存器"><a href="#CPU-寄存器" class="headerlink" title="CPU 寄存器"></a>CPU 寄存器</h3><p>intel 寄存器介绍: <a href="https://www.swansontec.com/sregisters.html" target="_blank" rel="external">https://www.swansontec.com/sregisters.html</a>  The Art of Picking Intel Registers.pdf</p>
+<h3 id="managed-code-Net"><a href="#managed-code-Net" class="headerlink" title="managed code; .Net"></a>managed code; .Net</h3><p>在 CLR (common language runtime) 上跑的 code, 称为 managed code, 如 C#.<br>C/C++ 常称为 native/unmanged code.</p>
+<h3 id="Net-程序的-Domain-的概念-System-Domain-Shared-Domain-App-Domain"><a href="#Net-程序的-Domain-的概念-System-Domain-Shared-Domain-App-Domain" class="headerlink" title=".Net 程序的 Domain 的概念; System Domain, Shared Domain, App Domain"></a>.Net 程序的 Domain 的概念; System Domain, Shared Domain, App Domain</h3><p>App Domain 介绍:</p>
+<ul>
+<li>轻量级的进程, 在进程中的进程</li>
+<li>比进程代价低</li>
+<li>被 CLR 管理</li>
+<li>起到互相隔离作用</li>
+</ul>
+<p>System Domain 和 Shared Domain 都是单例的, 每个 managed process 中最多一个;<br>分别起到管理和共享 assembly 的作用.</p>
+<h3 id="CLR-简介"><a href="#CLR-简介" class="headerlink" title="CLR 简介"></a>CLR 简介</h3><p>IL: Intermediate Language<br>Manged object;<br>Manged object method table; 调试时候最经常查看一个 object 的 method table.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[C# 或其他 .net manged code 源代码] =====编译==&gt; </div><div class="line">[IL 和 metadata]                   =====runtime 时被执行, 经 JIT 编译==&gt;</div><div class="line">[native code]                      =====执行==&gt;</div></pre></td></tr></table></figure></p>
+<p>不被执行的不会被 JIT 编译; 被 JIT 编译过会有标记.</p>
+<h2 id="常用-debug-工具"><a href="#常用-debug-工具" class="headerlink" title="常用 debug 工具"></a>常用 debug 工具</h2><ul>
+<li>WindDbg    调试</li>
+<li>debugDiag  抓 dump file, 自动分析 dump</li>
+<li>procDump   抓 dump</li>
+<li>perfmon    Windows Performance Monitor</li>
+<li>Visual Studio</li>
+<li>Profilers, 包括 Visual Studio profiler</li>
+</ul>
+<h2 id="WinDbg-调试-userspace-unmanaged-code"><a href="#WinDbg-调试-userspace-unmanaged-code" class="headerlink" title="WinDbg 调试 userspace unmanaged code"></a>WinDbg 调试 userspace unmanaged code</h2><p>基本思路</p>
+<ul>
+<li>确定出问题的进程 (一般比较容易确定)</li>
+<li>根据出现的问题的情况抓 dump (有些问题可能需要抓多个 dump)</li>
+<li>要确定出问题的线程 </li>
+<li>查看 callstack, 查看 memory usage, 查看程序的汇编代码, 查看 exception,<br>等等, 找出问题所在</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">.cls      清屏</div><div class="line">!help &lt;commands&gt;</div><div class="line"></div><div class="line">## unmanaged code 的 callstack 查看</div><div class="line">k   display callstack</div><div class="line">kc  display only function name</div><div class="line">kb  display first 3 params of each funcion</div><div class="line">kv  display addtionally frame-type specific info (FPO frame-pointer-ommision info)</div><div class="line">kd  display raw stack data</div><div class="line">    k 的输出的第一列信息 (&apos;#&apos; 所在列) 就是 frame number</div><div class="line"></div><div class="line">## frame 可以是 call stack 中的一项, 保存一层函数调用相关的所有信息</div><div class="line">.frame &lt;frame_number&gt;    change frame</div><div class="line">u                        反汇编, current frame 的</div><div class="line">    还可以加地址, 例如: u RtlUserThreadStart+0x21</div><div class="line">    默认是不断显示更多的, 更后面的 (offset 更大) 的反汇编的结果</div><div class="line">dv                       display name/values of local variable of frame</div><div class="line">    必须有 private symbol</div><div class="line">.cxr &lt;exception record addr&gt;   reset registers to match context record</div><div class="line">.ecxr                          switch to faulting context record in dump</div><div class="line">~*k                            call stack of all threads</div><div class="line">   </div><div class="line">## unmanged modules (.dll/.exe 就是一个 module)</div><div class="line">x *!             list all modules</div><div class="line">x User32!MB*     list all symbols starting with &quot;MB&quot; in user32.dll</div><div class="line">lm               list loaded modules   </div><div class="line"></div><div class="line">## break points / 调试命令 </div><div class="line">bp &lt;addr&gt;        add break point</div><div class="line">    如: bp PowerBall!wmain+0x3a8</div><div class="line">bl               list break point</div><div class="line">    disable / clear 断点可以通过 bl 输出的 UI 操作</div><div class="line">    bd 0: disable 断点 0</div><div class="line">g                continue running</div><div class="line">r                查看诸多寄存器保存的值</div><div class="line">r @eax=1         将 eax 置为 1</div></pre></td></tr></table></figure>
+<h3 id="例子-修改-“抽取-PowerBall-美帝的彩票-”-的小程序"><a href="#例子-修改-“抽取-PowerBall-美帝的彩票-”-的小程序" class="headerlink" title="例子: 修改 “抽取 PowerBall (美帝的彩票)” 的小程序"></a>例子: 修改 “抽取 PowerBall (美帝的彩票)” 的小程序</h3><p>需求:<br>假设我们设定的 input 是 1 2 3 4 5 6;<br>(1 - 5 是我们猜测的普通球编号, 6 是我们猜测的 PowerBall 编号).<br>通过 WinDbg 修改程序 “抽奖” 函数的返回值, 使我们的 input 中奖.</p>
+<p>知识点:</p>
+<ul>
+<li>使用 x 命令查看 symbol, 寻找问题相关的函数</li>
+<li>通过 bp 命令设置断点; 熟悉断点, 执行等调试的命令</li>
+<li>通过 r 命令修改寄存器的值, 从而修改函数返回值</li>
+</ul>
+<h4 id="修改过程"><a href="#修改过程" class="headerlink" title="修改过程"></a>修改过程</h4><p>首先, 用 WinDbg “Open Executable” 打开应用程序, 程序会自动被 WinDbg 中断;<br>在我们执行 g 命令前, 程序一直是被中断的状态.</p>
+<p>用 x 命令查看 symbol, 找到相关的函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x *!</div><div class="line">x PowerBall!*</div><div class="line">x PowerBall!Draw*</div><div class="line">    查看到 2 个和 Draw 相关的函数</div></pre></td></tr></table></figure></p>
+<p>这两个命令可以把断点设在函数入口 (我并不用)<br><code>bp PowerBall!DrawNumber</code><br><code>bp PowerBall!DrawPowerBall</code></p>
+<p>通过 <code>u PowerBall!DrawNumber</code> 和继续执行 <code>u</code>, 查看汇编代码;<br>在函数最尾的 ret 语句前用 <code>bp</code> 设置断点 (例如: <code>bp 00aa2ee7</code>);<br>同理, 对 <code>PowerBall!DrawPowerBall</code> 也在返回语句前配置断点.</p>
+<p>g 继续执行程序; 在断点处停下; 通过 <code>r @eax=1</code> 把第一次抽奖的结果改为 1 (修改函数的 return value).<br>重复操作, 把抽奖结果分别改为 “2 3 4 5”.<br>在 <code>PowerBall!DrawPowerBall</code> 返回前, 把抽 “PowerBall” 的结果, 用 <code>r @eax=6</code> 改为 6.</p>
+<p>其他修改思路: </p>
+<ul>
+<li>通过 <code>x PowerBall!*</code> 可以看到小程序把我们的输入保存在 <code>PowerBall!g_LotteryTicket = int [6]</code> 中.<br>也可以把这里面的值修改为 “抽奖” 函数的结果.</li>
+<li>找到最后 “判定抽奖成功” 的地方, 修改比较结果</li>
+</ul>
+<h2 id="WinDbg-调试-userspace-managed-code"><a href="#WinDbg-调试-userspace-managed-code" class="headerlink" title="WinDbg 调试 userspace managed code"></a>WinDbg 调试 userspace managed code</h2><p>调试 C# (或其他 .Net 上的托管的语言) managed code, 首先考虑反编译,<br>得到 C# 的源代码, 不需要去学习 IL 指令.</p>
+<p><code>sos.dll</code>: general debugging extension for .Net; shipped with .Net;<br>能够让 windbg 更好地调试 .Net 的代码 (否则只能像调试 native code 一样调试 .net code).<br>一定要用上和抓 dump 环境同样版本的 sos.dll</p>
+<p>WinDbg 的 Open Executable 和 attach 几乎等价;<br>一般选择先开 exe 再 attch, 这样有机会做 load sos.dll;<br>attach 功能和 DebugDiag 的 “rule 监听” 冲突, 同一时刻只能开一者.</p>
+<p>基本思路:</p>
+<ul>
+<li>确定出问题的进程 (一般比较容易确定)</li>
+<li>根据出现的问题的情况抓 dump (有些问题可能需要抓多个 dump)</li>
+<li>要确定出问题的线程 </li>
+<li>查看 callstack, 查看 memory usage, 查看程序的汇编代码, 查看 exception,<br>等等, 找出问题所在</li>
+</ul>
+<p>查找关注的 method 的方法: </p>
+<ul>
+<li>通过 domain 查到 assembly, 通过 assembly 查到 module (一般是 dll/exe 文件),</li>
+<li>通过 module 查到到自己关心的类 (method table); </li>
+<li>通过 method table 查到自己关心的 method; </li>
+<li>定位到 method 后可以去查看反编译的代码, 定位具体问题</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">## 加载 sos.dll</div><div class="line">.loadby sos clr</div><div class="line">.loadby sos mscorwks</div><div class="line">.load &lt;path&gt;\sos</div><div class="line"></div><div class="line">## 通过 domain 查到 assembly, 通过 assembly 查到 module (一般是 dll/exe 文件),</div><div class="line">## 通过 module 查到到自己关心的类 (method table); </div><div class="line">## 通过 method table 查到自己关心的 method; </div><div class="line">## 定位到 method 后可以去查看反编译的代码, 定位具体问题</div><div class="line">!dumpdomain                    list all domain</div><div class="line">!dumpdomain &lt;domain_addr&gt;</div><div class="line">!dumpassembly &lt;assembly_addr&gt;</div><div class="line">!dumpmodule   &lt;module_addr&gt;</div><div class="line"></div><div class="line">## dump method table 和 method description 最经常用的</div><div class="line">!dumpmodule -mt &lt;module_addr&gt;      查看 module 中的所有 method table   </div><div class="line">!dumpmt -md &lt;method_table_addr&gt;    查看 method table 中的所有 method 的 description</div><div class="line">    method 的状态:</div><div class="line">    + PreJIT 预编译</div><div class="line">    + JIT    已被编译; 一般执行到才编译</div><div class="line">    + NONE   没有被编译</div><div class="line">    </div><div class="line">!DumpMT /d &lt;method_table_addr&gt;  可以看到 method table 的 EEClass 信息</div><div class="line">!dumpclass &lt;eeclass_addr&gt;       查看 EEClass 信息; EEClass 信息并不太多用</div><div class="line"></div><div class="line"></div><div class="line">!dumpstack    查看 managed 和 unmanaged 的 stack</div><div class="line">    -EE       只看 managed 的 stack</div><div class="line">!clrstack     查看 managed stack; 比 !dumpstack 不加 EE 要简明得多;</div><div class="line">    -p        show argument</div><div class="line">    -l        show local variables</div><div class="line">    -a        all above</div><div class="line">~*e!clrstack  查看所有 managed thread</div><div class="line">!eestack      查看所有 thread call stack, 以 dumpstack 的方式</div><div class="line">k             查看 unmanaged stack      </div><div class="line"></div><div class="line">!dumpstackobject / !dso</div><div class="line">!do &lt;object_addr&gt;     在 !dso 输出结果里面, 用鼠标点就可以</div><div class="line">!DumpArray            这些命令通常在 UI 上都可以用鼠标点出来</div><div class="line">!dumpheap</div><div class="line">    -stat             group by method</div><div class="line">!eeheap -gc           显示 heap gc 信息</div><div class="line">!address -summary     显示虚拟地址使用情况的统计信息</div><div class="line">    managed 程序的内存往往有 &lt;unknown&gt;; 可以作为识别标志</div><div class="line">    </div><div class="line">!threads              list threads</div><div class="line">!ThreadState &lt;thread_id&gt;   也可以直接 UI 上鼠标点</div><div class="line"></div><div class="line">~.                    current thread info</div><div class="line">~&lt;number&gt;             thread info, 指定线程编号</div><div class="line">~~[&lt;os_thread_id&gt;]    thread info, 指定线程 id</div><div class="line">~*                    all threads in the process</div><div class="line">~#                    thread that caused the exception</div><div class="line"></div><div class="line"># for live debug; thread command</div><div class="line">~e  execute a thread-specific command</div><div class="line">~f  freeze thread</div><div class="line">~u  unfreeze</div><div class="line">~n  suspend</div><div class="line">~m  resume </div><div class="line"></div><div class="line">~~[&lt;os_thread_id&gt;]s   切换当前线程</div><div class="line">    os_thread_id == !thread 的输出中的 OSID 列的信息</div><div class="line">~&lt;managed_thread_id&gt;s 切换当前线程</div><div class="line">    os_thread_id == !thread 的输出中的 ID 列的信息</div><div class="line">    </div><div class="line">!pe / !PrintException    看 managed exception</div><div class="line">    可以用 do! 看 managed exception object 的信息</div><div class="line"></div><div class="line"># 为 manged code 设置 break point; 断点打到 managed method</div><div class="line">!bpmd DebugLab.exe DebugLab.Program.CrashLab</div></pre></td></tr></table></figure>
+<h3 id="场景-查看-exception-导致的-crash"><a href="#场景-查看-exception-导致的-crash" class="headerlink" title="场景: 查看 exception 导致的 crash"></a>场景: 查看 exception 导致的 crash</h3><p>操作:</p>
+<ul>
+<li>抓 dump</li>
+<li>WinDbg 打开 dump</li>
+<li>load sos.dll</li>
+<li>!pe 查看 exception object</li>
+<li>!clrstack 查看 call stack</li>
+</ul>
+<h3 id="场景-hang-问题"><a href="#场景-hang-问题" class="headerlink" title="场景: hang 问题"></a>场景: hang 问题</h3><p>分类 low cpu hang (idle hang), high cpu hang (busy hang);<br>注意 hang 型问题, dump 至少抓 3 个, 间隔时间由实际问题决定.<br>例如, 读取资源本来就要 1min, 那么抓 dump 间隔就要超过 1min.<br>可以用 procdump 或者自己用 powershell 做到 “间隔时间抓 dump”.</p>
+<p>DebugDiag Analysis 看可以帮助分析 dump 文件; 例如, 可以统计多少线程在等待.</p>
+<p><code>!syncblk, !locks</code> (sos.dll 的命令) 查看正在被等的同步对象/lock, 看到哪个线程持有对象/lock.</p>
+<h3 id="场景-memory-leak"><a href="#场景-memory-leak" class="headerlink" title="场景: memory leak"></a>场景: memory leak</h3><p>有可能导致 OutOfMemory (OOM) exception, crash;<br>可以看 Windows Performance Monitor 看内存使用曲线, .net 内存曲线.</p>
+<p>mange code 如果也泄漏, 先查 pinvoke 等调用 naitive 代码的地方.</p>
+<p>查看是否有 leak 常检验的指标:</p>
+<ul>
+<li>working set: physical pages owned by a process.</li>
+<li>Private Bytes: is the current size, in bytes, of memory that<br>this process has allocated that <strong>CANNOT be shared</strong> with other processes.</li>
+</ul>
+<p>利用 debugDiag, 先在 ‘process’ tab 选择进程, “monior for leak”, 这样抓的 dump 会包含更多细节.<br>这样的的 dump file 可以在 DebugDiag 的 analysis 中分析出更好的结果,<br>在 WinDbg 也可以看到更多信息.</p>
+<p>抓之后, WinDbg 里可以用: <code>!dumpheap</code></p>
+<h3 id="场景-high-cpu-hang"><a href="#场景-high-cpu-hang" class="headerlink" title="场景: high cpu hang"></a>场景: high cpu hang</h3><p>runaway thread: stuck 的, 类似陷入死循环的 thread</p>
+<p>根据条件抓 dump:<br><code>procdump -ma -u -c 24 -s 5 -n 3 -o BaddApp C:\temp</code><br>    -u Treat CPU usage relative to a single core (used with -c)<br>    -c 24: 4核机器, 超过 24% (有一个核几乎完全被占用) 时抓 dump<br>    -n 3 抓 3 个<br>    -o overwrite existing dump<br>    [Dump_Folder] 是 <code>C:\temp</code></p>
+<p>在 WinDbg 中, <code>!runaway</code> 查看线程用时统计. 比较多个 dump 文件中 <code>!runway</code> 的输出,<br>可以找到有问题的 runway 线程.<br>接着切换到对应线程, 查看 callstack 即可.</p>
+<p>gc 百分比一般不超过 10%. 有时候 gc 也会导致 high cpu hang。</p>
+<h2 id="remote-debug"><a href="#remote-debug" class="headerlink" title="remote debug"></a>remote debug</h2><p>user mode 用得较少了(更经常用 remote desktop, 变成 local debug问题), kernal mode 用得多.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## 用 WinDbg 在被调试机 (target) 开启服务 (WinDbg 成为 server 机)</div><div class="line">.server tcp:port=9999</div><div class="line">    命令会输出 &lt;debugger&gt; -remote tcp:Port=9999,Server=NPC</div><div class="line">    tcp:Port=9999,Server=NPC 就是之后会用到的 connection string</div><div class="line">.server npipe:pipe=&lt;Pipe Name&gt;</div><div class="line">    命令会输出: &lt;debugger&gt; -remote npipe:Pipe=xyz,Server=NPC</div><div class="line">    npipe:Pipe=xyz,Server=NPC 就是之后会用到的 connection string</div><div class="line">如果是跨公网连接, 前的 connection string 中改为 Server=&lt;ip&gt;, 机器必须是公网可见的</div><div class="line">    </div><div class="line">## 在 host 用 WinDbg 连接到 target:</div><div class="line">WinDbg UI: [File]-&gt;[Connect To Remote Session], 输入前面得到的 connection string</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-2-windbg-和-os-配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/Windows-Debug-2-windbg-和-os-配置/" itemprop="url">Windows Debug - 2: windbg 和 os 配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:45:36+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="symbol-file-windbg-配置-symbol"><a href="#symbol-file-windbg-配置-symbol" class="headerlink" title="symbol file; windbg 配置 symbol"></a>symbol file; windbg 配置 symbol</h2><h3 id="symbol-简介"><a href="#symbol-简介" class="headerlink" title="symbol 简介"></a>symbol 简介</h3><p>通常就是 <code>.pdb</code> 文件。<br>release 和 debug symbol 要配合对应的 exe 使用, 不可混用.<br>没有 symbol，就看不到函数名，只能看到 <strong>地址</strong>。</p>
+<p>public symbol： 包含基本的玩意 (微软发布的就是 public symbol); 可能只有 public 函数等等;<br>private symbol：和我们自己用 VS build 出来的一样. 全. 可以用来干坏事.</p>
+<p>symchk.exe (windbg 自带) 可以检测 symbol 文件正确性</p>
+<h3 id="windbg-配置-symbol"><a href="#windbg-配置-symbol" class="headerlink" title="windbg 配置 symbol"></a>windbg 配置 symbol</h3><p>可以把 symbol string 设置在两个位置之一, 告诉 windbg ‘symbol 的位置’:</p>
+<ul>
+<li>设定在 <code>_NT_SYMBOL_PATH</code> 环境变量: <code>srv*https://msdl.microsoft.com/download/symbols</code></li>
+<li>通过 UI 设定; 每次设定的值在 windbg 关闭后, 都会被清空.</li>
+</ul>
+<h3 id="symbol-string-的语法"><a href="#symbol-string-的语法" class="headerlink" title="symbol string 的语法"></a>symbol string 的语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">srv*c:\mss*http://msdl.microsoft.com/download/symbols;D:\Windbg_training\Setup\Projects\assembly\x64\Release</div><div class="line"></div><div class="line">## 分号分割; (第二个目录是 app specific symbol)</div><div class="line">## srv*c:\mss*http://msdl.microsoft.com/download/symbols; 设定 local cache 行为,</div><div class="line">## cache 目录为 c:\mss</div></pre></td></tr></table></figure>
+<h3 id="symbol-server-和-symbol-发布"><a href="#symbol-server-和-symbol-发布" class="headerlink" title="symbol server 和 symbol 发布"></a>symbol server 和 symbol 发布</h3><p>文件系统的共享目录可以作为 symbol server.<br>visual studio 可以配置编译后自动发布 symbol 到 symbol server.</p>
+<h2 id="windbg-extension-支持更多的-debug"><a href="#windbg-extension-支持更多的-debug" class="headerlink" title="windbg extension; 支持更多的 debug;"></a>windbg extension; 支持更多的 debug;</h2><p>存在 for .net extension 等等; 有很多开源的 extension;<br>参见: <a href="http://windbg.org" target="_blank" rel="external">http://windbg.org</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-1-dump-file-收集方式-配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/Windows-Debug-1-dump-file-收集方式-配置/" itemprop="url">Windows Debug - 1: dump file; 收集方式; 配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:45:35+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>按照程序所在 mode 分类:</p>
+<ul>
+<li>usermode dump file</li>
+<li>kernel mode dump file</li>
+</ul>
+<h2 id="为什么要收集-dump-file"><a href="#为什么要收集-dump-file" class="headerlink" title="为什么要收集 dump file?"></a>为什么要收集 dump file?</h2><ul>
+<li>对于 kernel mode 程序, 一出错基本上就蓝屏, 所以必须通过 dump file 来分析错误原因.</li>
+<li>对于 user mode 程序, 有时候不允许工程师远程登录生产环境, 或者不允许工程师拿到源码,<br>也只能借助 dump file 来分析错误.</li>
+</ul>
+<h2 id="抓取-usermode-dump-file"><a href="#抓取-usermode-dump-file" class="headerlink" title="抓取 usermode dump file"></a>抓取 usermode dump file</h2><p>不推荐用 “任务管理器”.<br>推荐用 debugDiag (可以方便用 GUI 设定生成 dump 的 rule) 或 procDump.</p>
+<h3 id="procDump"><a href="#procDump" class="headerlink" title="procDump"></a>procDump</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">procdump -ma -u -c 24 -s 5 -n 3 -o BaddApp.exe C:\temp</div><div class="line">    -ma           full dump</div><div class="line">    -u            Treat CPU usage relative to a single core (used with -c)</div><div class="line">    -c            24: 4核机器, 超过 24% (有一个核几乎完全被占用) 时抓 dump</div><div class="line">    -n            3 抓 3 个</div><div class="line">    -o            overwrite existing dump</div><div class="line">    [Dump_Folder] 上面的命令中, dump 文件输出的目录是 `C:\temp`</div><div class="line"></div><div class="line">procdump -e -ma debuglab        ## -e  monitor crash</div></pre></td></tr></table></figure>
+<h3 id="DebugDiag"><a href="#DebugDiag" class="headerlink" title="DebugDiag"></a>DebugDiag</h3><p>DebugDiag 安装完有好多个 exe. 配置抓取 dump 的 rule, 在 DebugDiagCollection 里做.<br>DebugDiag 通过一个后台运行的 service 来抓去 dump. 相比之下, procdump 更加轻量级.</p>
+<p>DebugDiag 中配置 “dump 抓取的 rule” 时的注意点:</p>
+<ul>
+<li>action limits: 代表采集几次 dump, 收集几次 log, 等等</li>
+<li>crash 类型的 dump 基本上就是 second chance exception;<br>first change exception 是被程序内部的 exception handler 处理的 exception.</li>
+</ul>
+<p>debugDiag 的用法例子参见 debug 实例.</p>
+<h2 id="抓取-kernelmode-dump-file"><a href="#抓取-kernelmode-dump-file" class="headerlink" title="抓取 kernelmode dump file"></a>抓取 kernelmode dump file</h2><p>原则: 如果怀疑驱动有问题，早早地直接 dump，免得错误扩散。</p>
+<h3 id="kernel-dump-file-的级别介绍-配置-dump-file-级别"><a href="#kernel-dump-file-的级别介绍-配置-dump-file-级别" class="headerlink" title="kernel dump file 的级别介绍; 配置 dump file 级别"></a>kernel dump file 的级别介绍; 配置 dump file 级别</h3><p>minimal dump: 几百 K;<br>kernel dump: paged out 的 memory 进不了;<br>full dump: 内存多大就多大;</p>
+<p>配置 dump 的级别:<br><code>[修改环境变量的 dialog]-&gt;[Advanced]-&gt;[starup and recovery]</code></p>
+<p><code>Kernel memory dump</code> 一般足够了。<br>如果 C 盘不够大：搜索 <code>delegate dump file</code></p>
+<p>minidump 的位置：<code>C:\Windows\minidump\*</code><br>内存数据：<code>C:\Windows\MEMORY.DMP</code></p>
+<h3 id="利用-OS-“蓝屏后-dump-file-的生成”-的原理-从-pagefile-中拿-dump-file"><a href="#利用-OS-“蓝屏后-dump-file-的生成”-的原理-从-pagefile-中拿-dump-file" class="headerlink" title="利用 OS “蓝屏后 dump file 的生成” 的原理; 从 pagefile 中拿 dump file;"></a>利用 OS “蓝屏后 dump file 的生成” 的原理; 从 pagefile 中拿 dump file;</h3><p>原理:</p>
+<ol>
+<li>系统把内存信息放到 pagefile 里。</li>
+<li>正常启动一次，系统检查 dump 配置，根据配置，把 pagefile 中东西放入 dump file。</li>
+</ol>
+<p>结论:</p>
+<ul>
+<li>挂掉、关机、正常重启之后才能有 dump 。</li>
+<li>如果不能正常再启动了，那就 <strong>手动把 pagefile 拿出来，它就是 dumpfile</strong> 。改下后缀名即可。</li>
+</ul>
+<p>[相关问题] 即使 NTFS 文件系统挂了，一样可以生成 dump file?</p>
+<blockquote>
+<p>系统有 ntfs_dummy 这个进程，专门负责写 dump pagefile。</p>
+</blockquote>
+<h3 id="强制-蓝屏法-收集-Kernel-mode-dump-file"><a href="#强制-蓝屏法-收集-Kernel-mode-dump-file" class="headerlink" title="(强制) 蓝屏法; 收集 Kernel mode dump file"></a>(强制) 蓝屏法; 收集 Kernel mode dump file</h3><p>强制蓝屏的方式</p>
+<ul>
+<li>SystemInternal: NotMyFault 强制蓝屏的工具</li>
+<li>改注册表，用特殊键盘按键来触发蓝屏。</li>
+<li>Call kernel 函数: KeBugCheck(), KeBugCheckEx().</li>
+</ul>
+<h3 id="windbg-法-live-debug-中-收集-Kernel-mode-dump-file"><a href="#windbg-法-live-debug-中-收集-Kernel-mode-dump-file" class="headerlink" title="windbg 法; live debug 中, 收集 Kernel mode dump file"></a>windbg 法; live debug 中, 收集 Kernel mode dump file</h3><p>用 Windbg <code>dump</code> 命令直接生成dump (系统不停住)。<br>这样生成的 <strong>dump 文件不好</strong>, 因为系统并没有真正停住, 收集到的不是纯粹的 snapshot。</p>
+<p>所以, 要发 dump 给 support 时，要说明白是通过这个办法生成的。<br><strong>推荐用蓝屏法来 dump</strong>。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/LDAP-简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/LDAP-简介/" itemprop="url">LDAP 简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:42:04+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol" target="_blank" rel="external">https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol</a></li>
+</ul>
+<h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><p>LDAP 是 Lightweight Directory Access Protocal 的缩写. LDAP 是 “应用层” (Application Level) 的网络协议; </p>
+<p>LDAP用于保存 “Directory Information”, 或者说可以对外提供 “Directory services”;</p>
+<p>LDAP server 通常使用的端口号是:</p>
+<ul>
+<li>TCP 389, UDP 389; 传输 LDAP traffic</li>
+<li>TCP 636; 传输 LDAP SSL traffic (LDAP SSL 又被成为 LDAPS, LDAP over SSL)</li>
+<li>TCP 3268; 传输 LDAP GC (Global Catalog)</li>
+<li>TCP 3269; 传输 LDAPS GC</li>
+</ul>
+<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><p>可以认为 LDAP 是 web service 级别的一个 dictionary 数据结构 (正如 python 等高级语言中 dictionary);<br>LDAP 也可以说是一个轻量级的, 为特定用途优化的数据库; 方便好用, 自带 web service 功能.</p>
+<p>常见用途</p>
+<ul>
+<li>保存 firmwide web application config </li>
+<li>保存 firmwide system config</li>
+<li>保存公司的人员信息</li>
+</ul>
+<h2 id="LDAP-的数据结构-LDAP-entry-LDIF-LDAP-Data-Interchange-Format"><a href="#LDAP-的数据结构-LDAP-entry-LDIF-LDAP-Data-Interchange-Format" class="headerlink" title="LDAP 的数据结构; LDAP entry; LDIF (LDAP Data Interchange Format)"></a>LDAP 的数据结构; LDAP entry; LDIF (LDAP Data Interchange Format)</h2><p>什么是 LDAP 中的 Directory 数据结构:</p>
+<ul>
+<li>Directory 是 entry 的集合</li>
+<li>An <strong>entry</strong> consists of a set of <strong>attributes</strong>.</li>
+<li>An attribute has a name (an attribute type or attribute description) and one or more values.<br>The attributes are defined in a schema (see below).</li>
+<li>Each entry has a unique identifier: its <strong>Distinguished Name (DN)</strong>.<br>This consists of its <strong>Relative Distinguished Name (RDN)</strong>, constructed from<br>some attribute(s) in the entry, followed by the parent entry’s DN.<br>Think of the <strong>DN as the full file path</strong> and the <strong>RDN as its relative filename</strong><br>in its parent folder (e.g. if <code>/foo/bar/myfile</code> were the DN, then <code>myfile</code> would be the RDN).<br>entry 和文件系统中的 ‘文件’ 类似, 对应于文件 ‘绝对路径’ 概念的是 ‘DN’, 对应于 ‘相对路径’ 概念的是 ‘RDN’.</li>
+</ul>
+<p>LDAP 本身是 binary protocal, 传输的信息对于机器友好 (相反, HTTP 则是 plain text protocol);<br>不过 LDAP 传输的信息可以用 LDIF (LDAP Data Interchange Format) 用人类易读的方式表示.</p>
+<p>以下是一个 LDAP entry 的例子 (用 LDIF 的格式写出):<br><figure class="highlight ldif"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">dn</span>: cn=John Doe,dc=bigsoft,dc=com</div><div class="line"><span class="attribute">cn</span>: John Doe</div><div class="line"><span class="attribute">givenName</span>: John</div><div class="line"><span class="attribute">sn</span>: Doe</div><div class="line"><span class="attribute">telephoneNumber</span>: +1 888 555 6789</div><div class="line"><span class="attribute">telephoneNumber</span>: +1 888 555 1232</div><div class="line"><span class="attribute">mail</span>: john@bigsoft.com</div><div class="line"><span class="attribute">manager</span>: cn=Barbara Doe,dc=bigsoft,dc=com</div><div class="line"><span class="attribute">objectClass</span>: inetOrgPerson</div><div class="line"><span class="attribute">objectClass</span>: organizationalPerson</div><div class="line"><span class="attribute">objectClass</span>: person</div><div class="line"><span class="attribute">objectClass</span>: top</div></pre></td></tr></table></figure></p>
+<p>结合例子解读 “directory” 数据结构:</p>
+<ul>
+<li>每个 entry 一定包含 dn; dn 就是 DN (Distinguished Name); dn 不算是 attribute (虽然很像);</li>
+<li>例子中表示 dn 的是第一行 <code>dn: cn=John Doe,dc=bigsoft,dc=com</code>;<br>这个字符串中, <code>cn=John Doe</code> 给出了 RDN (Relative Distinguished Name) (不过 cn 也是 “Common Name” 的缩写),<br><code>dc=bigsoft,dc=com</code> 给出了 parent 的 dn; 字符串中 dc 的含义是 “Domain Component” </li>
+<li>可以知道, 这个 entry 已经是 <code>bigsoft.com</code> 这个 domain 下顶层的 entry 了;<br>(这个 entry 的 parent 的 dn 字符串中没有 cn, 所以它的 parent 不是一个 entry 而是 domain).<br>一个非顶层的 entry 的 dn 的例子是: <code>dn: cn=MyAppConfig,cn=Config,dc=bigsoft,dc=com</code></li>
+<li>部分 entry 和 entry 之间存在 hierarchy 关系, 即一个 entry 可能是另一个 entry 的 parent.</li>
+<li>LDAP entry 的 DN 在 entry 的生命周期中 <strong>可能会改变</strong>; 但是一定是唯一的;<br>部分 LDAP entry 的 optional attribute 中保存了 UUID; UUID 是不变的, 也可以唯一确定地一个 entry.</li>
+<li>一个 entry 包含若干个 attribute; </li>
+<li>attribute 是 name-values pair, 如例子中这个 attribute <code>telephoneNumber: +1 888 555 6789</code>,<br>它的 attribute name 是 <code>telephoneNumber</code>, attribute values 是 <code>+1 888 555 6789</code>;</li>
+</ul>
+<p>更多关于 “entry 的 dn” 的例子: </p>
+<ul>
+<li><code>dn: ou=myGroups,dc=bigsoft,dc=com</code>, <code>ou</code> 的含义是 <strong>Organizational Unit</strong>;</li>
+<li><code>dn: cn=John Smith,ou=myGroups,dc=bigsoft,dc=com</code></li>
+<li><code>dn: cn=Alen Smith,ou=mySubGroup,ou=myGroups,dc=bigsoft,dc=com</code>; ou 在路径中也可以多次出现</li>
+</ul>
+<h2 id="client-端可能执行的操作"><a href="#client-端可能执行的操作" class="headerlink" title="client 端可能执行的操作"></a>client 端可能执行的操作</h2><ul>
+<li>StartTLS — use the LDAPv3 Transport Layer Security (TLS) extension for a secure connection</li>
+<li>Bind — authenticate and specify LDAP protocol version</li>
+<li>Search — search for and/or retrieve directory entries</li>
+<li>Compare — test if a named entry contains a given attribute value</li>
+<li>Add a new entry</li>
+<li>Delete an entry</li>
+<li>Modify an entry</li>
+<li>Modify Distinguished Name (DN) — move or rename an entry</li>
+<li>Abandon — abort a previous request</li>
+<li>Extended Operation — generic operation used to define other operations</li>
+<li>Unbind — close the connection (not the inverse of Bind)</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/Java-的-synchronized-内部锁/" itemprop="url">Java 的 synchronized, 内部锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:38:13+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><p><code>synchronized</code> == 内部锁 (Intrinsic Lock) == 监视器锁 (Monitor Lock / Monitor)</p>
+<h2 id="性质-能力"><a href="#性质-能力" class="headerlink" title="性质, 能力"></a>性质, 能力</h2><p>有三个方面重要性质:</p>
+<ul>
+<li>互斥 (mutex) 能力</li>
+<li>可见性 (visibility) 能力</li>
+<li>可重入性 (re-entrant)</li>
+</ul>
+<h3 id="互斥能力-可见性"><a href="#互斥能力-可见性" class="headerlink" title="互斥能力 + 可见性"></a>互斥能力 + 可见性</h3><p>(内部锁关于互斥和可见性的性质见 “内存模型” 笔记)</p>
+<h3 id="可重入-可重入性-re-entrant-re-entrancy"><a href="#可重入-可重入性-re-entrant-re-entrancy" class="headerlink" title="可重入, 可重入性 (re-entrant, re-entrancy)"></a>可重入, 可重入性 (re-entrant, re-entrancy)</h3><p>用于描述同步工具的性质. Java 的内置锁 <code>synchronized</code> 和 C# 的 <code>lock() {}</code> 语句都是可重入的.<br>含义是: 某个线程如果试图获得一个已被该线程获得的锁, 这个请求会成功.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">FatherClass</span> </span>&#123;</div><div class="line">    <span class="comment">// synchronized 是可重入的 =&gt; 调用 foo() 不会死锁;</span></div><div class="line">    <span class="comment">// 多线程下的递归的代码, 可能会用到 '可重入' 的锁;</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</div><div class="line">        bar();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">       System.out.println(<span class="string">"I am doing something ..."</span>);</div><div class="line">       <span class="comment">// 如果 synchronized 不是可重入的, 这里就会死锁</span></div><div class="line">       <span class="keyword">super</span>.doSomething();    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>相比之下, C/C++ 的许多互斥锁 (如 pthread 的 mutex) 通常是没有可重入性;</p>
+<p>“获取粒度” 的概念: (per-thread acquire 和 per-invocation acquire)<br>我们常常说, 有 “可重入性” 的锁的获取 <strong>粒度</strong> 是 “线程” (per-thread acquire),<br>而没有 “可重入性” 的锁的获取粒度是 “调用” (per-invocation acquire).</p>
+<p>“可重入性” 有时会带来意想不到的奇怪行为.</p>
+<h3 id="与-volatile-的比较"><a href="#与-volatile-的比较" class="headerlink" title="与 volatile 的比较"></a>与 <code>volatile</code> 的比较</h3><p><code>synchronized</code> 比 <code>volatile</code> 功能更强; 不仅可以实现可见性,<br>由于有 mutex 能力, 可以让复合操作拥有 “原子性”;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">AddIfNotExist</span><span class="params">(Element e)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (container.find(e) == <span class="keyword">false</span>) &#123;</div><div class="line">        container.add(e);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子是经典的实现 “check then execute” 逻辑的代码;<br>在多线程情况下, 即使 container 成员本身自身有线程安全性,<br>如果 “check then execute” 没有用恰当的同步机制保证原子性, 代码的整体逻辑依旧会错.</p>
+<p>这里用 <code>synchronized</code> 实现了 “原子性”; 但如果其他操作 container 的代码没有用同样<br>正确地用 <code>synchronized</code> 保护 (参见下文), 那么 “原子性” 可能被破坏 (或这说 ‘不成立’).</p>
+<h2 id="正确使用-synchronized-什么是-“用-内部-锁保护某状态变量”"><a href="#正确使用-synchronized-什么是-“用-内部-锁保护某状态变量”" class="headerlink" title="正确使用 synchronized; 什么是 “用 (内部) 锁保护某状态变量”;"></a>正确使用 <code>synchronized</code>; 什么是 “用 (内部) 锁保护某状态变量”;</h2><p>首先要理解 “用 (内部) 锁保护某状态变量” 术语, 其含义:<br>==等于== 对于所有访问某状态变量的代码, <strong>都</strong> 用 <strong>同一个</strong> 锁保护起来<br>==等于== 访问某状态变量之前, <strong>都</strong> 必须先持有 <strong>同一个</strong> 锁.</p>
+<p><strong>都</strong> 和 <strong>同一个</strong> 这两点都是重点, 否则起不到保护作用:</p>
+<ul>
+<li>对于某个状态变量, 只要有一个关于它的操作未被锁保护, 那么那个操作就是不安全的;<br>而且大多数时候, 这会导致其他操作的安全性也被破坏</li>
+<li>被不同的锁保护的代码, 相互之间绝无互斥和可见性的保证;<br>这是 Java 内存模型决定的</li>
+</ul>
+<p>第二, 通常涉及同一个 “不变性条件 (invariant)” 的多个变量, 会用同一个锁来保护.<br>例如, 一个容器的 <code>size</code> 和 <code>isEmpty</code> 成员逻辑上是强耦合的, 通常会用同一个锁来保护.</p>
+<p>第三, 持有锁的时间应该尽可能短; 需要长时间才能完成的操作 (无论是CPU密集还是IO密集),<br>不应该在持有锁的时候做.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -273,13 +1322,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/28/内存模型-多线程博文索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -299,13 +1348,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-28T17:51:25+08:00">
-                2017-12-28
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T17:51:25+08:00">2017-12-28</time>
             
 
+            
             
 
             
@@ -350,12 +1398,17 @@
 </li>
 <li><p><a href="https://zsh-89.github.io/2017/12/13/%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD-%E6%A0%88%E5%B0%81%E9%97%AD-ThreadLocal-%E5%8D%95%E7%BA%BF%E7%A8%8B%E5%AD%90%E7%B3%BB%E7%BB%9F/">多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统</a> 一些即用到多线程, 但又避免 “线程间共享 mutable 变量” (万恶之源) 的办法.</p>
 </li>
+<li><p><a href="https://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/">Java 的 synchronized, 内部锁</a></p>
+</li>
 </ol>
 
           
         
       
     </div>
+
+    
+
     
     
     
@@ -394,6 +1447,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -402,13 +1457,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/多线程-线程封闭-栈封闭-ThreadLocal-单线程子系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -428,13 +1483,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:52:32+08:00">
-                2017-12-13
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T19:52:32+08:00">2017-12-13</time>
             
 
+            
             
 
             
@@ -499,6 +1553,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -537,6 +1594,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -545,13 +1604,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/多线程-可见性-发布和逸出/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -571,13 +1630,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:41:07+08:00">
-                2017-12-13
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T19:41:07+08:00">2017-12-13</time>
             
 
+            
             
 
             
@@ -663,6 +1721,9 @@
         
       
     </div>
+
+    
+
     
     
     
@@ -701,6 +1762,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -709,13 +1772,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/13/Java-内存模型-volatile-final-synchronized/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -735,13 +1798,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-13T19:28:15+08:00">
-                2017-12-13
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T19:28:15+08:00">2017-12-13</time>
             
 
+            
             
 
             
@@ -971,857 +2033,9 @@
         
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/14/多线程-必要性-常见问题-采纳多线程并发模型之前的考量/" itemprop="url">多线程: 必要性, 常见问题; 采纳多线程并发模型之前的考量</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-14T17:41:07+08:00">
-                2017-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="为什么需要多线程"><a href="#为什么需要多线程" class="headerlink" title="为什么需要多线程?"></a>为什么需要多线程?</h2><ul>
-<li>单核和多核情况下, 增加程序的 responsiveness</li>
-<li>单核和多核情况下, 增加程序的 throughput</li>
-<li>充分利用多核, 多处理器的计算资源</li>
-<li>可能带来: 更简单的 modeling;<br>阻塞的同步 I/O 比异步 I/O 简单;<br>可以用于 decompose complicated async workflow;</li>
-</ul>
-<h2 id="多线程程序常见问题"><a href="#多线程程序常见问题" class="headerlink" title="多线程程序常见问题"></a>多线程程序常见问题</h2><p>有以下问题之一就称为 “没有线程安全性”:</p>
-<ul>
-<li>正确性问题: 程序不正确 (狭义的正确性, 指不出现错误运算结果/side-effect).<br>如: 不加保护的 <code>return id++</code> 作为多线程的 serial generator</li>
-<li>活跃性问题: 死锁, 活锁, 饥饿</li>
-</ul>
-<p>常见问题还包括 ‘性能问题’:</p>
-<ul>
-<li>性能问题: 没有充分利用多核计算资源; 并发度不足;</li>
-</ul>
-<h2 id="为什么-“线程安全性”-的知识是程序员必备的"><a href="#为什么-“线程安全性”-的知识是程序员必备的" class="headerlink" title="为什么 “线程安全性” 的知识是程序员必备的:"></a>为什么 “线程安全性” 的知识是程序员必备的:</h2><p>例如, library 为了性能, 大部分是多线程的; 一旦你的代码需要传递一个 callback function<br>给 library 时, 自然地就要求你的代码有 “线程安全性”;<br>这样的 ‘传染性’ 很强, 可能扩散到整个程序.</p>
-<p>真实例子:</p>
-<ul>
-<li>timer: 部分 timer 库会有一个 thread pool, 在 “时间到了” 等 event 触发时, 专门来跑用户指定的 callback;<br>这时候用户的 callback 将在 timer 的 threadpool 中运行</li>
-<li>GUI: GUI 库不可能让你阻塞 GUI 线程, 必须开多线程在后台负责 workload 计算</li>
-</ul>
-<h2 id="“能不用则不用”-考虑用更好-更简单的工具"><a href="#“能不用则不用”-考虑用更好-更简单的工具" class="headerlink" title="“能不用则不用”, 考虑用更好/更简单的工具"></a>“能不用则不用”, 考虑用更好/更简单的工具</h2><p>多线程本身是诸多并发模型的一种; 在所有并发模型中, 多线程是偏底层的, 较难驾驭的;<br>而且未必适用于所有的问题.</p>
-<p>一般来说, 如果不是写较为底层的库, 可以考虑用 Actor 模式等更加 high-level 的并发模型.<br>如果采用多线程, 那么:</p>
-<ul>
-<li>看是否存在 shared state; 整理出 shared state 的清单</li>
-<li>看能否去掉不必要的 shared state</li>
-<li>将 share state 分类: immutable 的 mutable 的</li>
-<li>immutable 的, 看是否已经通过正当的方式 publish value (可见性 visibility);</li>
-<li>对于 mutable share state, 看是否能 Copy-On-Write 等方法消除掉一些, 使之 immutable 化;</li>
-<li>最后, 开始考虑如何利用已知的 synchronization model, 及建立正确的 sync model, 利用多线程解决问题.</li>
-</ul>
-<h2 id="文档非常重要-不假设有安全性"><a href="#文档非常重要-不假设有安全性" class="headerlink" title="文档非常重要; 不假设有安全性"></a>文档非常重要; 不假设有安全性</h2><p>很多广为应用的 java 库都曾经没有好好地说明某个类是否是线程安全的.<br>许多程序员都错误地假设某个类是线程安全的, 结果并不是.<br>一般情况下, 如果没有说明, 那么就应该假设类/接口不是线程安全的.</p>
-<p>在注释和文档中至少说明关键类的线程安全性, 注明代码的同步策略.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-Credential-Guard-简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/13/Windows-Credential-Guard-简介/" itemprop="url">Windows Credential Guard 简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-13T18:58:38+08:00">
-                2017-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
-<li>Credential Guard (CG): 微软提出的保护系统 credential 的机制</li>
-<li>TCB (Trusted Computing Base): 一小部分软件, 系统安全的基石, 一旦有问题整个系统安全性完蛋;<br>其他的软件都可以 misbehave, TCB 不可以. </li>
-</ul>
-<h2 id="解决安全问题-攻击者通过读取-RAM-进行-credential-theft"><a href="#解决安全问题-攻击者通过读取-RAM-进行-credential-theft" class="headerlink" title="解决安全问题: 攻击者通过读取 RAM 进行 credential theft"></a>解决安全问题: 攻击者通过读取 RAM 进行 credential theft</h2><p>“Pass-the-Hash 攻击” 是十分典型的 credential theft.</p>
-<ul>
-<li>从 OS RAM 中读取 “hash 过的密码/hash 过的 identity credential” (如 kerberos 的 TGT),<br>并加以利用 (OS 保存 “hash 过的密码” 是为了实现 SSO (Single Sign-On) 功能)</li>
-<li>通过 “lateral traversal” (用已经窃取到的身份, 在 network 上不同的机器上登录, 重复同样的攻击)<br>拿到更多的 credential 和权限</li>
-<li>已经窃取的 credential 在 network 的部分机器上可能是 admin. </li>
-<li>攻击者进一步利用已有的 user credential, 去读取 network 上所有能读取 RAM 的机器的 RAM.<br>拿到更多的 credential.</li>
-</ul>
-<h2 id="CG-Credential-Guard-如何解决-credential-theft"><a href="#CG-Credential-Guard-如何解决-credential-theft" class="headerlink" title="CG (Credential Guard) 如何解决 credential theft"></a>CG (Credential Guard) 如何解决 credential theft</h2><ul>
-<li>do not trust admin</li>
-<li>do not trust kernel<br>kernel 运行在 ring 0. 现在引入新的 hypervisor 机制,<br>运行的级别比 ring 0 更低 (ring -1, 硬件保证);<br>hypervisor 允许 TCB 运行在 “ring -1”, 从 kernel 隔离开.</li>
-<li>硬件级别的保护</li>
-</ul>
-<h2 id="新机制-VTL-Virtual-Trust-Levels"><a href="#新机制-VTL-Virtual-Trust-Levels" class="headerlink" title="新机制 VTL (Virtual Trust Levels)"></a>新机制 VTL (Virtual Trust Levels)</h2><p>除了新的 hypervisor, 原本的 kernel space, user space 都可以认为跑在 VTL-0 上.</p>
-<p>现在, kernel space 和 user space 都多出了一个 VTL-1 层, only selectively accessible to VTL-0.<br>也就是说: [新 kernel space] = [旧 kernel space (kernel space VTL-0)] + [kernel space VTL-1]<br>user space 同理.</p>
-<p>VTL-1 被认为是 “secure world”, VTL-1 kernel mode 也叫做 “secure kernel mode” (user mode 同理).<br>VTL-0 VTL-1 之间的 communication 通过 secure channel 进行.<br>VTL 利用了新 CPU 的 SLAT (second level address translation) 技术<br>(SLAT 原本用于 “虚拟机 physical/virtual page, 物理机 physical page 三者之间的 mapping”)</p>
-<p>trustlets: 在 VTL-1 的 user mode app 被成为 trustlets.</p>
-<h2 id="一些重要的事实"><a href="#一些重要的事实" class="headerlink" title="一些重要的事实"></a>一些重要的事实</h2><ul>
-<li>CG 带来的性能差别: typically less than 5%</li>
-<li>CG 的价值是不可替代的, 但它本身可以被 disable;<br>故必须配合 win server 的 authen policy/armoring 使用.</li>
-<li>Win10 有 CG 机制</li>
-<li>CG 对于 kerberos 来说: CG 保护了 TGT;<br>这也导致了开启了 win10 的机器上, 部分跨平台的 kerberos 如 heimdal kerberos 的<br>“读取保存 TGT” 的操作都失效. 在开启 CG 的机器上, 最好都改用 Windows 内置的 kerberos API</li>
-</ul>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
-<li>Defeating Pass-the-Hash-Separation-Of-Powers, win credential guards.pdf<br>幻灯片形式, 良心教程</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/11/13/Windows-的-memory-mapped-file-简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/13/Windows-的-memory-mapped-file-简介/" itemprop="url">Windows 的 memory-mapped file 简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-13T17:59:55+08:00">
-                2017-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
 
-      
-        
-          
-            <h2 id="what-amp-why"><a href="#what-amp-why" class="headerlink" title="what &amp; why"></a>what &amp; why</h2><p>memory-mapped file (MMF): 将一个文件映射到一个进程的 virtual memory address 中,<br>像读写一片连续的内存空间一样读写文件.</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>读写方便:<br>writing data to MMF:   <code>*p = 23</code><br>reading date from MMF: <code>x = *p</code></p>
-<p>由 virtual-memory manager (VMM) 管理, 优化 read/write 性能(减少了磁盘 I/O 的次数),<br>减少了碎片读, 碎片写带来的问题: </p>
-<ul>
-<li>Much of the file input/output (I/O) is cached, to improve general system performance.<br>Several smaller reads or writes are effectively cached into one larger operation.<br>使用 <code>FlushViewOfFile()</code> 可以强制执行 “写回 disk” 操作.</li>
-<li>读相当于有 lazy-load/on-demand-load 特性:<br>一次将过多内容一次性读入内存, 很多时候既慢又没有必要;<br>on-demand 地按 page 大小 (一般 4k) 读, 快速而经济</li>
-<li>system performs all data transfers for it in 4K pages of data</li>
-</ul>
-<h3 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h3><ul>
-<li>作为 windows 系统的 “两个或多个 process 间共享数据” 的方案.</li>
-<li>快速读写大文件: </li>
-<li>方便地 persist 内存中复杂的数据结构</li>
-</ul>
-<h2 id="原理-充分利用-virtual-memory-manager-VMM"><a href="#原理-充分利用-virtual-memory-manager-VMM" class="headerlink" title="原理: 充分利用 virtual-memory manager (VMM)"></a>原理: 充分利用 virtual-memory manager (VMM)</h2><p>Windows 有段页式的 virtual memory 机制.<br>exe 文件本身, 就是一个程序的部分 code page 和部分的 data page<br>(还有其他的 code page 可能来自于 shared library, 等等) 等构成的.</p>
-<p>windows 的 system pagefile 和应用程序的所有的 executable image 加在一起, 就可以认为是<br>该程序的 virtual memory space 在磁盘上的映射.</p>
-<p>MMF 本身充分利用了操作系统的 virtual-memory manager,<br>所以 :</p>
-<ul>
-<li>“only an extension of an existing, internal memory management component”,<br>本身是建立在一个 OS 必备的, 而且稳定的, 被广泛使用的 “virtual memory management 系统” 之上;<br>所以 MMF 也稳定可靠</li>
-<li>“no overhead to manage”, 本来 VMM 就一直存在, 为每个进程提供 virtual memory 服务</li>
-</ul>
-<h2 id="Windows-API"><a href="#Windows-API" class="headerlink" title="Windows API"></a>Windows API</h2><ul>
-<li>CreateFileMapping</li>
-<li>OpenFileMapping</li>
-<li>MapViewOfFile</li>
-<li>MapViewOfFileEx</li>
-<li>UnmapViewOfFile</li>
-<li>FlushViewOfFile</li>
-<li>CloseHandle</li>
-</ul>
-<h2 id="Example-code"><a href="#Example-code" class="headerlink" title="Example code"></a>Example code</h2><p>功能: 建立 20M 大小的 <code>D:\mm.file</code> 文件, 用 memory-mapped file 的方式写入一个字符串.<br>程序运行&amp;退出后, <code>D:\mm.file</code> 的头几个字符是 <code>&quot;HELLO, WORLD!&quot;</code> 剩余的都是 <code>\0</code>.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">try_mmf</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    LPSECURITY_ATTRIBUTES p_sec_attr = <span class="literal">NULL</span>;  <span class="comment">// no secure customize</span></div><div class="line">    HANDLE h_template_file = <span class="literal">NULL</span>;  <span class="comment">// no template file</span></div><div class="line">    HANDLE file_handle = CreateFileW(</div><div class="line">        <span class="string">L"D:\\mm.file"</span></div><div class="line">        , GENERIC_WRITE | GENERIC_READ</div><div class="line">        , FILE_SHARE_WRITE</div><div class="line">        , p_sec_attr</div><div class="line">        , CREATE_ALWAYS</div><div class="line">        , FILE_ATTRIBUTE_NORMAL</div><div class="line">        , h_template_file</div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (file_handle == INVALID_HANDLE_VALUE) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to create file"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// high-order bits of the maximum size of the file mapping object</span></div><div class="line">    DWORD max_size_high_bits = <span class="number">0</span>;</div><div class="line">    <span class="comment">// low-order bits of the maximum size of the file mapping object</span></div><div class="line">    <span class="comment">// For x64 architecture, we need 2 32 bit integer to represent the size of memory-mapped file</span></div><div class="line">    DWORD max_size_low_bits = <span class="number">0x01400000</span>; <span class="comment">// 20 MB mapping file</span></div><div class="line"></div><div class="line">    HANDLE mmf_handle = CreateFileMappingW(</div><div class="line">        file_handle</div><div class="line">        , p_sec_attr</div><div class="line">        , PAGE_READWRITE</div><div class="line">        , max_size_high_bits</div><div class="line">        , max_size_low_bits</div><div class="line">        , <span class="string">L"hello_world_mmf"</span></div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (mmf_handle == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to create file"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// The handle to the MMF object is used to map views of the file to your process's address space.</span></div><div class="line">    <span class="comment">// Views can be mapped and un-mapped at will while the MMF object exists</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// When a view of the file is mapped, system resources are finally allocated.</span></div><div class="line">    <span class="comment">// A continuous range of addresses, large enough to span the size of the file view,</span></div><div class="line">    <span class="comment">// are now committed in your process's address space.</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// virtual memory address 的一段地址被征用了, 但是物理内存依旧是 on demand 地被征用; 所以高效</span></div><div class="line">    DWORD file_offset_high_bits = <span class="number">0</span>;</div><div class="line">    DWORD file_offset_low_bits = <span class="number">0</span>;</div><div class="line">    DWORD bytes_to_map = <span class="number">0</span>;    <span class="comment">// map all</span></div><div class="line">    <span class="keyword">void</span> *map_view = MapViewOfFile(</div><div class="line">        mmf_handle</div><div class="line">        , FILE_MAP_READ | FILE_MAP_WRITE</div><div class="line">        , file_offset_high_bits</div><div class="line">        , file_offset_low_bits</div><div class="line">        , bytes_to_map</div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (map_view == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to get mapped view!"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 现在, 操作 "从 map_view 指针为起始的 20M 内存空间", 等同于在操作文件.</span></div><div class="line">    <span class="keyword">wchar_t</span> *write_ptr = (<span class="keyword">wchar_t</span> *)map_view;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">wchar_t</span> *data = <span class="string">L"HELLO, WORLD!"</span>;</div><div class="line">    <span class="keyword">while</span> (*data) &#123;</div><div class="line">        *write_ptr++ = *data++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    SIZE_T bytes_to_flush = <span class="number">0</span>; <span class="comment">// flush all</span></div><div class="line">    FlushViewOfFile(map_view, bytes_to_flush);</div><div class="line"></div><div class="line">    UnmapViewOfFile(map_view);</div><div class="line">    CloseHandle(mmf_handle);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    try_mmf();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://msdn.microsoft.com/en-us/library/ms810613.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/ms810613.aspx</a><br>良心文档, with good detail</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/20/C-的-SynchronizationContext-让另一个线程执行-code-的机制/" itemprop="url">C# 的 SynchronizationContext: 让另一个线程执行 code 的机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T22:53:32+08:00">
-                2017-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="了解-SynchronizationContext-有何价值"><a href="#了解-SynchronizationContext-有何价值" class="headerlink" title="了解 SynchronizationContext 有何价值"></a>了解 SynchronizationContext 有何价值</h2><p>SynchronizationContext 是 C# GUI 编程中, 实现 “令后台工作线程更新 UI” 功能的必备知识.<br>同时, <code>async/await</code> 机制也用到了 SynchronizationContext.<br>SynchronizationContext 也是理解 async/await 的预备知识.</p>
-<p>当然, 标题中的 “A 线程让 B 线程执行一段 code”指的不是<br>“A 线程创建 B 线程, 同时给 B 线程指定一个 method to run” 这样基础的东西. </p>
-<h2 id="SynchronizationContext"><a href="#SynchronizationContext" class="headerlink" title="SynchronizationContext"></a>SynchronizationContext</h2><p>拥有什么能力: “marshal code from thread A to thread B, let thread B execuate the code”.<br>解决什么问题:<br>最经典的例子: background worker thread 通过 SynchronizationContext, 让 UI 线程 update UI.<br>(Windows 上, 所有的 UI 资源只能在 UI 所在的线程执行 update, 否则程序就会崩)</p>
-<p>后台 thread 更新 UI 是非常常见而且必须的操作. 以前的办法有:<br>利用 Control.BeginInvoke (in WinForm) Dispatcher.BeginInvoke (WPF).</p>
-<p>不过, 设计上 “we never want to have a UI object reference within your bussiness layer”.<br>(有了 UI object reference 之后, bussiness layer 就和特定的 UI Object 类型绑定了, 从而对 UI 的 library 产生了依赖)</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        InitializeComponent();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">mToolStripButtonThreads_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"mToolStripButtonThreads_Click thread: "</span> + id);</div><div class="line"></div><div class="line">        <span class="comment">// 把 GUI 线程的 SynchronizationContext 拿来传递给后台工作线程</span></div><div class="line">        SynchronizationContext uiContext = SynchronizationContext.Current;</div><div class="line"></div><div class="line">        <span class="comment">// create a thread and associate it to the run method</span></div><div class="line">        Thread thread = <span class="keyword">new</span> Thread(Run);</div><div class="line">        thread.Start(uiContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"Run thread: "</span> + id);</div><div class="line"></div><div class="line">        SynchronizationContext uiContext = state <span class="keyword">as</span> SynchronizationContext;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// normally you would do some code here</span></div><div class="line">            <span class="comment">// to grab items from the database. or some long</span></div><div class="line">            <span class="comment">// computation</span></div><div class="line">            Thread.Sleep(<span class="number">10</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 利用 SynchronizationContext.Post, 使得 UpdateUI 函数在 GUI 线程得到执行</span></div><div class="line">            uiContext.Post(UpdateUI, <span class="string">"line "</span> + i.ToString());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"><span class="doctag">///</span> This method is executed on the main UI thread. 目的达成</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">UpdateUI</span>(<span class="params"><span class="keyword">object</span> state</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> id = Thread.CurrentThread.ManagedThreadId;</div><div class="line">        Trace.WriteLine(<span class="string">"UpdateUI thread:"</span> + id);</div><div class="line">        <span class="keyword">string</span> text = state <span class="keyword">as</span> <span class="keyword">string</span>;</div><div class="line">        mListBox.Items.Add(text);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>“marshal code to another thread” 没有 “魔法”:<br>什么是 marshal: Computations often need to move data from one site to another, and don’t have any shared memory.<br>实际上, 这是 <strong>另一个 thread 主动地支持该功能</strong> 才达成的.<br>UI 的 Invoke 机制是通过 Windows message 队列(它是 thread-safe 的)来实现信息传递.</p>
-<h2 id="其他实现-“后台-worker-thread-更新-UI”-的机制"><a href="#其他实现-“后台-worker-thread-更新-UI”-的机制" class="headerlink" title="其他实现 “后台 worker thread 更新 UI” 的机制"></a>其他实现 “后台 worker thread 更新 UI” 的机制</h2><ul>
-<li>MFC: <code>SendMessage(), PostMessage()</code></li>
-<li>WinForm: <code>Control.BeginInvoke()</code></li>
-<li>WPF: <code>Dispatcher.BeginInvoke()</code></li>
-</ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Understanding SynchronizationContext 三部曲; 只看的 Part-I, 已经足以理解; 后面讲如何自己实现其派生类.</p>
-<ul>
-<li><a href="http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I" target="_blank" rel="external">http://www.codeproject.com/Articles/31971/Understanding-SynchronizationContext-Part-I</a></li>
-<li><a href="http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II" target="_blank" rel="external">http://www.codeproject.com/Articles/32113/Understanding-SynchronizationContext-Part-II</a></li>
-<li><a href="http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III" target="_blank" rel="external">http://www.codeproject.com/Articles/32119/Understanding-SynchronizationContext-Part-III</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/16/python-工程习惯-最好不要依赖-SheBang-Line/" itemprop="url">python 工程习惯: 最好不要依赖 SheBang Line  </a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-16T17:39:00+08:00">
-                2017-10-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>真实的案例.<br>一个在大部分机器工作得很好的 code, 首行是 <code>#!/usr/bin/python</code>.<br>在一台 server 上, 这个路径对应的 python 是有问题的, 于是跪了.</p>
-<p>单抽出来说很简单, 但实际表现的症状比较莫名其妙, 夹杂在其他问题中, 就不容易找到了.<br>例如, 操作的人在运行 py 文件之前可能已经通过其他命令行工具临时修改了 <code>$PATH</code>,<br>但是 hard code 的路径是无视 <code>$PATH</code> 的.</p>
-<p>更好的写法是: <code>#!/usr/bin/env python</code>, 这样会调用 <code>$PATH</code> 中对应的 python;<br>这相当于给用户一个主动决定使用的 python 的版本的机会.</p>
-<p>不过我觉得其实倒不如明确地注明 dependency 的版本, 不写 SheBang,<br>让用户显式地用 python 可执行文件来执行 code, 这样出问题时调试代价要低得多;<br>其实大部分时候代码并没有那么 portable.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/13/kerberos-prestash-简介-自动更新-TGT-的机制/" itemprop="url">kerberos pre-stash 简介: 自动更新 TGT 的机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T12:19:24+08:00">
-                2017-10-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="pre-stash-krb5-prestash"><a href="#pre-stash-krb5-prestash" class="headerlink" title="pre-stash; krb5-prestash"></a>pre-stash; krb5-prestash</h2><p>参考 <a href="http://oskt.secure-endpoints.com/krb5_prestash.1.html" target="_blank" rel="external">http://oskt.secure-endpoints.com/krb5_prestash.1.html</a> 不过链接里说得并不清楚.</p>
-<p>解决什么问题:<br>我们不希望 long running 的 service 因为 kerberos ticket 失效而产生 outage.<br>所以, 需要一个定期帮助 long running service 获取和刷新 TGT.<br>当然解决方法有很多种, pre-stash 是其中一种</p>
-<p>pre-stashed tickets:<br>Used by long running client to authenticate itself to kerberized services.</p>
-<p>“pre-stashed” 这个动词的含义:<br>将 client 需要的 kerberos ticket 预先保存到某个本地的 credential file 中.</p>
-<p>具体机制:</p>
-<ul>
-<li>一个特定的 long running service 拥有一个称之为 production-id 的特殊的用户; 一一对应</li>
-<li>任何 long running service 会用对应的 production-id 的身份启动</li>
-<li>一个 linux 定期任务帮助每个活跃的 production-id 定期刷新 TGT, 保存在本地 credential file 中</li>
-<li>long running service 只需要从 credential file 读取 TGT</li>
-</ul>
-<p>这个方法的特点还是集中管理吧, 否则解决这个问题的方法有很多;<br>通过 keytab file + 用户创建自己的周期任务自动调用 kinit 也可以实现自动更新 TGT,<br>如: <a href="https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos" target="_blank" rel="external">https://serverfault.com/questions/422778/how-to-automate-kinit-process-to-obtain-tgt-for-kerberos</a><br>不过这就是野路子了.</p>
-<p>如果要做严格的权限管理, 势必有 production-id 的概念 (保证 service 不会有过多的权限),<br>可能会有 production-id 对应的密码的定期更新, 可能每次登录都必须用专门系统生成的随机密码,<br>所以 pre-stash 的思路还是有可以参考之处.</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>一个相关的概念是 stash file, 参见:</p>
-<ul>
-<li><a href="https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.12/doc/basic/stash_file_def.html</a></li>
-<li>相关的命令行 <a href="https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html" target="_blank" rel="external">https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Creating-a-Stash-File.html</a></li>
-</ul>
-<p>由于 stash file 的存在, “把 kerberos TGT 放进某文件” 这个操作常常用动词 ‘stash’ 来描述;<br>如前文所言, 由于 prestash 机制的存在, 这个操作也常常用 ‘prestash’ 来描述.</p>
 
-          
-        
-      
-    </div>
     
     
     
@@ -1856,15 +2070,12 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -1887,26 +2098,34 @@
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="zsh同学" />
-          <p class="site-author-name" itemprop="name">zsh同学</p>
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-
-        
-
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -1923,30 +2142,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
 
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Gemini
-  </a>
-</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -1957,6 +2187,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -1977,7 +2209,6 @@
 
 
 
-  
 
 
 
@@ -1990,62 +2221,56 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
 
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
 
   
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
 
 
 
   
-
-
-  
-
 
 
 
@@ -2068,6 +2293,10 @@
 
 
 
+
+
+
+
   
 
 
@@ -2076,6 +2305,13 @@
 
   
 
+  
+
+  
+
+  
+
+  
   
 
   

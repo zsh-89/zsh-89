@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言不同 debug 场景, 不同 debug 难度.  最简单的是 dev 环境, 可以用 visual studio, 随意增减代码, 打断点, 可以 debug 编译; 最难的 production 环境, 可能只有一个 dump file.  本文说的 debug 技术主要是 “拿不到源码” 情况下的 debug 技术.目标是尽可能分析出问题的所在, 由于没有源码, 不试图修复问题.在微软">
+<meta name="keywords" content="Windows Debugging,windbg,Windows Usermode Debugging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Debug - 3: windows usermode debug 基础">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/31/Windows-Debug-3-windows-usermode-debug-基础/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:description" content="前言不同 debug 场景, 不同 debug 难度.  最简单的是 dev 环境, 可以用 visual studio, 随意增减代码, 打断点, 可以 debug 编译; 最难的 production 环境, 可能只有一个 dump file.  本文说的 debug 技术主要是 “拿不到源码” 情况下的 debug 技术.目标是尽可能分析出问题的所在, 由于没有源码, 不试图修复问题.在微软">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T08:01:37.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows Debug - 3: windows usermode debug 基础">
+<meta name="twitter:description" content="前言不同 debug 场景, 不同 debug 难度.  最简单的是 dev 环境, 可以用 visual studio, 随意增减代码, 打断点, 可以 debug 编译; 最难的 production 环境, 可能只有一个 dump file.  本文说的 debug 技术主要是 “拿不到源码” 情况下的 debug 技术.目标是尽可能分析出问题的所在, 由于没有源码, 不试图修复问题.在微软">
+
+
+
+
+
+
+  <link rel="canonical" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-3-windows-usermode-debug-基础/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Windows Debug - 3: windows usermode debug 基础 | Shuhan 同学的笔记</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shuhan 同学的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/31/Windows-Debug-3-windows-usermode-debug-基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuhan 同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows Debug - 3: windows usermode debug 基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T23:45:37+08:00">2017-12-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不同 debug 场景, 不同 debug 难度.</p>
+<ul>
+<li>最简单的是 dev 环境, 可以用 visual studio, 随意增减代码, 打断点, 可以 debug 编译;</li>
+<li>最难的 production 环境, 可能只有一个 dump file.</li>
+</ul>
+<p>本文说的 debug 技术主要是 “拿不到源码” 情况下的 debug 技术.<br>目标是尽可能分析出问题的所在, 由于没有源码, 不试图修复问题.<br>在微软存在专门帮客户分析 production 环境的程序错误的业务.</p>
+<p>Windows 操作系统上, 调试 usermode code 的技术:</p>
+<ul>
+<li>调试 native code (C, C++)</li>
+<li>调试 managed code (C#)</li>
+<li>Remote debugging</li>
+</ul>
+<h2 id="词汇术语"><a href="#词汇术语" class="headerlink" title="词汇术语"></a>词汇术语</h2><ul>
+<li>attach/detach</li>
+<li>break point/conditional break point</li>
+<li>debug(checked) build/retail(free) build</li>
+<li>local process/remote process</li>
+<li>dump file (memory dump)</li>
+<li>exception; first-chance exception; second-chance exception<br>Windows 操作系统有 structured exception handling (try-except-finally 语句).<br>有 exception handler 的称为 first-chance, 没有的则为 second-chance.<br>Win32 API: <code>RaiseException()</code> 主动 raise.</li>
+<li>step over, step into, step out, run to cursor</li>
+<li>symbols, private symbols, public symbols;<br>通常是 .pdb 文件.<br>包含内容: global var, local var, function name, function entry address, source line-number</li>
+<li>symbol server</li>
+<li>call stack</li>
+<li>register</li>
+<li>disassembly code</li>
+<li>user mode / kernel mode</li>
+<li>thread local storage</li>
+</ul>
+<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><h3 id="Windows-Virtual-Memory-小知识"><a href="#Windows-Virtual-Memory-小知识" class="headerlink" title="Windows Virtual Memory 小知识"></a>Windows Virtual Memory 小知识</h3><ul>
+<li>Virtual Memory Type: MEM_IMAGE, MEM_MAPPED, MEM_PRIVATE</li>
+<li>Virtual Page State: Free, Reserved, Committed, Shared</li>
+<li>Virtual Memory Protection: PAGE_READONLY, PAGE_GUARD, PAGE_EXECUTE_READ, 等等</li>
+</ul>
+<h3 id="CPU-寄存器"><a href="#CPU-寄存器" class="headerlink" title="CPU 寄存器"></a>CPU 寄存器</h3><p>intel 寄存器介绍: <a href="https://www.swansontec.com/sregisters.html" target="_blank" rel="external">https://www.swansontec.com/sregisters.html</a>  The Art of Picking Intel Registers.pdf</p>
+<h3 id="managed-code-Net"><a href="#managed-code-Net" class="headerlink" title="managed code; .Net"></a>managed code; .Net</h3><p>在 CLR (common language runtime) 上跑的 code, 称为 managed code, 如 C#.<br>C/C++ 常称为 native/unmanged code.</p>
+<h3 id="Net-程序的-Domain-的概念-System-Domain-Shared-Domain-App-Domain"><a href="#Net-程序的-Domain-的概念-System-Domain-Shared-Domain-App-Domain" class="headerlink" title=".Net 程序的 Domain 的概念; System Domain, Shared Domain, App Domain"></a>.Net 程序的 Domain 的概念; System Domain, Shared Domain, App Domain</h3><p>App Domain 介绍:</p>
+<ul>
+<li>轻量级的进程, 在进程中的进程</li>
+<li>比进程代价低</li>
+<li>被 CLR 管理</li>
+<li>起到互相隔离作用</li>
+</ul>
+<p>System Domain 和 Shared Domain 都是单例的, 每个 managed process 中最多一个;<br>分别起到管理和共享 assembly 的作用.</p>
+<h3 id="CLR-简介"><a href="#CLR-简介" class="headerlink" title="CLR 简介"></a>CLR 简介</h3><p>IL: Intermediate Language<br>Manged object;<br>Manged object method table; 调试时候最经常查看一个 object 的 method table.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[C# 或其他 .net manged code 源代码] =====编译==&gt; </div><div class="line">[IL 和 metadata]                   =====runtime 时被执行, 经 JIT 编译==&gt;</div><div class="line">[native code]                      =====执行==&gt;</div></pre></td></tr></table></figure></p>
+<p>不被执行的不会被 JIT 编译; 被 JIT 编译过会有标记.</p>
+<h2 id="常用-debug-工具"><a href="#常用-debug-工具" class="headerlink" title="常用 debug 工具"></a>常用 debug 工具</h2><ul>
+<li>WindDbg    调试</li>
+<li>debugDiag  抓 dump file, 自动分析 dump</li>
+<li>procDump   抓 dump</li>
+<li>perfmon    Windows Performance Monitor</li>
+<li>Visual Studio</li>
+<li>Profilers, 包括 Visual Studio profiler</li>
+</ul>
+<h2 id="WinDbg-调试-userspace-unmanaged-code"><a href="#WinDbg-调试-userspace-unmanaged-code" class="headerlink" title="WinDbg 调试 userspace unmanaged code"></a>WinDbg 调试 userspace unmanaged code</h2><p>基本思路</p>
+<ul>
+<li>确定出问题的进程 (一般比较容易确定)</li>
+<li>根据出现的问题的情况抓 dump (有些问题可能需要抓多个 dump)</li>
+<li>要确定出问题的线程 </li>
+<li>查看 callstack, 查看 memory usage, 查看程序的汇编代码, 查看 exception,<br>等等, 找出问题所在</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">.cls      清屏</div><div class="line">!help &lt;commands&gt;</div><div class="line"></div><div class="line">## unmanaged code 的 callstack 查看</div><div class="line">k   display callstack</div><div class="line">kc  display only function name</div><div class="line">kb  display first 3 params of each funcion</div><div class="line">kv  display addtionally frame-type specific info (FPO frame-pointer-ommision info)</div><div class="line">kd  display raw stack data</div><div class="line">    k 的输出的第一列信息 (&apos;#&apos; 所在列) 就是 frame number</div><div class="line"></div><div class="line">## frame 可以是 call stack 中的一项, 保存一层函数调用相关的所有信息</div><div class="line">.frame &lt;frame_number&gt;    change frame</div><div class="line">u                        反汇编, current frame 的</div><div class="line">    还可以加地址, 例如: u RtlUserThreadStart+0x21</div><div class="line">    默认是不断显示更多的, 更后面的 (offset 更大) 的反汇编的结果</div><div class="line">dv                       display name/values of local variable of frame</div><div class="line">    必须有 private symbol</div><div class="line">.cxr &lt;exception record addr&gt;   reset registers to match context record</div><div class="line">.ecxr                          switch to faulting context record in dump</div><div class="line">~*k                            call stack of all threads</div><div class="line">   </div><div class="line">## unmanged modules (.dll/.exe 就是一个 module)</div><div class="line">x *!             list all modules</div><div class="line">x User32!MB*     list all symbols starting with &quot;MB&quot; in user32.dll</div><div class="line">lm               list loaded modules   </div><div class="line"></div><div class="line">## break points / 调试命令 </div><div class="line">bp &lt;addr&gt;        add break point</div><div class="line">    如: bp PowerBall!wmain+0x3a8</div><div class="line">bl               list break point</div><div class="line">    disable / clear 断点可以通过 bl 输出的 UI 操作</div><div class="line">    bd 0: disable 断点 0</div><div class="line">g                continue running</div><div class="line">r                查看诸多寄存器保存的值</div><div class="line">r @eax=1         将 eax 置为 1</div></pre></td></tr></table></figure>
+<h3 id="例子-修改-“抽取-PowerBall-美帝的彩票-”-的小程序"><a href="#例子-修改-“抽取-PowerBall-美帝的彩票-”-的小程序" class="headerlink" title="例子: 修改 “抽取 PowerBall (美帝的彩票)” 的小程序"></a>例子: 修改 “抽取 PowerBall (美帝的彩票)” 的小程序</h3><p>需求:<br>假设我们设定的 input 是 1 2 3 4 5 6;<br>(1 - 5 是我们猜测的普通球编号, 6 是我们猜测的 PowerBall 编号).<br>通过 WinDbg 修改程序 “抽奖” 函数的返回值, 使我们的 input 中奖.</p>
+<p>知识点:</p>
+<ul>
+<li>使用 x 命令查看 symbol, 寻找问题相关的函数</li>
+<li>通过 bp 命令设置断点; 熟悉断点, 执行等调试的命令</li>
+<li>通过 r 命令修改寄存器的值, 从而修改函数返回值</li>
+</ul>
+<h4 id="修改过程"><a href="#修改过程" class="headerlink" title="修改过程"></a>修改过程</h4><p>首先, 用 WinDbg “Open Executable” 打开应用程序, 程序会自动被 WinDbg 中断;<br>在我们执行 g 命令前, 程序一直是被中断的状态.</p>
+<p>用 x 命令查看 symbol, 找到相关的函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x *!</div><div class="line">x PowerBall!*</div><div class="line">x PowerBall!Draw*</div><div class="line">    查看到 2 个和 Draw 相关的函数</div></pre></td></tr></table></figure></p>
+<p>这两个命令可以把断点设在函数入口 (我并不用)<br><code>bp PowerBall!DrawNumber</code><br><code>bp PowerBall!DrawPowerBall</code></p>
+<p>通过 <code>u PowerBall!DrawNumber</code> 和继续执行 <code>u</code>, 查看汇编代码;<br>在函数最尾的 ret 语句前用 <code>bp</code> 设置断点 (例如: <code>bp 00aa2ee7</code>);<br>同理, 对 <code>PowerBall!DrawPowerBall</code> 也在返回语句前配置断点.</p>
+<p>g 继续执行程序; 在断点处停下; 通过 <code>r @eax=1</code> 把第一次抽奖的结果改为 1 (修改函数的 return value).<br>重复操作, 把抽奖结果分别改为 “2 3 4 5”.<br>在 <code>PowerBall!DrawPowerBall</code> 返回前, 把抽 “PowerBall” 的结果, 用 <code>r @eax=6</code> 改为 6.</p>
+<p>其他修改思路: </p>
+<ul>
+<li>通过 <code>x PowerBall!*</code> 可以看到小程序把我们的输入保存在 <code>PowerBall!g_LotteryTicket = int [6]</code> 中.<br>也可以把这里面的值修改为 “抽奖” 函数的结果.</li>
+<li>找到最后 “判定抽奖成功” 的地方, 修改比较结果</li>
+</ul>
+<h2 id="WinDbg-调试-userspace-managed-code"><a href="#WinDbg-调试-userspace-managed-code" class="headerlink" title="WinDbg 调试 userspace managed code"></a>WinDbg 调试 userspace managed code</h2><p>调试 C# (或其他 .Net 上的托管的语言) managed code, 首先考虑反编译,<br>得到 C# 的源代码, 不需要去学习 IL 指令.</p>
+<p><code>sos.dll</code>: general debugging extension for .Net; shipped with .Net;<br>能够让 windbg 更好地调试 .Net 的代码 (否则只能像调试 native code 一样调试 .net code).<br>一定要用上和抓 dump 环境同样版本的 sos.dll</p>
+<p>WinDbg 的 Open Executable 和 attach 几乎等价;<br>一般选择先开 exe 再 attch, 这样有机会做 load sos.dll;<br>attach 功能和 DebugDiag 的 “rule 监听” 冲突, 同一时刻只能开一者.</p>
+<p>基本思路:</p>
+<ul>
+<li>确定出问题的进程 (一般比较容易确定)</li>
+<li>根据出现的问题的情况抓 dump (有些问题可能需要抓多个 dump)</li>
+<li>要确定出问题的线程 </li>
+<li>查看 callstack, 查看 memory usage, 查看程序的汇编代码, 查看 exception,<br>等等, 找出问题所在</li>
+</ul>
+<p>查找关注的 method 的方法: </p>
+<ul>
+<li>通过 domain 查到 assembly, 通过 assembly 查到 module (一般是 dll/exe 文件),</li>
+<li>通过 module 查到到自己关心的类 (method table); </li>
+<li>通过 method table 查到自己关心的 method; </li>
+<li>定位到 method 后可以去查看反编译的代码, 定位具体问题</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">## 加载 sos.dll</div><div class="line">.loadby sos clr</div><div class="line">.loadby sos mscorwks</div><div class="line">.load &lt;path&gt;\sos</div><div class="line"></div><div class="line">## 通过 domain 查到 assembly, 通过 assembly 查到 module (一般是 dll/exe 文件),</div><div class="line">## 通过 module 查到到自己关心的类 (method table); </div><div class="line">## 通过 method table 查到自己关心的 method; </div><div class="line">## 定位到 method 后可以去查看反编译的代码, 定位具体问题</div><div class="line">!dumpdomain                    list all domain</div><div class="line">!dumpdomain &lt;domain_addr&gt;</div><div class="line">!dumpassembly &lt;assembly_addr&gt;</div><div class="line">!dumpmodule   &lt;module_addr&gt;</div><div class="line"></div><div class="line">## dump method table 和 method description 最经常用的</div><div class="line">!dumpmodule -mt &lt;module_addr&gt;      查看 module 中的所有 method table   </div><div class="line">!dumpmt -md &lt;method_table_addr&gt;    查看 method table 中的所有 method 的 description</div><div class="line">    method 的状态:</div><div class="line">    + PreJIT 预编译</div><div class="line">    + JIT    已被编译; 一般执行到才编译</div><div class="line">    + NONE   没有被编译</div><div class="line">    </div><div class="line">!DumpMT /d &lt;method_table_addr&gt;  可以看到 method table 的 EEClass 信息</div><div class="line">!dumpclass &lt;eeclass_addr&gt;       查看 EEClass 信息; EEClass 信息并不太多用</div><div class="line"></div><div class="line"></div><div class="line">!dumpstack    查看 managed 和 unmanaged 的 stack</div><div class="line">    -EE       只看 managed 的 stack</div><div class="line">!clrstack     查看 managed stack; 比 !dumpstack 不加 EE 要简明得多;</div><div class="line">    -p        show argument</div><div class="line">    -l        show local variables</div><div class="line">    -a        all above</div><div class="line">~*e!clrstack  查看所有 managed thread</div><div class="line">!eestack      查看所有 thread call stack, 以 dumpstack 的方式</div><div class="line">k             查看 unmanaged stack      </div><div class="line"></div><div class="line">!dumpstackobject / !dso</div><div class="line">!do &lt;object_addr&gt;     在 !dso 输出结果里面, 用鼠标点就可以</div><div class="line">!DumpArray            这些命令通常在 UI 上都可以用鼠标点出来</div><div class="line">!dumpheap</div><div class="line">    -stat             group by method</div><div class="line">!eeheap -gc           显示 heap gc 信息</div><div class="line">!address -summary     显示虚拟地址使用情况的统计信息</div><div class="line">    managed 程序的内存往往有 &lt;unknown&gt;; 可以作为识别标志</div><div class="line">    </div><div class="line">!threads              list threads</div><div class="line">!ThreadState &lt;thread_id&gt;   也可以直接 UI 上鼠标点</div><div class="line"></div><div class="line">~.                    current thread info</div><div class="line">~&lt;number&gt;             thread info, 指定线程编号</div><div class="line">~~[&lt;os_thread_id&gt;]    thread info, 指定线程 id</div><div class="line">~*                    all threads in the process</div><div class="line">~#                    thread that caused the exception</div><div class="line"></div><div class="line"># for live debug; thread command</div><div class="line">~e  execute a thread-specific command</div><div class="line">~f  freeze thread</div><div class="line">~u  unfreeze</div><div class="line">~n  suspend</div><div class="line">~m  resume </div><div class="line"></div><div class="line">~~[&lt;os_thread_id&gt;]s   切换当前线程</div><div class="line">    os_thread_id == !thread 的输出中的 OSID 列的信息</div><div class="line">~&lt;managed_thread_id&gt;s 切换当前线程</div><div class="line">    os_thread_id == !thread 的输出中的 ID 列的信息</div><div class="line">    </div><div class="line">!pe / !PrintException    看 managed exception</div><div class="line">    可以用 do! 看 managed exception object 的信息</div><div class="line"></div><div class="line"># 为 manged code 设置 break point; 断点打到 managed method</div><div class="line">!bpmd DebugLab.exe DebugLab.Program.CrashLab</div></pre></td></tr></table></figure>
+<h3 id="场景-查看-exception-导致的-crash"><a href="#场景-查看-exception-导致的-crash" class="headerlink" title="场景: 查看 exception 导致的 crash"></a>场景: 查看 exception 导致的 crash</h3><p>操作:</p>
+<ul>
+<li>抓 dump</li>
+<li>WinDbg 打开 dump</li>
+<li>load sos.dll</li>
+<li>!pe 查看 exception object</li>
+<li>!clrstack 查看 call stack</li>
+</ul>
+<h3 id="场景-hang-问题"><a href="#场景-hang-问题" class="headerlink" title="场景: hang 问题"></a>场景: hang 问题</h3><p>分类 low cpu hang (idle hang), high cpu hang (busy hang);<br>注意 hang 型问题, dump 至少抓 3 个, 间隔时间由实际问题决定.<br>例如, 读取资源本来就要 1min, 那么抓 dump 间隔就要超过 1min.<br>可以用 procdump 或者自己用 powershell 做到 “间隔时间抓 dump”.</p>
+<p>DebugDiag Analysis 看可以帮助分析 dump 文件; 例如, 可以统计多少线程在等待.</p>
+<p><code>!syncblk, !locks</code> (sos.dll 的命令) 查看正在被等的同步对象/lock, 看到哪个线程持有对象/lock.</p>
+<h3 id="场景-memory-leak"><a href="#场景-memory-leak" class="headerlink" title="场景: memory leak"></a>场景: memory leak</h3><p>有可能导致 OutOfMemory (OOM) exception, crash;<br>可以看 Windows Performance Monitor 看内存使用曲线, .net 内存曲线.</p>
+<p>mange code 如果也泄漏, 先查 pinvoke 等调用 naitive 代码的地方.</p>
+<p>查看是否有 leak 常检验的指标:</p>
+<ul>
+<li>working set: physical pages owned by a process.</li>
+<li>Private Bytes: is the current size, in bytes, of memory that<br>this process has allocated that <strong>CANNOT be shared</strong> with other processes.</li>
+</ul>
+<p>利用 debugDiag, 先在 ‘process’ tab 选择进程, “monior for leak”, 这样抓的 dump 会包含更多细节.<br>这样的的 dump file 可以在 DebugDiag 的 analysis 中分析出更好的结果,<br>在 WinDbg 也可以看到更多信息.</p>
+<p>抓之后, WinDbg 里可以用: <code>!dumpheap</code></p>
+<h3 id="场景-high-cpu-hang"><a href="#场景-high-cpu-hang" class="headerlink" title="场景: high cpu hang"></a>场景: high cpu hang</h3><p>runaway thread: stuck 的, 类似陷入死循环的 thread</p>
+<p>根据条件抓 dump:<br><code>procdump -ma -u -c 24 -s 5 -n 3 -o BaddApp C:\temp</code><br>    -u Treat CPU usage relative to a single core (used with -c)<br>    -c 24: 4核机器, 超过 24% (有一个核几乎完全被占用) 时抓 dump<br>    -n 3 抓 3 个<br>    -o overwrite existing dump<br>    [Dump_Folder] 是 <code>C:\temp</code></p>
+<p>在 WinDbg 中, <code>!runaway</code> 查看线程用时统计. 比较多个 dump 文件中 <code>!runway</code> 的输出,<br>可以找到有问题的 runway 线程.<br>接着切换到对应线程, 查看 callstack 即可.</p>
+<p>gc 百分比一般不超过 10%. 有时候 gc 也会导致 high cpu hang。</p>
+<h2 id="remote-debug"><a href="#remote-debug" class="headerlink" title="remote debug"></a>remote debug</h2><p>user mode 用得较少了(更经常用 remote desktop, 变成 local debug问题), kernal mode 用得多.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## 用 WinDbg 在被调试机 (target) 开启服务 (WinDbg 成为 server 机)</div><div class="line">.server tcp:port=9999</div><div class="line">    命令会输出 &lt;debugger&gt; -remote tcp:Port=9999,Server=NPC</div><div class="line">    tcp:Port=9999,Server=NPC 就是之后会用到的 connection string</div><div class="line">.server npipe:pipe=&lt;Pipe Name&gt;</div><div class="line">    命令会输出: &lt;debugger&gt; -remote npipe:Pipe=xyz,Server=NPC</div><div class="line">    npipe:Pipe=xyz,Server=NPC 就是之后会用到的 connection string</div><div class="line">如果是跨公网连接, 前的 connection string 中改为 Server=&lt;ip&gt;, 机器必须是公网可见的</div><div class="line">    </div><div class="line">## 在 host 用 WinDbg 连接到 target:</div><div class="line">WinDbg UI: [File]-&gt;[Connect To Remote Session], 输入前面得到的 connection string</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Windows-Debugging/" rel="tag"># Windows Debugging</a>
+          
+            <a href="/tags/windbg/" rel="tag"># windbg</a>
+          
+            <a href="/tags/Windows-Usermode-Debugging/" rel="tag"># Windows Usermode Debugging</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/Windows-Debug-2-windbg-和-os-配置/" rel="next" title="Windows Debug - 2: windbg 和 os 配置">
+                <i class="fa fa-chevron-left"></i> Windows Debug - 2: windbg 和 os 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/08/C-同样算法-手写的循环不如直接写递归快/" rel="prev" title="C++, 同样算法, 手写的循环不如直接写递归快?">
+                C++, 同样算法, 手写的循环不如直接写递归快? <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词汇术语"><span class="nav-number">2.</span> <span class="nav-text">词汇术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识补充"><span class="nav-number">3.</span> <span class="nav-text">知识补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Virtual-Memory-小知识"><span class="nav-number">3.1.</span> <span class="nav-text">Windows Virtual Memory 小知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-寄存器"><span class="nav-number">3.2.</span> <span class="nav-text">CPU 寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#managed-code-Net"><span class="nav-number">3.3.</span> <span class="nav-text">managed code; .Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net-程序的-Domain-的概念-System-Domain-Shared-Domain-App-Domain"><span class="nav-number">3.4.</span> <span class="nav-text">.Net 程序的 Domain 的概念; System Domain, Shared Domain, App Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLR-简介"><span class="nav-number">3.5.</span> <span class="nav-text">CLR 简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用-debug-工具"><span class="nav-number">4.</span> <span class="nav-text">常用 debug 工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WinDbg-调试-userspace-unmanaged-code"><span class="nav-number">5.</span> <span class="nav-text">WinDbg 调试 userspace unmanaged code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-修改-“抽取-PowerBall-美帝的彩票-”-的小程序"><span class="nav-number">5.1.</span> <span class="nav-text">例子: 修改 “抽取 PowerBall (美帝的彩票)” 的小程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改过程"><span class="nav-number">5.1.1.</span> <span class="nav-text">修改过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WinDbg-调试-userspace-managed-code"><span class="nav-number">6.</span> <span class="nav-text">WinDbg 调试 userspace managed code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景-查看-exception-导致的-crash"><span class="nav-number">6.1.</span> <span class="nav-text">场景: 查看 exception 导致的 crash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景-hang-问题"><span class="nav-number">6.2.</span> <span class="nav-text">场景: hang 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景-memory-leak"><span class="nav-number">6.3.</span> <span class="nav-text">场景: memory leak</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景-high-cpu-hang"><span class="nav-number">6.4.</span> <span class="nav-text">场景: high cpu hang</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remote-debug"><span class="nav-number">7.</span> <span class="nav-text">remote debug</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

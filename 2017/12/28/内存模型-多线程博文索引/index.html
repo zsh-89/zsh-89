@@ -5,12 +5,15 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -37,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -75,37 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Memory Model,multithreading," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
 
 
 
-<meta name="description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
-<meta name="keywords" content="Memory Model,multithreading">
-<meta property="og:type" content="article">
-<meta property="og:title" content="内存模型, 多线程博文索引">
-<meta property="og:url" content="http://zsh-89.github.io/2017/12/28/内存模型-多线程博文索引/index.html">
-<meta property="og:site_name" content="zsh同学的笔记">
-<meta property="og:description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-28T10:06:42.743Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内存模型, 多线程博文索引">
-<meta name="twitter:description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
+
+
+
 
 
 
@@ -114,14 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -133,14 +94,40 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
+<meta name="keywords" content="Memory Model,multithreading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存模型, 多线程博文索引">
+<meta property="og:url" content="http://zsh-89.github.io/2017/12/28/内存模型-多线程博文索引/index.html">
+<meta property="og:site_name" content="Shuhan 同学的笔记">
+<meta property="og:description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T08:01:37.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存模型, 多线程博文索引">
+<meta name="twitter:description" content="首先, 是 内存模型和内存模型的相关概念 .为了能够真正理解各种编程语言提供的同步工具的功能, 必须有对内存模型的深刻的理解.一般的计算机科学与技术的学生都上过 OS 课, 讲解一切多线程同步的种种例子时,当时已经默认程序执行在满足 “顺序一致性” 的内存模型中了; 事实上, 完全不能做这样的假设.理解内存模型, 才能保证自己不会 “不小心写出一辈子调不好的 bug”.  多线程: 必要性, 常">
+
+
+
+
+
 
   <link rel="canonical" href="http://zsh-89.github.io/2017/12/28/内存模型-多线程博文索引/"/>
 
 
 
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title>内存模型, 多线程博文索引 | zsh同学的笔记</title>
+  <title>内存模型, 多线程博文索引 | Shuhan 同学的笔记</title>
   
 
 
@@ -151,32 +138,56 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">zsh同学的笔记</span>
+        <span class="site-title">Shuhan 同学的笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -186,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -201,44 +212,44 @@
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-about menu-item-active">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
       
 
       
@@ -246,16 +257,28 @@
   
 
   
+
+  
 </nav>
+
+
+  
 
 
 
  </div>
     </header>
 
+    
+
+
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -268,6 +291,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -276,13 +301,13 @@
     <link itemprop="mainEntityOfPage" href="http://zsh-89.github.io/2017/12/28/内存模型-多线程博文索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zsh同学">
+      <meta itemprop="name" content="Shuhan 同学">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zsh同学的笔记">
+      <meta itemprop="name" content="Shuhan 同学的笔记">
     </span>
 
     
@@ -300,13 +325,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-28T17:51:25+08:00">
-                2017-12-28
-              </time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T17:51:25+08:00">2017-12-28</time>
             
 
+            
             
 
             
@@ -349,10 +373,15 @@
 </li>
 <li><p><a href="https://zsh-89.github.io/2017/12/13/%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD-%E6%A0%88%E5%B0%81%E9%97%AD-ThreadLocal-%E5%8D%95%E7%BA%BF%E7%A8%8B%E5%AD%90%E7%B3%BB%E7%BB%9F/">多线程: 线程封闭, 栈封闭, ThreadLocal, 单线程子系统</a> 一些即用到多线程, 但又避免 “线程间共享 mutable 变量” (万恶之源) 的办法.</p>
 </li>
+<li><p><a href="https://zsh-89.github.io/2017/12/31/Java-的-synchronized-内部锁/">Java 的 synchronized, 内部锁</a></p>
+</li>
 </ol>
 
       
     </div>
+
+    
+
     
     
     
@@ -392,6 +421,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/12/31/Java-的-synchronized-内部锁/" rel="prev" title="Java 的 synchronized, 内部锁">
+                Java 的 synchronized, 内部锁 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -416,11 +449,8 @@
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-  </div>
 
 
         </div>
@@ -443,26 +473,34 @@
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="zsh同学" />
-          <p class="site-author-name" itemprop="name">zsh同学</p>
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Shuhan 同学" />
+            
+              <p class="site-author-name" itemprop="name">Shuhan 同学</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-
-        
-
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -479,30 +517,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">zsh同学</span>
+  <span class="author" itemprop="copyrightHolder">Shuhan 同学</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
 
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Gemini
-  </a>
-</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.9</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.1.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -513,6 +562,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -533,7 +584,6 @@
 
 
 
-  
 
 
 
@@ -546,62 +596,60 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
 
+
+
+  
 
 
 
@@ -624,6 +672,10 @@
 
 
 
+
+
+
+
   
 
 
@@ -632,6 +684,13 @@
 
   
 
+  
+
+  
+
+  
+
+  
   
 
   
